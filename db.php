@@ -1,15 +1,8 @@
 <?php
-/**
- * Firebase Realtime Database Configuration
- */
 
-// 🔹 Correct Firebase Realtime Database URL (region-specific)
+// 🔹 Firebase Realtime Database URL (region-specific)
 define('FIREBASE_DB_URL', 'https://automind-ai-52b33-default-rtdb.asia-southeast1.firebasedatabase.app');
 
-// 🔹 OPTIONAL (recommended for production)
-// If your database rules require auth, paste Database Secret or ID token here
-// define('FIREBASE_AUTH', 'YOUR_DATABASE_SECRET');
-// If not using auth, leave it empty
 define('FIREBASE_AUTH', '');
 
 /**
