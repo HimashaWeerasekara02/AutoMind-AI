@@ -1,367 +1,244 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Garage - AutoMind AI</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Font: Inter -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Garage - AutoMind AI</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+body { font-family: 'Inter', sans-serif; }
 
-    <style>
-        body { font-family: 'Inter', sans-serif; }
-        
-        /* Toast Notification Style */
-        #toast {
-            visibility: hidden;
-            opacity: 0;
-            transform: translateY(-100%);
-            transition: all 0.5s ease-in-out;
-        }
-        #toast.show {
-            visibility: visible;
-            opacity: 1;
-            transform: translateY(0);
-        }
+/* Toast Notification */
+#toast {
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-100%);
+    transition: all 0.5s ease-in-out;
+}
+#toast.show {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+}
 
-        /* Interactive row hover */
-        .interactive-row:hover {
-            background-color: #374151; /* bg-gray-700 */
-        }
-        
-        /* Hide scrollbar for clean UI */
-        body::-webkit-scrollbar { display: none; }
-    </style>
+/* Interactive row hover */
+.interactive-row:hover { background-color: #374151; }
+
+/* Hide scrollbar */
+body::-webkit-scrollbar { display: none; }
+</style>
 </head>
 <body class="bg-gray-900 text-gray-300 p-8">
 
-    <!-- Toast Notification -->
-    <div id="toast" class="fixed top-8 left-1/2 -translate-x-1/2 z-50">
-        <div id="toast-content" class="flex items-center space-x-3 bg-green-600 text-white font-semibold py-3 px-6 rounded-lg shadow-lg">
-            <span id="toast-message">Success!</span>
-        </div>
+<!-- Toast -->
+<div id="toast" class="fixed top-8 left-1/2 -translate-x-1/2 z-50">
+    <div id="toast-content" class="flex items-center space-x-3 bg-green-600 text-white font-semibold py-3 px-6 rounded-lg shadow-lg">
+        <span id="toast-message">Success!</span>
     </div>
+</div>
 
-    <!-- SVG Icons Definitions (Subset for My Garage) -->
-    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
-        <symbol id="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></symbol>
-        <symbol id="icon-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></symbol>
-        <symbol id="icon-upload" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></symbol>
-        <symbol id="icon-file-text" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></symbol>
-        <symbol id="icon-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></symbol>
-        <symbol id="icon-edit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></symbol>
-        <symbol id="icon-trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></symbol>
-        <symbol id="icon-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></symbol>
-    </svg>
+<!-- SVG Icons -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none;">
+    <symbol id="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="12" y1="5" x2="12" y2="19"/>
+        <line x1="5" y1="12" x2="19" y2="12"/>
+    </symbol>
+    <symbol id="icon-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"/>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+    </symbol>
+    <symbol id="icon-upload" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="17 8 12 3 7 8"/>
+        <line x1="12" y1="3" x2="12" y2="15"/>
+    </symbol>
+    <symbol id="icon-file-text" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
+        <polyline points="14 2 14 8 20 8"/>
+        <line x1="16" y1="13" x2="8" y2="13"/>
+        <line x1="16" y1="17" x2="8" y2="17"/>
+        <line x1="10" y1="9" x2="8" y2="9"/>
+    </symbol>
+    <symbol id="icon-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="7 10 12 15 17 10"/>
+        <line x1="12" y1="15" x2="12" y2="3"/>
+    </symbol>
+    <symbol id="icon-edit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+    </symbol>
+    <symbol id="icon-trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 6h18"/>
+        <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/>
+        <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/>
+    </symbol>
+    <symbol id="icon-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"/>
+        <line x1="6" y1="6" x2="18" y2="18"/>
+    </symbol>
+</svg>
 
-    <!-- Main Content Area -->
-    <div class="max-w-6xl mx-auto">
-        
-        <!-- Header -->
-        <div class="flex justify-between items-center mb-6">
-            <div>
-                <h1 class="text-3xl font-bold text-white">My Garage</h1>
-                <p class="text-gray-400">Manage your vehicle profiles and important documents.</p>
-            </div>
-            <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg flex items-center space-x-2 transition duration-200" data-modal-open="add-vehicle">
-                <svg class="w-5 h-5"><use href="#icon-plus"></use></svg>
-                <span>Add New Vehicle</span>
-            </button>
-        </div>
+<div class="max-w-6xl mx-auto">
 
-        <!-- Search Bar -->
-        <div class="mb-6">
-            <div class="relative">
-                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <svg class="w-5 h-5 text-gray-400"><use href="#icon-search"></use></svg>
-                </div>
-                <input type="text" id="garage-search" class="w-full bg-gray-800 border border-gray-700 text-white rounded-lg p-3 pl-10 focus:ring-blue-500 focus:border-blue-500" placeholder="Find a vehicle by nickname, make, or model...">
-            </div>
-        </div>
-
-        <!-- Vehicle List -->
-        <div id="vehicle-list" class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-            <!-- Existing Vehicle 1 -->
-            <a href="#" class="vehicle-card block bg-gray-800 rounded-lg shadow-lg overflow-hidden group transition duration-200 hover:shadow-xl hover:-translate-y-1">
-                <img src="https://placehold.co/600x400/334155/94a3b8?text=Toyota+RAV4" alt="My Daily Driver" class="w-full h-48 object-cover">
-                <div class="p-4">
-                    <h3 class="vehicle-name text-xl font-semibold text-white">My Daily Driver</h3>
-                    <p class="vehicle-model text-gray-400">2021 Toyota RAV4</p>
-                    <p class="vehicle-plate text-sm text-gray-500">Plate: 7ABC123</p>
-                </div>
-            </a>
-            <!-- Existing Vehicle 2 -->
-            <a href="#" class="vehicle-card block bg-gray-800 rounded-lg shadow-lg overflow-hidden group transition duration-200 hover:shadow-xl hover:-translate-y-1">
-                <img src="https://placehold.co/600x400/334155/94a3b8?text=Honda+Civic" alt="Jane's Honda Civic" class="w-full h-48 object-cover">
-                <div class="p-4">
-                    <h3 class="vehicle-name text-xl font-semibold text-white">Jane's Honda Civic</h3>
-                    <p class="vehicle-model text-gray-400">2023 Honda Civic</p>
-                    <p class="vehicle-plate text-sm text-gray-500">Plate: 9ABC123</p>
-                </div>
-            </a>
-        </div>
-
-        <!-- Digital Glovebox Section -->
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-6">
         <div>
-            <h2 class="text-2xl font-bold text-white mb-4">My Daily Driver - Documents</h2>
-            <div class="bg-gray-800 rounded-lg shadow-lg p-6">
-                <!-- File Upload -->
-                <div id="drop-zone" class="border-2 border-dashed border-gray-600 rounded-lg p-12 text-center mb-6 bg-gray-800/50 hover:border-blue-500 hover:bg-gray-700/50 transition duration-200 cursor-pointer">
-                    <svg class="w-12 h-12 text-gray-500 mx-auto mb-4"><use href="#icon-upload"></use></svg>
-                    <h3 class="text-lg font-medium text-white">Drag & drop files here</h3>
-                    <p class="text-gray-400">or</p>
-                    <button id="browse-files-btn" class="mt-4 bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg transition duration-200">
-                        Browse Files
-                    </button>
-                    <input type="file" id="file-input" multiple class="hidden">
-                </div>
-                
-                <!-- Document List -->
-                <div id="document-list" class="space-y-4">
-                    <div class="flex items-center justify-between bg-gray-700/50 p-4 rounded-lg transition duration-200 interactive-row">
-                        <div class="flex items-center space-x-3">
-                            <svg class="w-8 h-8 text-green-500 flex-shrink-0"><use href="#icon-file-text"></use></svg>
-                            <div>
-                                <p class="font-medium text-white">Insurance Policy</p>
-                                <p class="text-sm text-gray-400">Geico - Policy #GHI987654</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center space-x-4">
-                            <div class="text-right">
-                                <p class="text-sm text-gray-400">Expires</p>
-                                <p class="font-medium text-white">12/31/2024</p>
-                            </div>
-                            <button class="text-gray-400 hover:text-white transition duration-200"><svg class="w-5 h-5"><use href="#icon-download"></use></svg></button>
-                            <button class="text-gray-400 hover:text-white transition duration-200"><svg class="w-5 h-5"><use href="#icon-edit"></use></svg></button>
-                            <button class="text-red-500 hover:text-red-400 transition duration-200"><svg class="w-5 h-5"><use href="#icon-trash"></use></svg></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <h1 class="text-3xl font-bold text-white">My Garage</h1>
+            <p class="text-gray-400">Manage your vehicle profiles and important documents.</p>
         </div>
-
+        <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg flex items-center space-x-2 transition duration-200" id="open-modal">
+            <svg class="w-5 h-5"><use href="#icon-plus"></use></svg>
+            <span>Add New Vehicle</span>
+        </button>
     </div>
 
-    <!-- Modal: Add New Vehicle -->
-    <div id="modal-add-vehicle" class="modal fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4" style="display: none;">
-        <div class="bg-gray-800 rounded-lg shadow-2xl p-6 w-full max-w-md transform transition-all scale-100">
+    <!-- Search Bar -->
+    <div class="mb-6">
+        <div class="relative">
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <svg class="w-5 h-5 text-gray-400"><use href="#icon-search"></use></svg>
+            </div>
+            <input type="text" id="garage-search" class="w-full bg-gray-800 border border-gray-700 text-white rounded-lg p-3 pl-10 focus:ring-blue-500 focus:border-blue-500" placeholder="Find a vehicle by nickname, make, or model...">
+        </div>
+    </div>
+
+    <!-- Vehicle List -->
+    <div id="vehicle-list" class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8"></div>
+
+    <!-- Modal -->
+    <div id="modal-add-vehicle" class="modal fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4" style="display:none;">
+        <div class="bg-gray-800 rounded-lg shadow-2xl p-6 w-full max-w-md">
             <div class="flex justify-between items-center mb-4">
                 <h3 class="text-xl font-semibold text-white">Add New Vehicle</h3>
-                <button class="text-gray-400 hover:text-white" data-modal-close>
-                    <svg class="w-6 h-6"><use href="#icon-x"></use></svg>
-                </button>
+                <button id="close-modal" class="text-gray-400 hover:text-white"><svg class="w-6 h-6"><use href="#icon-x"></use></svg></button>
             </div>
             <form id="add-vehicle-form" class="space-y-4">
                 <div>
                     <label class="block text-sm font-medium text-gray-300 mb-1">Vehicle Nickname</label>
-                    <input type="text" id="vehicle-nickname" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-3 focus:ring-blue-500 focus:border-blue-500" placeholder="e.g., My Daily Driver" required>
+                    <input type="text" id="vehicle-nickname" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-3" placeholder="e.g., My Daily Driver" required>
                 </div>
                 <div class="grid grid-cols-2 gap-4">
                     <div>
                         <label class="block text-sm font-medium text-gray-300 mb-1">Make</label>
-                        <input type="text" id="vehicle-make" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-3 focus:ring-blue-500 focus:border-blue-500" placeholder="Toyota" required>
+                        <input type="text" id="vehicle-make" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-3" placeholder="Toyota" required>
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-300 mb-1">Model</label>
-                        <input type="text" id="vehicle-model" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-3 focus:ring-blue-500 focus:border-blue-500" placeholder="RAV4" required>
+                        <input type="text" id="vehicle-model" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-3" placeholder="RAV4" required>
                     </div>
                 </div>
                 <div class="grid grid-cols-2 gap-4">
                     <div>
                         <label class="block text-sm font-medium text-gray-300 mb-1">Year</label>
-                        <input type="number" id="vehicle-year" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-3 focus:ring-blue-500 focus:border-blue-500" placeholder="2021" required>
+                        <input type="number" id="vehicle-year" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-3" placeholder="2021" required>
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-300 mb-1">Plate</label>
-                        <input type="text" id="vehicle-plate" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-3 focus:ring-blue-500 focus:border-blue-500" placeholder="7ABC123">
+                        <input type="text" id="vehicle-plate" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-3" placeholder="7ABC123">
                     </div>
                 </div>
                 <div class="flex justify-end space-x-3 pt-4">
-                    <button type="button" class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg transition duration-200" data-modal-close>Cancel</button>
-                    <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition duration-200">Add Vehicle</button>
+                    <button type="button" id="cancel-modal" class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg">Cancel</button>
+                    <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg">Add Vehicle</button>
                 </div>
             </form>
         </div>
     </div>
+</div>
 
-    <!-- JavaScript Logic -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            
-            // --- Toast Logic ---
-            const toast = document.getElementById('toast');
-            const toastMessage = document.getElementById('toast-message');
-            let toastTimer;
+<script>
+// Toast
+const toast = document.getElementById('toast');
+const toastMessage = document.getElementById('toast-message');
+const toastContent = document.getElementById('toast-content');
+let toastTimer;
+function showToast(msg, type='success'){
+    clearTimeout(toastTimer);
+    toastMessage.textContent = msg;
+    toastContent.classList.remove('bg-green-600','bg-red-600');
+    toastContent.classList.add(type==='error'?'bg-red-600':'bg-green-600');
+    toast.classList.add('show');
+    toastTimer=setTimeout(()=>toast.classList.remove('show'),3000);
+}
 
-            function showToast(message) {
-                clearTimeout(toastTimer);
-                toastMessage.textContent = message;
-                toast.classList.add('show');
-                toastTimer = setTimeout(() => {
-                    toast.classList.remove('show');
-                }, 3000);
-            }
+// Modal
+const modal = document.getElementById('modal-add-vehicle');
+document.getElementById('open-modal').addEventListener('click', ()=> modal.style.display='flex');
+document.getElementById('close-modal').addEventListener('click', ()=> modal.style.display='none');
+document.getElementById('cancel-modal').addEventListener('click', ()=> modal.style.display='none');
 
-            // --- Modal Logic ---
-            function openModal(modalId) {
-                const modal = document.getElementById(`modal-${modalId}`);
-                if (modal) modal.style.display = 'flex';
-            }
+// --- Load Vehicles ---
+async function loadVehicles(){
+    try{
+        const res=await fetch('get_vehicles.php');
+        const data=await res.json();
+        const list=document.getElementById('vehicle-list');
+        list.innerHTML='';
+        for(const id in data){
+            const v=data[id];
+            const card=document.createElement('a');
+            card.href='#';
+            card.className='vehicle-card block bg-gray-800 rounded-lg shadow-lg overflow-hidden group transition duration-200 hover:shadow-xl hover:-translate-y-1';
+            card.innerHTML=`
+                <img src="https://placehold.co/600x400/334155/94a3b8?text=${v.make}+${v.model}" class="w-full h-48 object-cover">
+                <div class="p-4">
+                    <h3 class="vehicle-name text-xl font-semibold text-white">${v.nickname}</h3>
+                    <p class="vehicle-model text-gray-400">${v.year} ${v.make} ${v.model}</p>
+                    <p class="vehicle-plate text-sm text-gray-500">Plate: ${v.plate || 'N/A'}</p>
+                </div>
+            `;
+            list.appendChild(card);
+        }
+    }catch(e){
+        console.error('Load vehicles error',e);
+        showToast('Failed to load vehicles', 'error');
+    }
+}
 
-            function closeModal(modal) {
-                if (modal) modal.style.display = 'none';
-            }
-
-            // Global click handler for modals
-            document.body.addEventListener('click', (e) => {
-                const openLink = e.target.closest('[data-modal-open]');
-                if (openLink) {
-                    e.preventDefault();
-                    openModal(openLink.dataset.modalOpen);
-                }
-
-                const closeLink = e.target.closest('[data-modal-close]');
-                if (closeLink) {
-                    e.preventDefault();
-                    closeModal(closeLink.closest('.modal'));
-                }
-
-                // Close on outside click
-                if (e.target.classList.contains('modal')) {
-                    closeModal(e.target);
-                }
-            });
-
-            // --- 1. My Garage Search Logic ---
-            document.getElementById('garage-search').addEventListener('input', (e) => {
-                const searchTerm = e.target.value.toLowerCase();
-                document.querySelectorAll('.vehicle-card').forEach(card => {
-                    const name = card.querySelector('.vehicle-name').textContent.toLowerCase();
-                    const model = card.querySelector('.vehicle-model').textContent.toLowerCase();
-                    const plate = card.querySelector('.vehicle-plate').textContent.toLowerCase();
-                    
-                    if (name.includes(searchTerm) || model.includes(searchTerm) || plate.includes(searchTerm)) {
-                        card.style.display = 'block';
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
-            });
-
-            // --- 2. Add New Vehicle Logic ---
-            document.getElementById('add-vehicle-form').addEventListener('submit', (e) => {
-                e.preventDefault();
-                const nickname = document.getElementById('vehicle-nickname').value;
-                const make = document.getElementById('vehicle-make').value;
-                const model = document.getElementById('vehicle-model').value;
-                const year = document.getElementById('vehicle-year').value;
-                const plate = document.getElementById('vehicle-plate').value;
-
-                // Create the new Vehicle Card HTML
-                const vehicleList = document.getElementById('vehicle-list');
-                const newVehicleCard = `
-                    <a href="#" class="vehicle-card block bg-gray-800 rounded-lg shadow-lg overflow-hidden group transition duration-200 hover:shadow-xl hover:-translate-y-1">
-                        <img src="https://placehold.co/600x400/334155/94a3b8?text=${make}+${model}" alt="${nickname}" class="w-full h-48 object-cover">
-                        <div class="p-4">
-                            <h3 class="vehicle-name text-xl font-semibold text-white">${nickname}</h3>
-                            <p class="vehicle-model text-gray-400">${year} ${make} ${model}</p>
-                            <p class="vehicle-plate text-sm text-gray-500">Plate: ${plate}</p>
-                        </div>
-                    </a>
-                `;
-                vehicleList.insertAdjacentHTML('beforeend', newVehicleCard);
-
-                // Close modal and reset form
-                closeModal(e.target.closest('.modal'));
-                showToast('Vehicle added successfully!');
-                e.target.reset();
-            });
-
-            // --- 3. Digital Glovebox Logic (File Uploads) ---
-            function setupDropZone(dropZoneId, fileInputId, browseBtnId) {
-                const dropZone = document.getElementById(dropZoneId);
-                const fileInput = document.getElementById(fileInputId);
-                const browseBtn = document.getElementById(browseBtnId);
-
-                if (!dropZone || !fileInput || !browseBtn) return;
-
-                // Handle click on the drop zone to open file dialog
-                dropZone.addEventListener('click', (e) => {
-                   if (e.target !== browseBtn) {
-                       fileInput.click();
-                   }
-                });
-                
-                browseBtn.addEventListener('click', (e) => {
-                    e.stopPropagation(); // Prevent double trigger
-                    fileInput.click();
-                });
-
-                fileInput.addEventListener('change', () => {
-                    handleFiles(fileInput.files);
-                });
-
-                // Prevent default drag behaviors
-                ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-                    dropZone.addEventListener(eventName, (e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                    });
-                });
-
-                // Highlight drop zone visual feedback
-                ['dragenter', 'dragover'].forEach(eventName => {
-                    dropZone.addEventListener(eventName, () => {
-                        dropZone.classList.add('border-blue-500', 'bg-gray-700');
-                    });
-                });
-                
-                dropZone.addEventListener('dragleave', () => {
-                    dropZone.classList.remove('border-blue-500', 'bg-gray-700');
-                });
-                
-                dropZone.addEventListener('drop', (e) => {
-                    e.preventDefault();
-                    dropZone.classList.remove('border-blue-500', 'bg-gray-700');
-                    handleFiles(e.dataTransfer.files);
-                });
-            }
-
-            function handleFiles(files) {
-                if (!files.length) return;
-                const file = files[0]; // Handle first file
-                
-                const documentList = document.getElementById('document-list');
-                const newDocument = `
-                    <div class="flex items-center justify-between bg-gray-700/50 p-4 rounded-lg transition duration-200 interactive-row">
-                        <div class="flex items-center space-x-3">
-                            <svg class="w-8 h-8 text-blue-500 flex-shrink-0"><use href="#icon-file-text"></use></svg>
-                            <div>
-                                <p class="font-medium text-white">${file.name}</p>
-                                <p class="text-sm text-gray-400">Uploaded just now</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center space-x-4">
-                            <div class="text-right">
-                                <p class="text-sm text-gray-400">Expires</p>
-                                <p class="font-medium text-white">N/A</p>
-                            </div>
-                            <button class="text-gray-400 hover:text-white transition duration-200"><svg class="w-5 h-5"><use href="#icon-download"></use></svg></button>
-                            <button class="text-gray-400 hover:text-white transition duration-200"><svg class="w-5 h-5"><use href="#icon-edit"></use></svg></button>
-                            <button class="text-red-500 hover:text-red-400 transition duration-200"><svg class="w-5 h-5"><use href="#icon-trash"></use></svg></button>
-                        </div>
-                    </div>
-                `;
-                documentList.insertAdjacentHTML('beforeend', newDocument);
-                showToast('Document uploaded successfully!');
-            }
-
-            // Initialize Drop Zone
-            setupDropZone('drop-zone', 'file-input', 'browse-files-btn');
+// --- Add Vehicle ---
+document.getElementById('add-vehicle-form').addEventListener('submit', async e=>{
+    e.preventDefault();
+    const payload={
+        nickname: document.getElementById('vehicle-nickname').value.trim(),
+        make: document.getElementById('vehicle-make').value.trim(),
+        model: document.getElementById('vehicle-model').value.trim(),
+        year: document.getElementById('vehicle-year').value,
+        plate: document.getElementById('vehicle-plate').value.trim()
+    };
+    try{
+        const res=await fetch('add_vehicle.php',{
+            method:'POST',
+            headers:{'Content-Type':'application/json'},
+            body:JSON.stringify(payload)
         });
-    </script>
+        const text=await res.text();
+        const result=JSON.parse(text);
+        if(!res.ok || !result.success) throw new Error(result.error||'Failed to add vehicle');
+        modal.style.display='none';
+        e.target.reset();
+        showToast('Vehicle added successfully!');
+        loadVehicles(); // refresh list
+    }catch(err){
+        console.error(err);
+        showToast(err.message,'error');
+    }
+});
+
+// --- Search ---
+document.getElementById('garage-search').addEventListener('input', e=>{
+    const filter=e.target.value.toLowerCase();
+    document.querySelectorAll('#vehicle-list .vehicle-card').forEach(card=>{
+        const text=card.innerText.toLowerCase();
+        card.style.display=text.includes(filter)?'block':'none';
+    });
+});
+
+// Initial load
+loadVehicles();
+</script>
 </body>
 </html>
