@@ -5,277 +5,137 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>My Garage - AutoMind AI</title>
 <script src="https://cdn.tailwindcss.com"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
 <style>
-body { font-family: 'Inter', sans-serif; }
-
-/* Toast Notification */
-#toast {
-    visibility: hidden;
-    opacity: 0;
-    transform: translateY(-100%);
-    transition: all 0.5s ease-in-out;
-}
-#toast.show {
-    visibility: visible;
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* Interactive row hover */
-.interactive-row:hover { background-color: #374151; }
-
-/* Hide scrollbar */
-body::-webkit-scrollbar { display: none; }
+body { font-family: Inter, sans-serif; }
+#toast { visibility:hidden; opacity:0; transition:0.4s }
+#toast.show { visibility:visible; opacity:1 }
 </style>
 </head>
+
 <body class="bg-gray-900 text-gray-300 p-8">
 
 <!-- Toast -->
 <div id="toast" class="fixed top-8 left-1/2 -translate-x-1/2 z-50">
-    <div id="toast-content" class="flex items-center space-x-3 bg-green-600 text-white font-semibold py-3 px-6 rounded-lg shadow-lg">
-        <span id="toast-message">Success!</span>
-    </div>
+  <div id="toast-content" class="bg-green-600 text-white px-6 py-3 rounded-lg">
+    <span id="toast-message"></span>
+  </div>
 </div>
-
-<!-- SVG Icons -->
-<svg xmlns="http://www.w3.org/2000/svg" style="display:none;">
-    <symbol id="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <line x1="12" y1="5" x2="12" y2="19"/>
-        <line x1="5" y1="12" x2="19" y2="12"/>
-    </symbol>
-    <symbol id="icon-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="11" cy="11" r="8"/>
-        <line x1="21" y1="21" x2="16.65" y2="16.65"/>
-    </symbol>
-    <symbol id="icon-upload" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-        <polyline points="17 8 12 3 7 8"/>
-        <line x1="12" y1="3" x2="12" y2="15"/>
-    </symbol>
-    <symbol id="icon-file-text" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
-        <polyline points="14 2 14 8 20 8"/>
-        <line x1="16" y1="13" x2="8" y2="13"/>
-        <line x1="16" y1="17" x2="8" y2="17"/>
-        <line x1="10" y1="9" x2="8" y2="9"/>
-    </symbol>
-    <symbol id="icon-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-        <polyline points="7 10 12 15 17 10"/>
-        <line x1="12" y1="15" x2="12" y2="3"/>
-    </symbol>
-    <symbol id="icon-edit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
-        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
-    </symbol>
-    <symbol id="icon-trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M3 6h18"/>
-        <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/>
-        <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/>
-    </symbol>
-    <symbol id="icon-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <line x1="18" y1="6" x2="6" y2="18"/>
-        <line x1="6" y1="6" x2="18" y2="18"/>
-    </symbol>
-</svg>
 
 <div class="max-w-6xl mx-auto">
 
-    <!-- Header -->
-    <div class="flex justify-between items-center mb-6">
-        <div>
-            <h1 class="text-3xl font-bold text-white">My Garage</h1>
-            <p class="text-gray-400">Manage your vehicle profiles and important documents.</p>
-        </div>
-        <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg flex items-center space-x-2 transition duration-200" id="open-modal">
-            <svg class="w-5 h-5"><use href="#icon-plus"></use></svg>
-            <span>Add New Vehicle</span>
-        </button>
-    </div>
+<h1 class="text-3xl font-bold text-white mb-6">My Garage</h1>
 
-    <!-- Search Bar -->
-    <div class="mb-6">
-        <div class="relative">
-            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <svg class="w-5 h-5 text-gray-400"><use href="#icon-search"></use></svg>
-            </div>
-            <input type="text" id="garage-search" class="w-full bg-gray-800 border border-gray-700 text-white rounded-lg p-3 pl-10 focus:ring-blue-500 focus:border-blue-500" placeholder="Find a vehicle by nickname, make, or model...">
-        </div>
-    </div>
+<button id="open-modal" class="bg-blue-600 px-4 py-2 rounded mb-6">
+➕ Add Vehicle
+</button>
 
-    <!-- Vehicle List -->
-    <div id="vehicle-list" class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8"></div>
+<input id="garage-search"
+ class="w-full mb-6 p-3 rounded bg-gray-800"
+ placeholder="Search vehicle">
 
-    <!-- Modal -->
-    <div id="modal-add-vehicle" class="modal fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4" style="display:none;">
-        <div class="bg-gray-800 rounded-lg shadow-2xl p-6 w-full max-w-md">
-            <div class="flex justify-between items-center mb-4">
-                <h3 class="text-xl font-semibold text-white">Add New Vehicle</h3>
-                <button id="close-modal" class="text-gray-400 hover:text-white"><svg class="w-6 h-6"><use href="#icon-x"></use></svg></button>
-            </div>
-            <form id="add-vehicle-form" class="space-y-4">
-                <div>
-                    <label class="block text-sm font-medium text-gray-300 mb-1">Vehicle Nickname</label>
-                    <input type="text" id="vehicle-nickname" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-3" placeholder="e.g., My Daily Driver" required>
-                </div>
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-300 mb-1">Make</label>
-                        <input type="text" id="vehicle-make" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-3" placeholder="Toyota" required>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-300 mb-1">Model</label>
-                        <input type="text" id="vehicle-model" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-3" placeholder="RAV4" required>
-                    </div>
-                </div>
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-300 mb-1">Year</label>
-                        <input type="number" id="vehicle-year" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-3" placeholder="2021" required>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-300 mb-1">Plate</label>
-                        <input type="text" id="vehicle-plate" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-3" placeholder="7ABC123">
-                    </div>
-                </div>
-                <div class="flex justify-end space-x-3 pt-4">
-                    <button type="button" id="cancel-modal" class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg">Cancel</button>
-                    <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg">Add Vehicle</button>
-                </div>
-            </form>
-        </div>
-    </div>
+<div id="vehicle-list" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+
+<!-- MODAL -->
+<div id="modal" class="fixed inset-0 bg-black/60 hidden items-center justify-center">
+<div class="bg-gray-800 p-6 rounded w-full max-w-md">
+
+<form id="add-vehicle-form" class="space-y-3">
+
+<input id="vehicle-nickname" class="w-full p-2 rounded bg-gray-700" placeholder="Nickname" required>
+<input id="vehicle-make" class="w-full p-2 rounded bg-gray-700" placeholder="Make" required>
+<input id="vehicle-model" class="w-full p-2 rounded bg-gray-700" placeholder="Model" required>
+<input id="vehicle-year" type="number" class="w-full p-2 rounded bg-gray-700" placeholder="Year" required>
+<input id="vehicle-plate" class="w-full p-2 rounded bg-gray-700" placeholder="Plate">
+
+<div class="flex justify-end gap-3">
+<button type="button" id="close-modal">Cancel</button>
+<button class="bg-blue-600 px-4 py-2 rounded">Save</button>
+</div>
+
+</form>
+</div>
+</div>
+
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
 
-    /* ---------------- TOAST ---------------- */
-    const toast = document.getElementById('toast');
-    const toastMessage = document.getElementById('toast-message');
-    const toastContent = document.getElementById('toast-content');
-    let toastTimer;
+const modal = document.getElementById("modal");
+const list  = document.getElementById("vehicle-list");
 
-    function showToast(msg, type = 'success') {
-        clearTimeout(toastTimer);
-        toastMessage.textContent = msg;
-        toastContent.classList.remove('bg-green-600', 'bg-red-600');
-        toastContent.classList.add(type === 'error' ? 'bg-red-600' : 'bg-green-600');
-        toast.classList.add('show');
-        toastTimer = setTimeout(() => toast.classList.remove('show'), 3000);
-    }
+document.getElementById("open-modal").onclick = () => modal.classList.remove("hidden");
+document.getElementById("close-modal").onclick = () => modal.classList.add("hidden");
 
-    /* ---------------- MODAL ---------------- */
-    const modal = document.getElementById('modal-add-vehicle');
-    document.getElementById('open-modal').onclick = () => modal.style.display = 'flex';
-    document.getElementById('close-modal').onclick = () => modal.style.display = 'none';
-    document.getElementById('cancel-modal').onclick = () => modal.style.display = 'none';
+function toast(msg, err=false){
+ const t=document.getElementById("toast");
+ document.getElementById("toast-message").innerText=msg;
+ document.getElementById("toast-content").className =
+ err ? "bg-red-600 text-white px-6 py-3 rounded-lg"
+     : "bg-green-600 text-white px-6 py-3 rounded-lg";
+ t.classList.add("show");
+ setTimeout(()=>t.classList.remove("show"),3000);
+}
 
-    /* ---------------- LOAD VEHICLES ---------------- */
-    async function loadVehicles() {
-        const list = document.getElementById('vehicle-list');
-        list.innerHTML = '';
+/* LOAD VEHICLES */
+async function loadVehicles(){
+ list.innerHTML="";
+ const res = await fetch("get_vehicle.php");
+ const data = await res.json();
 
-        try {
-            const res = await fetch('get_vehicles.php');
-            const raw = await res.text();
-            console.log('RAW VEHICLES:', raw);
+ if(!data || Object.keys(data).length===0){
+   list.innerHTML="<p>No vehicles found</p>";
+   return;
+ }
 
-            if (!raw) throw new Error('Empty response');
+ for(const id in data){
+   const v=data[id];
+   list.innerHTML+=`
+   <div class="bg-gray-800 p-4 rounded vehicle-card">
+     <h3 class="text-xl text-white">${v.nickname}</h3>
+     <p>${v.year} ${v.make} ${v.model}</p>
+     <p class="text-sm">Plate: ${v.plate || "N/A"}</p>
+   </div>`;
+ }
+}
 
-            const data = JSON.parse(raw);
+/* ADD VEHICLE */
+document.getElementById("add-vehicle-form").onsubmit = async e =>{
+ e.preventDefault();
 
-            if (data.success === false) {
-                throw new Error(data.error);
-            }
+ const payload={
+  nickname: document.getElementById("vehicle-nickname").value,
+  make: document.getElementById("vehicle-make").value,
+  model: document.getElementById("vehicle-model").value,
+  year: document.getElementById("vehicle-year").value,
+  plate: document.getElementById("vehicle-plate").value
+ };
 
-            if (!data || Object.keys(data).length === 0) {
-                list.innerHTML = `
-                    <p class="text-gray-400 col-span-2 text-center">
-                        No vehicles added yet 🚗
-                    </p>`;
-                return;
-            }
+ const res = await fetch("add_vehicle.php",{
+  method:"POST",
+  headers:{ "Content-Type":"application/json" },
+  body: JSON.stringify(payload)
+ });
 
-            for (const id in data) {
-                const v = data[id];
+ const result = await res.json();
+ if(!result.success) return toast(result.error,true);
 
-                const card = document.createElement('a');
-                card.href = '#';
-                card.className =
-                    'vehicle-card block bg-gray-800 rounded-lg shadow-lg overflow-hidden transition hover:-translate-y-1';
+ modal.classList.add("hidden");
+ e.target.reset();
+ toast("Vehicle added!");
+ loadVehicles();
+};
 
-                card.innerHTML = `
-                    <img src="https://placehold.co/600x400/334155/94a3b8?text=${encodeURIComponent(v.make + ' ' + v.model)}"
-                         class="w-full h-48 object-cover">
-                    <div class="p-4">
-                        <h3 class="text-xl font-semibold text-white">${v.nickname}</h3>
-                        <p class="text-gray-400">${v.year} ${v.make} ${v.model}</p>
-                        <p class="text-sm text-gray-500">Plate: ${v.plate || 'N/A'}</p>
-                    </div>
-                `;
+/* SEARCH */
+document.getElementById("garage-search").oninput = e =>{
+ const q=e.target.value.toLowerCase();
+ document.querySelectorAll(".vehicle-card").forEach(c=>{
+  c.style.display = c.innerText.toLowerCase().includes(q) ? "block":"none";
+ });
+};
 
-                list.appendChild(card);
-            }
-
-        } catch (err) {
-            console.error('Load vehicles failed:', err);
-            showToast(err.message, 'error');
-        }
-    }
-
-    /* ---------------- ADD VEHICLE ---------------- */
-    document.getElementById('add-vehicle-form').addEventListener('submit', async e => {
-        e.preventDefault();
-
-        const payload = {
-            nickname: vehicle-nickname.value.trim(),
-            make: vehicle-make.value.trim(),
-            model: vehicle-model.value.trim(),
-            year: vehicle-year.value,
-            plate: vehicle-plate.value.trim()
-        };
-
-        try {
-            const res = await fetch('add_vehicle.php', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            });
-
-            const raw = await res.text();
-            console.log('ADD VEHICLE RAW:', raw);
-
-            const result = JSON.parse(raw);
-
-            if (!res.ok || !result.success) {
-                throw new Error(result.error || 'Add failed');
-            }
-
-            modal.style.display = 'none';
-            e.target.reset();
-            showToast('Vehicle added successfully!');
-            loadVehicles();
-
-        } catch (err) {
-            console.error('Add vehicle error:', err);
-            showToast(err.message, 'error');
-        }
-    });
-
-    /* ---------------- SEARCH ---------------- */
-    document.getElementById('garage-search').addEventListener('input', e => {
-        const q = e.target.value.toLowerCase();
-        document.querySelectorAll('.vehicle-card').forEach(card => {
-            card.style.display = card.innerText.toLowerCase().includes(q) ? 'block' : 'none';
-        });
-    });
-
-    /* ---------------- INIT ---------------- */
-    loadVehicles();
+loadVehicles();
 });
 </script>
 
