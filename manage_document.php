@@ -1,7 +1,7 @@
 <?php
 /**
  * Manage Documents API (Edit & Delete)
- * AutoMind AI
+ * AutoMind AI - Updated to support Expiry Dates
  */
 
 header('Content-Type: application/json');
@@ -19,11 +19,12 @@ $method = $_SERVER['REQUEST_METHOD'];
 $rawInput = file_get_contents("php://input");
 $input = json_decode($rawInput, true);
 
-// Get Document ID from URL
+// Get Document ID from URL (?id=-Nxxxx...)
 $docId = $_GET['id'] ?? null;
 
 try {
     // --- DELETE DOCUMENT ---
+    // Removes the physical file from the server and the record from Firebase
     if ($method === 'DELETE') {
         if (!$docId) {
             http_response_code(400);
@@ -31,13 +32,13 @@ try {
             exit;
         }
 
-        // 1. Get file path from Firebase first
+        // 1. Get file path from Firebase first to delete the actual file
         $doc = db('GET', "documents/$docId");
         
         if ($doc && isset($doc['file_path'])) {
             $filePath = $doc['file_path'];
             
-            // Security Check: Ensure we only delete files inside our uploads directory
+            // Security Check: Ensure we only delete files inside our authorized directory
             if (strpos($filePath, 'uploads/glovebox/') === 0 && file_exists($filePath)) {
                 unlink($filePath); // Remove physical file from server
             }
@@ -49,7 +50,7 @@ try {
         echo json_encode(['success' => true, 'message' => 'Document and file deleted successfully']);
     }
 
-    // --- EDIT DOCUMENT (Update Name) ---
+    // --- EDIT DOCUMENT (Update Name & Expiry) ---
     else if ($method === 'PATCH') {
         if (!$docId || !$input) {
             http_response_code(400);
@@ -57,29 +58,36 @@ try {
             exit;
         }
 
-        // We only allow updating the file_name via this method
         $updateData = [];
+        
+        // Allow updating the friendly name
         if (isset($input['file_name'])) {
             $updateData['file_name'] = trim($input['file_name']);
         }
 
+        // ✅ ADDED: Allow updating the expiry date
+        if (isset($input['expiry_date'])) {
+            $updateData['expiry_date'] = $input['expiry_date'];
+        }
+
         if (empty($updateData)) {
-            throw new Exception("No valid fields provided for update");
+            throw new Exception("No valid fields (file_name or expiry_date) provided for update");
         }
 
         // Update metadata in Firebase
         db('PATCH', "documents/$docId", $updateData);
 
-        echo json_encode(['success' => true, 'message' => 'Document updated']);
+        echo json_encode(['success' => true, 'message' => 'Document updated successfully']);
     }
 
-    // --- GET SINGLE DOCUMENT INFO ---
+    // --- GET DOCUMENT(S) ---
     else if ($method === 'GET') {
         if (!$docId) {
-            // If no ID, fetch all documents
+            // Fetch all documents for all vehicles (filtering is done on the frontend)
             $docs = db('GET', 'documents');
             echo json_encode($docs ?: []);
         } else {
+            // Fetch single document details
             $doc = db('GET', "documents/$docId");
             if (!$doc) {
                 http_response_code(404);
