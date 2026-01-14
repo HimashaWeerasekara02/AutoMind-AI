@@ -15,11 +15,9 @@ define(
 
 /**
  * 🔐 Firebase Database Secret / Auth Token
- * If your Firebase Rules are set to: 
- * ".read": "auth != null", ".write": "auth != null"
- * You MUST paste your "Database Secret" here.
+ * Your key has been inserted below to authorize requests.
  */
-define('FIREBASE_AUTH', ''); 
+define('FIREBASE_AUTH', 'K2Np7mgZnDOQJCVjZLcyftVMapBOxZNzyHhJQ87T'); 
 
 /**
  * Firebase Realtime Database REST API Helper
@@ -38,7 +36,6 @@ function db(string $method, string $path = '', array $data = null): ?array
 
     // 🔹 Correctly append auth token
     if (trim(FIREBASE_AUTH) !== '') {
-        // If the URL already has a '?' (unlikely with .json but safe), use '&', otherwise use '?'
         $separator = (strpos($url, '?') === false) ? '?' : '&';
         $url .= $separator . 'auth=' . FIREBASE_AUTH;
     }
@@ -53,7 +50,7 @@ function db(string $method, string $path = '', array $data = null): ?array
         ],
         CURLOPT_CONNECTTIMEOUT => 10,
         CURLOPT_TIMEOUT        => 20,
-        CURLOPT_SSL_VERIFYPEER => true // Ensure secure connection
+        CURLOPT_SSL_VERIFYPEER => true 
     ];
 
     // 🔹 Attach JSON body for POST, PUT, or PATCH
@@ -84,7 +81,6 @@ function db(string $method, string $path = '', array $data = null): ?array
     }
 
     // 🔹 Handle Empty/Null responses
-    // Firebase returns the string "null" (as text) if the node doesn't exist
     if ($response === 'null' || $response === '' || $response === null) {
         return null;
     }
