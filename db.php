@@ -1,22 +1,11 @@
 <?php
-/**
- * Firebase Realtime Database Configuration
- * AutoMind AI
- */
 
-/**
- * ✅ IMPORTANT:
- * Use the REGION-SPECIFIC URL shown in Firebase Console
- */
 define(
     'FIREBASE_DB_URL',
     'https://automind-ai-52b33-default-rtdb.asia-southeast1.firebasedatabase.app'
 );
 
-/**
- * 🔐 Firebase Database Secret / Auth Token
- * Your key has been inserted below to authorize requests.
- */
+
 define('FIREBASE_AUTH', 'K2Np7mgZnDOQJCVjZLcyftVMapBOxZNzyHhJQ87T'); 
 
 /**
@@ -31,10 +20,8 @@ define('FIREBASE_AUTH', 'K2Np7mgZnDOQJCVjZLcyftVMapBOxZNzyHhJQ87T');
  */
 function db(string $method, string $path = '', array $data = null): ?array
 {
-    // 🔹 Build basic Firebase endpoint
     $url = rtrim(FIREBASE_DB_URL, '/') . '/' . ltrim($path, '/') . '.json';
 
-    // 🔹 Correctly append auth token
     if (trim(FIREBASE_AUTH) !== '') {
         $separator = (strpos($url, '?') === false) ? '?' : '&';
         $url .= $separator . 'auth=' . FIREBASE_AUTH;
@@ -53,7 +40,6 @@ function db(string $method, string $path = '', array $data = null): ?array
         CURLOPT_SSL_VERIFYPEER => true 
     ];
 
-    // 🔹 Attach JSON body for POST, PUT, or PATCH
     if ($data !== null && $method !== 'GET') {
         $options[CURLOPT_POSTFIELDS] = json_encode(
             $data,
@@ -65,7 +51,6 @@ function db(string $method, string $path = '', array $data = null): ?array
 
     $response = curl_exec($ch);
 
-    // ❌ cURL execution error
     if ($response === false) {
         $error = curl_error($ch);
         curl_close($ch);
@@ -75,16 +60,13 @@ function db(string $method, string $path = '', array $data = null): ?array
     $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
     curl_close($ch);
 
-    // ❌ Firebase API error (4xx or 5xx)
     if ($httpCode >= 400) {
         throw new Exception("Firebase API Error (HTTP $httpCode): $response");
     }
 
-    // 🔹 Handle Empty/Null responses
     if ($response === 'null' || $response === '' || $response === null) {
         return null;
     }
 
-    // 🔹 Return decoded array
     return json_decode($response, true);
 }

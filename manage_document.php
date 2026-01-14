@@ -1,30 +1,21 @@
 <?php
-/**
- * Manage Documents API (Edit & Delete)
- * AutoMind AI - Updated to support Expiry Dates
- */
 
 header('Content-Type: application/json');
 
-// Disable error display for clean JSON, but keep logging active
 ini_set('display_errors', 0);
 error_reporting(E_ALL);
 
 require_once 'db.php';
 
-// Get request method
 $method = $_SERVER['REQUEST_METHOD'];
 
-// Parse input for PATCH/POST requests
 $rawInput = file_get_contents("php://input");
 $input = json_decode($rawInput, true);
 
-// Get Document ID from URL (?id=-Nxxxx...)
 $docId = $_GET['id'] ?? null;
 
 try {
     // --- DELETE DOCUMENT ---
-    // Removes the physical file from the server and the record from Firebase
     if ($method === 'DELETE') {
         if (!$docId) {
             http_response_code(400);
@@ -65,7 +56,7 @@ try {
             $updateData['file_name'] = trim($input['file_name']);
         }
 
-        // ✅ ADDED: Allow updating the expiry date
+        // Allow updating the expiry date
         if (isset($input['expiry_date'])) {
             $updateData['expiry_date'] = $input['expiry_date'];
         }

@@ -1,15 +1,12 @@
 <?php
-// Always return JSON
 header('Content-Type: application/json');
 
-// Show PHP errors (for debugging, remove in production)
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 require 'db.php';
 
-// ✅ Allow ONLY POST requests
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
     echo json_encode([
@@ -19,11 +16,9 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-// ✅ Read JSON input
 $rawInput = file_get_contents("php://input");
 $input = json_decode($rawInput, true);
 
-// ✅ Validate JSON
 if ($input === null) {
     http_response_code(400);
     echo json_encode([
@@ -33,7 +28,7 @@ if ($input === null) {
     exit;
 }
 
-// ✅ Validate required fields
+// Validate required fields
 $requiredFields = ['nickname', 'make', 'model', 'year'];
 foreach ($requiredFields as $field) {
     if (!isset($input[$field]) || trim($input[$field]) === '') {
@@ -46,7 +41,7 @@ foreach ($requiredFields as $field) {
     }
 }
 
-// ✅ Prepare vehicle data
+// Prepare vehicle data
 $vehicle = [
     "nickname"    => trim($input['nickname']),
     "make"        => trim($input['make']),
@@ -57,15 +52,15 @@ $vehicle = [
 ];
 
 try {
-    // ✅ Insert vehicle into Firebase
+    // Insert vehicle into Firebase
     $result = db("POST", "vehicles", $vehicle);
 
-    // ✅ Check Firebase response
+    // Check Firebase response
     if (!isset($result['name'])) {
         throw new Exception("Firebase insert failed: no ID returned");
     }
 
-    // ✅ Success response
+    // Success response
     echo json_encode([
         "success" => true,
         "message" => "Vehicle added successfully",

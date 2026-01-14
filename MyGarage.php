@@ -18,6 +18,17 @@ require_once 'db.php';
 
 <body class="bg-gray-900 text-gray-300 p-8">
 
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+    <symbol id="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="12" y1="5" x2="12" y2="19"></line>
+        <line x1="5" y1="12" x2="19" y2="12"></line>
+    </symbol>
+    <symbol id="icon-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+    </symbol>
+</svg>
+
 <div id="toast" class="fixed top-8 left-1/2 -translate-x-1/2 z-50">
     <div id="toast-content" class="bg-green-600 text-white px-6 py-3 rounded-lg shadow-2xl">
         <span id="toast-message"></span>
@@ -57,15 +68,21 @@ require_once 'db.php';
 
 <div class="max-w-6xl mx-auto">
     <header class="flex justify-between items-center mb-8">
-        <h1 class="text-3xl font-bold text-white">My Garage</h1>
-        <button id="open-modal" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-all transform hover:scale-105 active:scale-95 shadow-lg">
-            ➕ Add Vehicle
+        <div>
+            <h1 class="text-3xl font-bold text-white">My Garage</h1>
+            <p class="text-gray-400">Manage your vehicle profiles and important documents.</p>
+        </div>
+        <button id="open-modal" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg flex items-center space-x-2 transition duration-200 shadow-lg transform active:scale-95" data-modal-open="add-vehicle">
+            <svg class="w-5 h-5"><use href="#icon-plus"></use></svg>
+            <span>Add New Vehicle</span>
         </button>
     </header>
 
     <div class="relative mb-8">
-        <input id="garage-search" class="w-full p-4 pl-12 rounded-xl bg-gray-800 border border-gray-700 focus:border-blue-500 outline-none transition-all shadow-inner" placeholder="Search by nickname, make, or model...">
-        <span class="absolute left-4 top-4 text-gray-500">🔍</span>
+        <input id="garage-search" class="w-full p-4 pl-12 rounded-xl bg-gray-800 border border-gray-700 focus:border-blue-500 outline-none transition-all shadow-inner text-white" placeholder="Find a vehicle by nickname, make, or model...">
+        <span class="absolute left-4 top-4">
+            <svg class="w-5 h-5 text-gray-400"><use href="#icon-search"></use></svg>
+        </span>
     </div>
 
     <div id="vehicle-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
@@ -152,7 +169,6 @@ document.addEventListener("DOMContentLoaded", () => {
         settingsModal.classList.replace("hidden", "flex");
     };
 
-    // UPDATE VEHICLE
     document.getElementById("edit-vehicle-form").onsubmit = async (e) => {
         e.preventDefault();
         const id = document.getElementById("edit-v-id").value;
@@ -174,7 +190,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
-    // DELETE VEHICLE
     document.getElementById("delete-v-btn").onclick = async () => {
         if(!confirm("Delete this vehicle? All records will be lost!")) return;
         const id = document.getElementById("edit-v-id").value;
@@ -186,7 +201,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
-    // ADD VEHICLE (Keep existing logic)
     document.getElementById("add-vehicle-form").onsubmit = async e => {
         e.preventDefault();
         const payload = {
@@ -203,6 +217,14 @@ document.addEventListener("DOMContentLoaded", () => {
             loadVehicles();
             toast("Vehicle added!");
         }
+    };
+
+    // SEARCH LOGIC
+    document.getElementById("garage-search").oninput = (e) => {
+        const q = e.target.value.toLowerCase();
+        document.querySelectorAll(".vehicle-card").forEach(card => {
+            card.style.display = card.innerText.toLowerCase().includes(q) ? "block" : "none";
+        });
     };
 
     loadVehicles();
