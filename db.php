@@ -14,35 +14,38 @@ define(
 );
 
 /**
- * 🔐 Optional Authentication
- * Leave empty if Firebase rules allow public access
- * (Recommended to add later for production)
+ * 🔐 Firebase Database Secret / Auth Token
+ * If your Firebase Rules are set to: 
+ * ".read": "auth != null", ".write": "auth != null"
+ * You MUST paste your "Database Secret" here.
  */
-define('FIREBASE_AUTH', '');
+define('FIREBASE_AUTH', ''); 
 
 /**
  * Firebase Realtime Database REST API Helper
  *
  * @param string      $method  GET | POST | PUT | PATCH | DELETE
  * @param string      $path    Firebase node path (e.g. vehicles, vehicles/id)
- * @param array|null $data    Data payload
+ * @param array|null  $data    Data payload
  *
  * @return array|null
  * @throws Exception
  */
 function db(string $method, string $path = '', array $data = null): ?array
 {
-    // 🔹 Build Firebase endpoint
+    // 🔹 Build basic Firebase endpoint
     $url = rtrim(FIREBASE_DB_URL, '/') . '/' . ltrim($path, '/') . '.json';
 
-    // 🔹 Append auth token if exists
-    if (FIREBASE_AUTH !== '') {
-        $url .= '?auth=' . FIREBASE_AUTH;
+    // 🔹 Correctly append auth token
+    if (trim(FIREBASE_AUTH) !== '') {
+        // If the URL already has a '?' (unlikely with .json but safe), use '&', otherwise use '?'
+        $separator = (strpos($url, '?') === false) ? '?' : '&';
+        $url .= $separator . 'auth=' . FIREBASE_AUTH;
     }
 
     $ch = curl_init($url);
 
-    curl_setopt_array($ch, [
+    $options = [
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_CUSTOMREQUEST  => strtoupper($method),
         CURLOPT_HTTPHEADER     => [
@@ -50,37 +53,42 @@ function db(string $method, string $path = '', array $data = null): ?array
         ],
         CURLOPT_CONNECTTIMEOUT => 10,
         CURLOPT_TIMEOUT        => 20,
-    ]);
+        CURLOPT_SSL_VERIFYPEER => true // Ensure secure connection
+    ];
 
-    // 🔹 Attach JSON body for non-GET requests
+    // 🔹 Attach JSON body for POST, PUT, or PATCH
     if ($data !== null && $method !== 'GET') {
-        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode(
+        $options[CURLOPT_POSTFIELDS] = json_encode(
             $data,
             JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR
-        ));
+        );
     }
+
+    curl_setopt_array($ch, $options);
 
     $response = curl_exec($ch);
 
-    // ❌ cURL error
+    // ❌ cURL execution error
     if ($response === false) {
         $error = curl_error($ch);
         curl_close($ch);
-        throw new Exception("Firebase cURL Error: $error");
+        throw new Exception("cURL Connection Error: $error");
     }
 
     $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
     curl_close($ch);
 
-    // ❌ Firebase HTTP error
+    // ❌ Firebase API error (4xx or 5xx)
     if ($httpCode >= 400) {
-        throw new Exception("Firebase HTTP Error {$httpCode}: {$response}");
+        throw new Exception("Firebase API Error (HTTP $httpCode): $response");
     }
 
-    // 🔹 Empty response (valid for DELETE)
-    if ($response === '' || $response === 'null') {
+    // 🔹 Handle Empty/Null responses
+    // Firebase returns the string "null" (as text) if the node doesn't exist
+    if ($response === 'null' || $response === '' || $response === null) {
         return null;
     }
 
+    // 🔹 Return decoded array
     return json_decode($response, true);
 }
