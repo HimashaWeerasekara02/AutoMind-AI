@@ -55,10 +55,10 @@ if (move_uploaded_file($_FILES['document']['tmp_name'], $targetPath)) {
     
     // Data to store in Firebase
     $documentData = [
-        'vehicle_id'  => $vehicleId,   
+        'vehicle_id'  => $vehicleId,   // 🔗 Linked Car ID
         'file_name'   => $originalName,
         'file_path'   => $targetPath,
-        'expiry_date' => $expiryDate,  
+        'expiry_date' => $expiryDate,  // 📅 Important for Insurance/License
         'uploaded_at' => date("Y-m-d H:i:s"),
         'type'        => $_FILES['document']['type']
     ];
