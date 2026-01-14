@@ -109,7 +109,7 @@ document.addEventListener("DOMContentLoaded", () => {
         setTimeout(() => t.classList.remove("show"), 3000);
     }
 
-    /* 1. LOAD VEHICLES (Using PHP time for cache busting) */
+    /* 1. LOAD VEHICLES */
     async function loadVehicles(){
         try {
             list.innerHTML = `
@@ -118,7 +118,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     <p class="text-gray-500">Syncing with Firebase...</p>
                 </div>`;
             
-            // Add a timestamp to the URL so the browser NEVER loads a cached version
             const response = await fetch("get_vehicles.php?cache=" + new Date().getTime());
             
             if (!response.ok) throw new Error("HTTP Error " + response.status);
@@ -149,7 +148,10 @@ document.addEventListener("DOMContentLoaded", () => {
                         </span>
                     </div>
                     <div class="flex gap-2 mt-6">
-                        <button class="flex-1 bg-gray-700 hover:bg-gray-600 text-white py-2 rounded-lg text-sm transition font-semibold">View Docs</button>
+                        <a href="glovebox.php?vehicle_id=${id}&name=${encodeURIComponent(v.nickname)}" 
+                           class="flex-1 bg-gray-700 hover:bg-blue-600 text-white py-2 rounded-lg text-sm transition font-semibold text-center flex items-center justify-center">
+                           View Docs
+                        </a>
                         <button class="bg-gray-700 hover:bg-red-900/50 hover:text-red-400 px-4 py-2 rounded-lg text-sm transition">⚙️</button>
                     </div>
                 </div>`;
