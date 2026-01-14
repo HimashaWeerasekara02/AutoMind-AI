@@ -1,26 +1,42 @@
 <?php
+/**
+ * Firebase Realtime Database Configuration
+ * AutoMind AI
+ */
 
-// 🔹 Firebase Realtime Database URL (region-specific)
-define('FIREBASE_DB_URL', 'https://automind-ai-52b33-default-rtdb.asia-southeast1.firebasedatabase.app');
+/**
+ * ✅ IMPORTANT:
+ * Use the REGION-SPECIFIC URL shown in Firebase Console
+ */
+define(
+    'FIREBASE_DB_URL',
+    'https://automind-ai-52b33-default-rtdb.asia-southeast1.firebasedatabase.app'
+);
 
+/**
+ * 🔐 Optional Authentication
+ * Leave empty if Firebase rules allow public access
+ * (Recommended to add later for production)
+ */
 define('FIREBASE_AUTH', '');
 
 /**
- * Firebase Database REST Function
+ * Firebase Realtime Database REST API Helper
  *
- * @param string $method  GET | POST | PUT | PATCH | DELETE
- * @param string $path    Node path (example: vehicles, vehicles/vehicleId)
- * @param array|null $data Data to send
+ * @param string      $method  GET | POST | PUT | PATCH | DELETE
+ * @param string      $path    Firebase node path (e.g. vehicles, vehicles/id)
+ * @param array|null $data    Data payload
+ *
  * @return array|null
  * @throws Exception
  */
 function db(string $method, string $path = '', array $data = null): ?array
 {
-    // Build Firebase URL
-    $url = rtrim(FIREBASE_DB_URL, '/') . '/' . trim($path, '/') . '.json';
+    // 🔹 Build Firebase endpoint
+    $url = rtrim(FIREBASE_DB_URL, '/') . '/' . ltrim($path, '/') . '.json';
 
-    // Add auth if exists
-    if (!empty(FIREBASE_AUTH)) {
+    // 🔹 Append auth token if exists
+    if (FIREBASE_AUTH !== '') {
         $url .= '?auth=' . FIREBASE_AUTH;
     }
 
@@ -29,35 +45,40 @@ function db(string $method, string $path = '', array $data = null): ?array
     curl_setopt_array($ch, [
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_CUSTOMREQUEST  => strtoupper($method),
-        CURLOPT_HTTPHEADER     => ['Content-Type: application/json'],
-        CURLOPT_TIMEOUT        => 10,
+        CURLOPT_HTTPHEADER     => [
+            'Content-Type: application/json'
+        ],
+        CURLOPT_CONNECTTIMEOUT => 10,
+        CURLOPT_TIMEOUT        => 20,
     ]);
 
-    // Attach data if provided
-    if ($data !== null) {
-        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data, JSON_UNESCAPED_UNICODE));
+    // 🔹 Attach JSON body for non-GET requests
+    if ($data !== null && $method !== 'GET') {
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode(
+            $data,
+            JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR
+        ));
     }
 
     $response = curl_exec($ch);
 
-    // Handle cURL errors
+    // ❌ cURL error
     if ($response === false) {
         $error = curl_error($ch);
         curl_close($ch);
         throw new Exception("Firebase cURL Error: $error");
     }
 
-    // Get HTTP status
     $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
     curl_close($ch);
 
-    // Handle Firebase HTTP errors
+    // ❌ Firebase HTTP error
     if ($httpCode >= 400) {
-        throw new Exception("Firebase HTTP Error $httpCode: $response");
+        throw new Exception("Firebase HTTP Error {$httpCode}: {$response}");
     }
 
-    // Handle empty response
-    if (trim($response) === '') {
+    // 🔹 Empty response (valid for DELETE)
+    if ($response === '' || $response === 'null') {
         return null;
     }
 
