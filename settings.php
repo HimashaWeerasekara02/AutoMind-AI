@@ -120,7 +120,18 @@ $isLoggedIn = false; // Mock login state
 
     
     <script>
-       
+        document.addEventListener('DOMContentLoaded', () => {
+    const settingsForm = document.getElementById('settings-form');
+
+    if (!settingsForm) return;
+
+    settingsForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        // No logic changed – demo behavior only
+        showToast('Settings saved successfully!');
+    });
+});
 
     </script>
 
