@@ -43,3 +43,15 @@
         </form>
     </div>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+    const supportForm = document.getElementById('support-form');
+    if (!supportForm) return;
+
+    supportForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        showToast('Support request sent successfully!');
+    });
+});
+
+</script>
