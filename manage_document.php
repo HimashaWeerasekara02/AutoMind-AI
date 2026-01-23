@@ -8,77 +8,75 @@ error_reporting(E_ALL);
 require_once 'db.php';
 
 $method = $_SERVER['REQUEST_METHOD'];
-
-$rawInput = file_get_contents("php://input");
-$input = json_decode($rawInput, true);
-
 $docId = $_GET['id'] ?? null;
 
 try {
     // --- DELETE DOCUMENT ---
     if ($method === 'DELETE') {
         if (!$docId) {
-            http_response_code(400);
-            echo json_encode(['success' => false, 'error' => 'Missing Document ID']);
-            exit;
+            throw new Exception('Missing Document ID');
         }
 
-        // 1. Get file path from Firebase first to delete the actual file
         $doc = db('GET', "documents/$docId");
-        
-        if ($doc && isset($doc['file_path'])) {
-            $filePath = $doc['file_path'];
-            
-            // Security Check: Ensure we only delete files inside our authorized directory
-            if (strpos($filePath, 'uploads/glovebox/') === 0 && file_exists($filePath)) {
-                unlink($filePath); // Remove physical file from server
+        if ($doc && isset($doc['fileUrl'])) {
+            if (file_exists($doc['fileUrl'])) {
+                unlink($doc['fileUrl']); 
             }
         }
 
-        // 2. Delete the record from Firebase
         db('DELETE', "documents/$docId");
-
-        echo json_encode(['success' => true, 'message' => 'Document and file deleted successfully']);
+        echo json_encode(['success' => true, 'message' => 'Document deleted']);
     }
 
-    // --- EDIT DOCUMENT (Update Name & Expiry) ---
-    else if ($method === 'PATCH') {
-        if (!$docId || !$input) {
-            http_response_code(400);
-            echo json_encode(['success' => false, 'error' => 'Invalid request data']);
-            exit;
-        }
+    // --- UPDATE DOCUMENT (Title, Expiry, AND/OR New File) ---
+    // Note: Use POST for updates if you are sending files via FormData
+    else if ($method === 'POST' || $method === 'PATCH') {
+        if (!$docId) throw new Exception('Missing Document ID');
+
+        // Fetch existing data to handle file replacement
+        $existingDoc = db('GET', "documents/$docId");
+        if (!$existingDoc) throw new Exception('Document not found');
 
         $updateData = [];
         
-        // Allow updating the friendly name
-        if (isset($input['file_name'])) {
-            $updateData['file_name'] = trim($input['file_name']);
-        }
+        // Handle Text Data (From $_POST if using FormData, or file_get_contents if JSON)
+        $title = $_POST['title'] ?? null;
+        $expiryDate = $_POST['expiryDate'] ?? null;
 
-        // Allow updating the expiry date
-        if (isset($input['expiry_date'])) {
-            $updateData['expiry_date'] = $input['expiry_date'];
+        if ($title) $updateData['title'] = trim($title);
+        if ($expiryDate) $updateData['expiryDate'] = $expiryDate;
+
+        // --- Handle File Replacement ---
+        if (isset($_FILES['document']) && $_FILES['document']['error'] === UPLOAD_ERR_OK) {
+            $uploadDir = 'uploads/glovebox/';
+            $fileExtension = strtolower(pathinfo($_FILES['document']['name'], PATHINFO_EXTENSION));
+            $newFileName = time() . '_' . bin2hex(random_bytes(4)) . '.' . $fileExtension;
+            $newPath = $uploadDir . $newFileName;
+
+            if (move_uploaded_file($_FILES['document']['tmp_name'], $newPath)) {
+                // Delete old file if a new one is successfully uploaded
+                if (isset($existingDoc['fileUrl']) && file_exists($existingDoc['fileUrl'])) {
+                    unlink($existingDoc['fileUrl']);
+                }
+                $updateData['fileUrl'] = $newPath;
+                $updateData['type'] = $_FILES['document']['type'];
+            }
         }
 
         if (empty($updateData)) {
-            throw new Exception("No valid fields (file_name or expiry_date) provided for update");
+            throw new Exception("No changes provided");
         }
 
-        // Update metadata in Firebase
         db('PATCH', "documents/$docId", $updateData);
-
-        echo json_encode(['success' => true, 'message' => 'Document updated successfully']);
+        echo json_encode(['success' => true, 'message' => 'Document updated successfully', 'data' => $updateData]);
     }
 
     // --- GET DOCUMENT(S) ---
     else if ($method === 'GET') {
         if (!$docId) {
-            // Fetch all documents for all vehicles (filtering is done on the frontend)
             $docs = db('GET', 'documents');
             echo json_encode($docs ?: []);
         } else {
-            // Fetch single document details
             $doc = db('GET', "documents/$docId");
             if (!$doc) {
                 http_response_code(404);
@@ -89,7 +87,6 @@ try {
         }
     }
 
-    // --- METHOD NOT ALLOWED ---
     else {
         http_response_code(405);
         echo json_encode(['success' => false, 'error' => 'Method not allowed']);
@@ -97,8 +94,5 @@ try {
 
 } catch (Exception $e) {
     http_response_code(500);
-    echo json_encode([
-        'success' => false,
-        'error' => $e->getMessage()
-    ]);
+    echo json_encode(['success' => false, 'error' => $e->getMessage()]);
 }

@@ -1,76 +1,81 @@
 <?php
 header('Content-Type: application/json');
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
+/**
+ * db.php should contain your Firebase connection logic 
+ * and the db($method, $path, $data) function.
+ */
 require 'db.php';
 
+// Only allow POST requests
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
-    echo json_encode([
-        "success" => false,
-        "error" => "Method not allowed. Use POST."
-    ]);
+    echo json_encode(["success" => false, "error" => "Method not allowed."]);
     exit;
 }
 
-$rawInput = file_get_contents("php://input");
-$input = json_decode($rawInput, true);
+// Get the JSON payload (containing Base64 image and text fields)
+$input = json_decode(file_get_contents("php://input"), true);
 
-if ($input === null) {
+if (!$input) {
     http_response_code(400);
-    echo json_encode([
-        "success" => false,
-        "error" => "Invalid JSON input"
-    ]);
+    echo json_encode(["success" => false, "error" => "Invalid JSON input"]);
     exit;
 }
 
-// Validate required fields
-$requiredFields = ['nickname', 'make', 'model', 'year'];
+/**
+ * 1. Validation
+ * nickname, make, model, year, and odometer are required based on your UI.
+ */
+$requiredFields = ['nickname', 'make', 'model', 'year', 'odometer'];
 foreach ($requiredFields as $field) {
-    if (!isset($input[$field]) || trim($input[$field]) === '') {
+    if (!isset($input[$field]) || (empty($input[$field]) && $input[$field] !== "0")) {
         http_response_code(400);
-        echo json_encode([
-            "success" => false,
-            "error" => "Missing required field: $field"
-        ]);
+        echo json_encode(["success" => false, "error" => "Missing required field: $field"]);
         exit;
     }
 }
 
-// Prepare vehicle data
-$vehicle = [
-    "nickname"    => trim($input['nickname']),
-    "make"        => trim($input['make']),
-    "model"       => trim($input['model']),
-    "year"        => (int)$input['year'],
-    "plate"       => trim($input['plate'] ?? ''),
-    "created_at"  => date("Y-m-d H:i:s")
+/**
+ * 2. Data Preparation
+ * Mapping frontend keys (plate, fuel, image) to 
+ * Database/ER Diagram keys (licensePlate, fuelType, imageUrl).
+ */
+$vehicleData = [
+    "userId"          => $input['userId'] ?? "user_jane_01", // Default for testing/session
+    "nickname"        => trim($input['nickname']),
+    "make"            => trim($input['make']),
+    "model"           => trim($input['model']),
+    "year"            => (int)$input['year'],
+    "licensePlate"    => trim($input['plate'] ?? ''),
+    "currentOdometer" => (int)$input['odometer'],
+    "fuelType"        => trim($input['fuel'] ?? 'Petrol'), 
+    "imageUrl"        => $input['image'] ?? '', // Stores the Base64 Data URL
+    "createdAt"       => date("c")              // ISO 8601 timestamp
 ];
 
 try {
-    // Insert vehicle into Firebase
-    $result = db("POST", "vehicles", $vehicle);
+    /**
+     * 3. Firebase Interaction
+     * Sending data to the 'vehicles' node/collection.
+     */
+    $result = db("POST", "vehicles", $vehicleData);
 
-    // Check Firebase response
+    // Firebase returns a 'name' field which acts as the unique ID (Key)
     if (!isset($result['name'])) {
-        throw new Exception("Firebase insert failed: no ID returned");
+        throw new Exception("Firebase Error: Record was not created.");
     }
 
-    // Success response
     echo json_encode([
-        "success" => true,
-        "message" => "Vehicle added successfully",
-        "id" => $result['name']
+        "success"   => true,
+        "message"   => "Vehicle added to your garage!",
+        "vehicleId" => $result['name']
     ]);
 
 } catch (Exception $e) {
     http_response_code(500);
     echo json_encode([
-        "success" => false,
-        "error" => $e->getMessage()
+        "success" => false, 
+        "error"   => "Server Error: " . $e->getMessage()
     ]);
 }

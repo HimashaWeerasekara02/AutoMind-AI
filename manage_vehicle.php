@@ -1,14 +1,13 @@
 <?php
-
 header('Content-Type: application/json');
 
+// Disable error display for clean JSON output
 ini_set('display_errors', 0);
 error_reporting(E_ALL);
 
 require_once 'db.php';
 
 $method = $_SERVER['REQUEST_METHOD'];
-
 $vehicleId = $_GET['id'] ?? null;
 
 $rawInput = file_get_contents("php://input");
@@ -29,32 +28,43 @@ try {
             exit;
         }
 
-        // Define allowed fields to prevent accidental overwrites of system data
-        $allowedFields = ['nickname', 'make', 'model', 'year', 'plate'];
+        /**
+         * Expanded Data Mapping
+         * We map frontend keys to your specific Database/Firebase keys.
+         */
         $updateData = [];
 
-        foreach ($allowedFields as $field) {
-            if (isset($input[$field])) {
-                $updateData[$field] = ($field === 'year') ? (int)$input[$field] : trim($input[$field]);
-            }
+        // Text Fields
+        if (isset($input['nickname'])) $updateData['nickname'] = trim($input['nickname']);
+        if (isset($input['make']))     $updateData['make']     = trim($input['make']);
+        if (isset($input['model']))    $updateData['model']    = trim($input['model']);
+        if (isset($input['plate']))    $updateData['licensePlate'] = trim($input['plate']);
+        if (isset($input['fuel']))     $updateData['fuelType'] = trim($input['fuel']);
+        
+        // Numeric Fields
+        if (isset($input['year']))     $updateData['year'] = (int)$input['year'];
+        if (isset($input['odometer'])) $updateData['currentOdometer'] = (int)$input['odometer'];
+
+        // Image Field (Base64 string)
+        if (!empty($input['image'])) {
+            $updateData['imageUrl'] = $input['image'];
         }
 
         if (empty($updateData)) {
             throw new Exception("No valid fields provided for update");
         }
 
-        // Send update to Firebase
+        // Send partial update to Firebase Node: vehicles/{vehicleId}
         db('PATCH', "vehicles/$vehicleId", $updateData);
 
         echo json_encode([
             'success' => true, 
-            'message' => 'Vehicle updated successfully'
+            'message' => 'Vehicle features updated successfully'
         ]);
     } 
 
     // --- DELETE VEHICLE (DELETE) ---
     else if ($method === 'DELETE') {
-        
         db('DELETE', "vehicles/$vehicleId");
 
         echo json_encode([
@@ -63,7 +73,6 @@ try {
         ]);
     }
 
-    // --- METHOD NOT ALLOWED ---
     else {
         http_response_code(405);
         echo json_encode(['success' => false, 'error' => 'Method not allowed']);

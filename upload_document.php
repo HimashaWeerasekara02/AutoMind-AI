@@ -13,29 +13,31 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-// Validate Required Inputs
+// 1. Validate Required File
 if (!isset($_FILES['document'])) {
     http_response_code(400);
     echo json_encode(['success' => false, 'error' => 'No file uploaded']);
     exit;
 }
 
-$vehicleId  = $_POST['vehicle_id'] ?? null;
-$expiryDate = $_POST['expiry_date'] ?? null; 
+// 2. Mapping variables to Database Schema
+$vehicleId  = $_POST['vehicleId'] ?? null; // Matching DB vehicleId
+$title      = $_POST['title'] ?? basename($_FILES['document']['name']); // Display name
+$expiryDate = $_POST['expiryDate'] ?? null; // Matching DB expiryDate
 
 if (!$vehicleId) {
     http_response_code(400);
-    echo json_encode(['success' => false, 'error' => 'Missing vehicle_id. Cannot link document.']);
+    echo json_encode(['success' => false, 'error' => 'Missing vehicleId. Cannot link document.']);
     exit;
 }
 
-// Setup Directory
+// 3. Setup Directory
 $uploadDir = 'uploads/glovebox/';
 if (!is_dir($uploadDir)) {
     mkdir($uploadDir, 0777, true);
 }
 
-// Security: Validate File Extension
+// 4. Security: Validate File Extension
 $originalName = basename($_FILES['document']['name']);
 $fileExtension = strtolower(pathinfo($originalName, PATHINFO_EXTENSION));
 $allowedExtensions = ['pdf', 'jpg', 'jpeg', 'png', 'doc', 'docx'];
@@ -46,39 +48,41 @@ if (!in_array($fileExtension, $allowedExtensions)) {
     exit;
 }
 
-// Create a unique name to prevent overwriting
+// 5. Create a unique file path
 $safeFileName = time() . '_' . bin2hex(random_bytes(4)) . '.' . $fileExtension;
 $targetPath = $uploadDir . $safeFileName;
 
-// Move File and Save to Firebase
+// 6. Move File and Save to Database
 if (move_uploaded_file($_FILES['document']['tmp_name'], $targetPath)) {
     
-    // Data to store in Firebase
+    // Aligned with the "Documents" Entity in your ER Diagram
     $documentData = [
-        'vehicle_id'  => $vehicleId,   // 🔗 Linked Car ID
-        'file_name'   => $originalName,
-        'file_path'   => $targetPath,
-        'expiry_date' => $expiryDate,  // 📅 Important for Insurance/License
-        'uploaded_at' => date("Y-m-d H:i:s"),
+        'vehicleId'   => $vehicleId,      // Foreign Key
+        'title'       => $title,          // Friendly Display Name
+        'fileUrl'     => $targetPath,     // Path to file
+        'expiryDate'  => $expiryDate,     // Critical for reminders
+        'uploadDate'  => date("Y-m-d"),   // Created date
         'type'        => $_FILES['document']['type']
     ];
 
     try {
-        // Saves to the "documents" node in Firebase
+        // Saves to the "documents" node
         $firebaseResult = db("POST", "documents", $documentData);
 
         echo json_encode([
             'success' => true,
             'message' => 'Document saved successfully',
-            'path'    => $targetPath,
-            'firebase_id' => $firebaseResult['name'] ?? null
+            'fileUrl' => $targetPath,
+            'documentId' => $firebaseResult['name'] ?? null
         ]);
     } catch (Exception $e) {
-        // File exists on server, but database entry failed
+        // Rollback: delete file if database entry fails
+        if (file_exists($targetPath)) unlink($targetPath);
+        
+        http_response_code(500);
         echo json_encode([
-            'success' => true, 
-            'warning' => 'File saved on server, but database update failed',
-            'error'   => $e->getMessage()
+            'success' => false, 
+            'error'   => 'Database update failed: ' . $e->getMessage()
         ]);
     }
 } else {
