@@ -6,30 +6,21 @@ header('Content-Type: application/json');
  * and the db($method, $path, $data) function.
  */
 require 'db.php';
+session_start();
 
-// Only allow POST requests
+// 1. Method Guard
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
     echo json_encode(["success" => false, "error" => "Method not allowed."]);
     exit;
 }
 
-// Get the JSON payload (containing Base64 image and text fields)
-$input = json_decode(file_get_contents("php://input"), true);
-
-if (!$input) {
-    http_response_code(400);
-    echo json_encode(["success" => false, "error" => "Invalid JSON input"]);
-    exit;
-}
-
 /**
- * 1. Validation
- * nickname, make, model, year, and odometer are required based on your UI.
+ * 2. Validation based on ER Diagram Requirements
  */
 $requiredFields = ['nickname', 'make', 'model', 'year', 'odometer'];
 foreach ($requiredFields as $field) {
-    if (!isset($input[$field]) || (empty($input[$field]) && $input[$field] !== "0")) {
+    if (!isset($_POST[$field]) || (empty($_POST[$field]) && $_POST[$field] !== "0")) {
         http_response_code(400);
         echo json_encode(["success" => false, "error" => "Missing required field: $field"]);
         exit;
@@ -37,45 +28,59 @@ foreach ($requiredFields as $field) {
 }
 
 /**
- * 2. Data Preparation
- * Mapping frontend keys (plate, fuel, image) to 
- * Database/ER Diagram keys (licensePlate, fuelType, imageUrl).
+ * 3. Image Processing (File to Base64)
+ */
+$imageUrl = "";
+if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+    $fileTmpPath = $_FILES['image']['tmp_name'];
+    $fileType = $_FILES['image']['type'];
+    
+    // Allowed image types
+    $allowed = ['image/jpeg', 'image/png', 'image/webp'];
+    if (in_array($fileType, $allowed)) {
+        $imageData = file_get_contents($fileTmpPath);
+        $imageUrl = 'data:' . $fileType . ';base64,' . base64_encode($imageData);
+    } else {
+        http_response_code(400);
+        echo json_encode(["success" => false, "error" => "Only JPG, PNG, and WEBP images allowed."]);
+        exit;
+    }
+}
+
+/**
+ * 4. Data Mapping (Matches ER Diagram: Vehicles Entity)
  */
 $vehicleData = [
-    "userId"          => $input['userId'] ?? "user_jane_01", // Default for testing/session
-    "nickname"        => trim($input['nickname']),
-    "make"            => trim($input['make']),
-    "model"           => trim($input['model']),
-    "year"            => (int)$input['year'],
-    "licensePlate"    => trim($input['plate'] ?? ''),
-    "currentOdometer" => (int)$input['odometer'],
-    "fuelType"        => trim($input['fuel'] ?? 'Petrol'), 
-    "imageUrl"        => $input['image'] ?? '', // Stores the Base64 Data URL
-    "createdAt"       => date("c")              // ISO 8601 timestamp
+    "userId"          => $_SESSION['user_id'] ?? "guest_user", // Link to Users entity
+    "nickname"        => trim($_POST['nickname']),
+    "make"            => trim($_POST['make']),
+    "model"           => trim($_POST['model']),
+    "year"            => (int)$_POST['year'],
+    "fuelType"        => trim($_POST['fuel'] ?? 'Petrol'), 
+    "licensePlate"    => trim($_POST['plate'] ?? ''),
+    "currentOdometer" => (int)$_POST['odometer'],
+    "imageUrl"        => $imageUrl,
+    "createdAt"       => date("c") // ISO 8601
 ];
 
 try {
     /**
-     * 3. Firebase Interaction
-     * Sending data to the 'vehicles' node/collection.
+     * 5. Firebase Write
+     * Note: We store under 'vehicles' node as per standard structure
      */
     $result = db("POST", "vehicles", $vehicleData);
 
-    // Firebase returns a 'name' field which acts as the unique ID (Key)
     if (!isset($result['name'])) {
-        throw new Exception("Firebase Error: Record was not created.");
+        throw new Exception("Firebase failed to generate a vehicleId.");
     }
 
     echo json_encode([
         "success"   => true,
-        "message"   => "Vehicle added to your garage!",
+        "message"   => "Vehicle successfully registered!",
         "vehicleId" => $result['name']
     ]);
 
 } catch (Exception $e) {
     http_response_code(500);
-    echo json_encode([
-        "success" => false, 
-        "error"   => "Server Error: " . $e->getMessage()
-    ]);
+    echo json_encode(["success" => false, "error" => $e->getMessage()]);
 }

@@ -1,76 +1,158 @@
+<?php 
+require_once 'db.php'; 
+session_start();
+if (!isset($_SESSION['user_id'])) { header("Location: login.php"); exit(); }
+$userId = $_SESSION['user_id'];
+$displayName = $_SESSION['displayName'] ?? 'User';
+?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vehicle Dashboard - AutoMind AI</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Command Center - AutoMind AI</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Round" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #0f172a; }
-        .card-grad { background: linear-gradient(145deg, #1e293b, #111827); }
+        body { font-family: 'Inter', sans-serif; background-color: #0f172a; color: #d1d5db; }
+        .glass-card { background: #1e293b; border: 1px solid #334155; border-radius: 1.5rem; transition: all 0.3s ease; }
+        .metric-glow { filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.4)); }
+        select { background-color: #0f172a !important; border: 1px solid #334155 !important; color: white !important; }
+        .ai-panel { border-radius: 2rem; box-shadow: 0 25px 50px -12px rgba(30, 58, 138, 0.3); }
+        
+        /* Custom scrollbar for a cleaner look */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
     </style>
 </head>
-<body class="text-gray-300 antialiased">
+<body class="antialiased">
 
     <?php include 'sidebar.php'; ?>
 
-    <main class="ml-64 p-8 min-h-screen">
-        <div class="max-w-6xl mx-auto">
+    <main class="lg:ml-64 min-h-screen p-4 md:p-8 transition-all duration-300">
+        <div class="max-w-7xl mx-auto">
             
-            <div class="flex justify-between items-start mb-8">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-10 pb-6 border-b border-white/5">
                 <div>
-                    <h1 id="vehicle-name" class="text-3xl font-bold text-white italic">Loading Vehicle...</h1>
-                    <p class="text-gray-400">A comprehensive overview of your vehicle's health and maintenance.</p>
-                </div>
-                <button class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-semibold flex items-center gap-2 transition">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                    Run Diagnostic
-                </button>
-            </div>
-
-            <div id="alert-banner" class="hidden mb-8 card-grad border border-gray-700 rounded-xl p-6 flex justify-between items-center">
-                <div class="flex items-center gap-6">
-                    <div class="bg-yellow-500/10 p-4 rounded-full border border-yellow-500/20">
-                        <svg class="w-8 h-8 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
-                    </div>
-                    <div>
-                        <span class="text-yellow-500 text-xs font-bold uppercase tracking-wider">Critical Alert</span>
-                        <h2 class="text-xl font-bold text-white">Oil Change Due in <span id="oil-miles">0</span> miles</h2>
-                        <p class="text-gray-400 text-sm mt-1">Your vehicle is due for an oil change soon to ensure optimal engine performance.</p>
-                        <a href="#" class="text-blue-400 text-sm font-semibold mt-2 inline-block hover:underline">Schedule Service &rarr;</a>
+                    <h1 class="text-white text-3xl md:text-5xl font-black italic uppercase tracking-tighter">Command Center</h1>
+                    <div class="flex items-center gap-2 mt-2">
+                        <span class="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
+                        <p class="text-slate-400 text-[10px] font-bold tracking-widest uppercase">Telemetry: <span id="current-vehicle-name" class="text-blue-400">Connecting...</span></p>
                     </div>
                 </div>
-                <div class="hidden md:block bg-gray-800 px-10 py-8 rounded-lg border border-gray-700 text-gray-500 font-bold">
-                    Honda Civic
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 
-                <div class="card-grad border border-gray-700 rounded-xl p-6">
-                    <h3 class="text-xl font-bold text-white mb-6">Upcoming Maintenance</h3>
-                    <div id="maintenance-list" class="space-y-6">
+                <div class="w-full md:w-auto">
+                    <select id="vehicle-switcher" onchange="switchVehicle(this.value)" 
+                            class="w-full md:w-72 rounded-xl px-4 py-3 font-bold uppercase text-[10px] tracking-widest shadow-2xl outline-none focus:border-blue-500">
+                        <option value="" disabled selected>Loading Garage...</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                
+                <div class="lg:col-span-2 space-y-8">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="glass-card p-8 relative overflow-hidden group">
+                            <div class="flex justify-between items-start">
+                                <p class="text-slate-500 text-[10px] font-black uppercase tracking-widest">Est. Fuel Level</p>
+                                <span class="material-icons-round text-blue-500">local_gas_station</span>
+                            </div>
+                            <div class="flex items-baseline gap-2 mt-4">
+                                <span id="fuel-level" class="text-6xl font-black text-white metric-glow italic">--</span>
+                                <span class="text-blue-500 font-black italic text-xl">%</span>
+                            </div>
+                            <div class="mt-8 w-full bg-slate-900 h-2 rounded-full overflow-hidden">
+                                <div id="fuel-bar" class="bg-blue-600 h-full w-0 transition-all duration-[1.5s] ease-out"></div>
+                            </div>
                         </div>
+
+                        <div class="glass-card p-8">
+                            <div class="flex justify-between items-start">
+                                <p class="text-slate-500 text-[10px] font-black uppercase tracking-widest">Real-Time Efficiency</p>
+                                <span class="material-icons-round text-green-500">eco</span>
+                            </div>
+                            <div class="flex items-baseline gap-2 mt-4">
+                                <span id="efficiency-val" class="text-6xl font-black text-white metric-glow italic">--</span>
+                                <span class="text-green-500 font-black italic text-xl">KM/L</span>
+                            </div>
+                            <div class="mt-6 flex items-center gap-2">
+                                <span class="text-slate-500 text-[10px] font-bold uppercase tracking-widest">Est. Range:</span>
+                                <span id="range-val" class="text-white font-bold text-sm">--</span>
+                                <span class="text-slate-500 text-[10px] font-bold uppercase">KM</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="ai-container" class="ai-panel bg-blue-600 p-8 md:p-10 text-white relative overflow-hidden transition-all duration-700">
+                        <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-white/5 rounded-full blur-3xl"></div>
+                        
+                        <div class="flex items-center gap-3 mb-6">
+                            <span class="material-icons-round text-xl opacity-80">psychology</span>
+                            <p class="font-black text-[10px] uppercase tracking-[0.3em] opacity-80">Neural Analysis Engine</p>
+                        </div>
+                        
+                        <h2 id="ai-insight" class="text-xl md:text-3xl font-black leading-tight italic tracking-tighter uppercase max-w-2xl">
+                            Syncing data...
+                        </h2>
+                        
+                        <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8 pt-8 border-t border-white/10">
+                            <div>
+                                <div class="flex justify-between text-[10px] font-black uppercase tracking-widest mb-3 opacity-80">
+                                    <span>Reliability Index</span>
+                                    <span id="engine-health-text">--%</span>
+                                </div>
+                                <div class="w-full bg-black/20 h-2 rounded-full">
+                                    <div id="engine-bar" class="bg-white h-full w-0 transition-all duration-[2s]"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="text-[10px] font-black uppercase tracking-widest mb-1 opacity-80">Status</p>
+                                <p id="engine-status" class="font-black text-lg italic uppercase tracking-tighter">Initializing...</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="card-grad border border-gray-700 rounded-xl p-6">
-                    <h3 class="text-xl font-bold text-white mb-6">Performance Analytics</h3>
+                <div class="space-y-6">
+                    <div class="glass-card p-8 border-l-4 border-l-blue-500">
+                        <h3 class="text-slate-500 text-[10px] font-black mb-8 uppercase tracking-widest">Financial Intelligence</h3>
+                        <div class="space-y-6">
+                            <div>
+                                <p class="text-xs text-slate-400 font-bold mb-1 uppercase">Ownership Spend</p>
+                                <p id="total-cost" class="text-3xl font-black text-white italic tracking-tighter">LKR 0</p>
+                            </div>
+                            <div class="flex justify-between items-end border-t border-white/5 pt-6">
+                                <div>
+                                    <p class="text-[10px] text-slate-500 font-black uppercase">Service Logs</p>
+                                    <p id="service-count" class="text-2xl font-black text-white italic">0</p>
+                                </div>
+                                <a id="full-report-link" href="#" class="bg-blue-600/10 text-blue-400 px-4 py-2 rounded-lg font-black text-[10px] uppercase tracking-widest hover:bg-blue-600 hover:text-white transition">Report →</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="glass-card p-8 border-l-4 border-l-indigo-500">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="text-slate-500 text-[10px] font-black uppercase tracking-widest">Technical Notes</h3>
+                            <a href="notes.php" class="text-indigo-400 text-[10px] font-black uppercase hover:underline">Manage</a>
+                        </div>
+                        <div id="dashboard-notes-list" class="space-y-4">
+                            <p class="text-slate-600 text-[10px] italic">Accessing database logs...</p>
+                        </div>
+                    </div>
+
                     <div class="grid grid-cols-2 gap-4">
-                        <div>
-                            <p class="text-gray-400 text-sm">Fuel Efficiency Over Time</p>
-                            <div class="flex items-baseline gap-2 mt-1">
-                                <span id="mpg-val" class="text-3xl font-bold text-white">0.0 MPG</span>
-                            </div>
-                            <p class="text-green-500 text-xs font-bold mt-1">Last 6 Months +1.2%</p>
-                        </div>
-                        <div>
-                            <p class="text-gray-400 text-sm">Monthly Fuel Costs</p>
-                            <div class="flex items-baseline gap-2 mt-1">
-                                <span id="fuel-cost" class="text-3xl font-bold text-white">$0.00</span>
-                            </div>
-                            <p class="text-red-500 text-xs font-bold mt-1">This Year -5.5%</p>
-                        </div>
+                        <a href="maintenance.php" class="glass-card p-6 text-center hover:bg-blue-600 border-none group transition-all duration-300">
+                            <span class="material-icons-round text-blue-500 group-hover:text-white mb-2 block">add_circle</span>
+                            <p class="text-[10px] font-black uppercase tracking-widest text-white">Add Log</p>
+                        </a>
+                        <a href="MyGarage.php" class="glass-card p-6 text-center hover:bg-green-600 border-none group transition-all duration-300">
+                            <span class="material-icons-round text-green-500 group-hover:text-white mb-2 block">garage</span>
+                            <p class="text-[10px] font-black uppercase tracking-widest text-white">Garage</p>
+                        </a>
                     </div>
                 </div>
 
@@ -78,57 +160,124 @@
         </div>
     </main>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
-        import { getFirestore, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
+    <script>
+        // Keep your existing switchVehicle and initDashboard logic as it is functional.
+        // Just ensuring the UI updates match the new container classes.
+        
+        let garageData = {};
 
-        // Replace with your ACTUAL Firebase Config
-        const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "YOUR_PROJECT.firebaseapp.com",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_PROJECT.appspot.com",
-            messagingSenderId: "YOUR_ID",
-            appId: "YOUR_APP_ID"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-
-        // Fetch vehicle data (Replace 'honda-civic-id' with your actual Doc ID)
-        const vehicleDoc = doc(db, "vehicles", "honda-civic-id");
-
-        onSnapshot(vehicleDoc, (doc) => {
-            if (doc.exists()) {
-                const data = doc.data();
+        async function initDashboard() {
+            try {
+                const res = await fetch('get_vehicles.php');
+                garageData = await res.json();
+                const switcher = document.getElementById('vehicle-switcher');
+                if(!switcher) return;
+                switcher.innerHTML = '';
                 
-                // Update UI with Firebase Data
-                document.getElementById('vehicle-name').innerText = data.name;
-                document.getElementById('oil-miles').innerText = data.oil_change_miles;
-                document.getElementById('mpg-val').innerText = `${data.mpg} MPG`;
-                document.getElementById('fuel-cost').innerText = `$${data.monthly_fuel.toFixed(2)}`;
-                
-                // Show banner if oil is low
-                if(data.oil_change_miles < 500) {
-                    document.getElementById('alert-banner').classList.remove('hidden');
+                const entries = Object.entries(garageData);
+                if (entries.length === 0) {
+                    document.getElementById('current-vehicle-name').innerText = "Empty Garage";
+                    switcher.innerHTML = '<option disabled selected>No Vehicles Found</option>';
+                    return;
                 }
 
-                // Render Maintenance List
-                const list = document.getElementById('maintenance-list');
-                list.innerHTML = data.maintenance.map(item => `
-                    <div class="flex justify-between items-center">
-                        <div class="flex items-center gap-4">
-                            <div class="w-3 h-3 rounded-full ${item.status === 'overdue' ? 'bg-red-500' : 'bg-yellow-500'}"></div>
-                            <div>
-                                <p class="text-white font-bold">${item.task}</p>
-                                <p class="${item.status === 'overdue' ? 'text-red-500' : 'text-yellow-500'} text-xs">${item.due}</p>
-                            </div>
-                        </div>
-                        <a href="#" class="text-blue-400 text-sm hover:underline">View Details</a>
-                    </div>
-                `).join('');
-            }
-        });
+                entries.forEach(([id, v], index) => {
+                    const opt = document.createElement('option');
+                    opt.value = id;
+                    opt.textContent = `${v.make} ${v.model}`.toUpperCase();
+                    switcher.appendChild(opt);
+                    if (index === 0) { switcher.value = id; switchVehicle(id); }
+                });
+            } catch (e) { console.error("Init Error", e); }
+        }
+
+        async function switchVehicle(vId) {
+            const v = garageData[vId];
+            if(!v) return;
+
+            document.getElementById('current-vehicle-name').innerText = (v.nickname || `${v.make} ${v.model}`).toUpperCase();
+            document.getElementById('full-report-link').href = `vehicle_report.php?vehicleId=${vId}`;
+            const fuelLevel = v.fuel_level || 50; 
+            document.getElementById('fuel-level').innerText = fuelLevel;
+            document.getElementById('fuel-bar').style.width = fuelLevel + '%';
+
+            try {
+                const [mRes, fRes, nRes] = await Promise.all([
+                    fetch(`get_maintenance.php?vehicleId=${vId}`),
+                    fetch(`get_fuel.php?vehicleId=${vId}`),
+                    fetch(`manage_notes.php?vehicleId=${vId}`)
+                ]);
+
+                const mData = await mRes.json();
+                const fData = await fRes.json();
+                const nData = await nRes.json();
+
+                // 1. NOTES
+                const notesList = document.getElementById('dashboard-notes-list');
+                notesList.innerHTML = (nData && Object.keys(nData).length > 0) 
+                    ? Object.entries(nData).slice(0, 2).map(([id, note]) => `
+                        <div class="border-b border-white/5 pb-3 last:border-0">
+                            <p class="text-white text-xs font-bold truncate uppercase">${note.title}</p>
+                            <p class="text-slate-500 text-[10px] line-clamp-1 italic">${note.content}</p>
+                        </div>`).join('')
+                    : '<p class="text-slate-600 text-[10px] italic uppercase tracking-widest">No technical logs found.</p>';
+
+                // 2. FUEL LOGIC
+                let totalSpent = 0;
+                let efficiency = 0;
+                if (fData.success && fData.logs.length >= 2) {
+                    const l1 = fData.logs[0];
+                    const l2 = fData.logs[1];
+                    efficiency = ((l1.odometer - l2.odometer) / l1.quantity).toFixed(1);
+                    totalSpent += parseFloat(fData.summary.total_spent || 0);
+                    document.getElementById('efficiency-val').innerText = efficiency;
+                    const tankCap = v.tank_capacity || 45;
+                    const range = Math.round(efficiency * (tankCap * (fuelLevel / 100)));
+                    document.getElementById('range-val').innerText = range;
+                } else {
+                    document.getElementById('efficiency-val').innerText = "--";
+                }
+
+                // 3. AI LOGIC
+                let mCount = 0;
+                let reliability = 100;
+                const aiContainer = document.getElementById('ai-container');
+                const aiText = document.getElementById('ai-insight');
+
+                if (mData.success) {
+                    mCount = parseInt(mData.stats.service_count);
+                    totalSpent += parseFloat(mData.stats.total_spent || 0);
+                    const currentOdo = (fData.logs && fData.logs[0]) ? fData.logs[0].odometer : 0;
+                    const lastServiceOdo = (mData.logs && mData.logs[0]) ? mData.logs[0].odometer : 0;
+                    const mileageSinceService = currentOdo - lastServiceOdo;
+
+                    if (mileageSinceService > 5000) {
+                        reliability = Math.max(40, 100 - (mileageSinceService / 100));
+                        aiContainer.className = "ai-panel bg-red-600 p-8 md:p-10 text-white relative overflow-hidden transition-all duration-700";
+                        aiText.innerText = `SERVICE OVERDUE BY ${mileageSinceService - 5000} KM. RELIABILITY DEGRADED.`;
+                        document.getElementById('engine-status').innerText = "URGENT";
+                    } else if (mileageSinceService > 4000) {
+                        reliability = 85;
+                        aiContainer.className = "ai-panel bg-amber-600 p-8 md:p-10 text-white relative overflow-hidden transition-all duration-700";
+                        aiText.innerText = `ROUTINE MAINTENANCE RECOMMENDED WITHIN ${5000 - mileageSinceService} KM.`;
+                        document.getElementById('engine-status').innerText = "DUE SOON";
+                    } else {
+                        reliability = mCount > 0 ? 98 : 100;
+                        aiContainer.className = "ai-panel bg-blue-600 p-8 md:p-10 text-white relative overflow-hidden transition-all duration-700";
+                        aiText.innerText = efficiency > 0 ? `ENGINE PERFORMING OPTIMALLY AT ${efficiency} KM/L.` : "TELEMETRY SYNCED. LOG MORE FUEL FOR DEEPER ANALYSIS.";
+                        document.getElementById('engine-status').innerText = "OPTIMAL";
+                    }
+                }
+
+                document.getElementById('engine-health-text').innerText = Math.round(reliability) + '%';
+                document.getElementById('engine-bar').style.width = reliability + '%';
+                document.getElementById('total-cost').innerText = `LKR ${totalSpent.toLocaleString()}`;
+                document.getElementById('service-count').innerText = mCount;
+
+            } catch (e) { console.warn("Sync Error", e); }
+        }
+
+        initDashboard();
     </script>
 </body>
 </html>
