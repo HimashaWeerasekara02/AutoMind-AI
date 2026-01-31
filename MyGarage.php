@@ -65,9 +65,10 @@ $displayName = $_SESSION['displayName'] ?? 'User';
 
     <div id="vehicleModal" class="fixed inset-0 bg-black/80 hidden items-center justify-center z-[100] backdrop-blur-sm p-4 overflow-y-auto">
         <div class="bg-[#1e293b] p-6 md:p-8 rounded-2xl w-full max-w-lg shadow-2xl border border-gray-700 modal-animate my-auto">
-            <h2 class="text-xl md:text-2xl text-white font-bold mb-6 italic uppercase">New Vehicle</h2>
+            <h2 id="modal-title" class="text-xl md:text-2xl text-white font-bold mb-6 italic uppercase">New Vehicle</h2>
             
-            <form id="add-vehicle-form" class="space-y-4">
+            <form id="vehicle-form" class="space-y-4">
+                <input type="hidden" name="vehicle_id" id="edit_vehicle_id">
                 <div>
                     <label class="block text-xs font-semibold text-gray-500 mb-1">Nickname</label>
                     <input type="text" name="nickname" id="nickInput" placeholder="e.g. Blue Beast" required 
@@ -78,33 +79,33 @@ $displayName = $_SESSION['displayName'] ?? 'User';
                 <div class="grid grid-cols-2 gap-4">
                     <div>
                         <label class="block text-xs font-semibold text-gray-500 mb-1">Make</label>
-                        <input type="text" name="make" placeholder="Toyota" required class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 text-white">
+                        <input type="text" name="make" id="makeInput" placeholder="Toyota" required class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 text-white">
                     </div>
                     <div>
                         <label class="block text-xs font-semibold text-gray-500 mb-1">Model</label>
-                        <input type="text" name="model" placeholder="Camry" required class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 text-white">
+                        <input type="text" name="model" id="modelInput" placeholder="Camry" required class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 text-white">
                     </div>
                 </div>
 
                 <div class="grid grid-cols-2 gap-4">
                     <div>
                         <label class="block text-xs font-semibold text-gray-500 mb-1">Year</label>
-                        <input type="number" name="year" placeholder="2024" required class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 text-white">
+                        <input type="number" name="year" id="yearInput" placeholder="2024" required class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 text-white">
                     </div>
                     <div>
                         <label class="block text-xs font-semibold text-gray-500 mb-1">License Plate</label>
-                        <input type="text" name="plate" placeholder="ABC-1234" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 text-white">
+                        <input type="text" name="plate" id="plateInput" placeholder="ABC-1234" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 text-white">
                     </div>
                 </div>
 
                 <div class="grid grid-cols-2 gap-4">
                     <div>
                         <label class="block text-xs font-semibold text-gray-500 mb-1">Odometer (KM)</label>
-                        <input type="number" name="odometer" placeholder="0" required class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 text-white">
+                        <input type="number" name="odometer" id="odoInput" placeholder="0" required class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 text-white">
                     </div>
                     <div>
                         <label class="block text-xs font-semibold text-gray-500 mb-1">Fuel Type</label>
-                        <select name="fuel" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 text-white">
+                        <select name="fuel" id="fuelInput" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 text-white">
                             <option value="Petrol">Petrol</option>
                             <option value="Diesel">Diesel</option>
                             <option value="Electric">Electric</option>
@@ -139,8 +140,8 @@ $displayName = $_SESSION['displayName'] ?? 'User';
         const nickError = document.getElementById('nickError');
         const saveBtn = document.getElementById('saveBtn');
         let allVehicles = {};
+        let isEditMode = false;
 
-        // Fetch Data
         async function loadGarage() {
             try {
                 const res = await fetch('get_vehicles.php');
@@ -148,13 +149,12 @@ $displayName = $_SESSION['displayName'] ?? 'User';
                 allVehicles = data;
                 renderVehicles(data);
             } catch (err) {
-                grid.innerHTML = `<div class="col-span-full text-center py-10 text-red-400">Error loading garage.</div>`;
+                grid.innerHTML = `<div class="col-span-full text-center py-10 text-red-400">Error connecting to server.</div>`;
             }
         }
 
-        // New Refresh Function
         function refreshGarage() {
-            searchInput.value = ''; // Clear the search bar
+            searchInput.value = '';
             grid.innerHTML = `<div class="col-span-full py-20 text-center"><p class="text-gray-500 animate-pulse font-bold italic uppercase tracking-widest">Refreshing...</p></div>`;
             loadGarage();
         }
@@ -162,31 +162,43 @@ $displayName = $_SESSION['displayName'] ?? 'User';
         function renderVehicles(vehicles) {
             const keys = Object.keys(vehicles);
             if (keys.length === 0) {
-                grid.innerHTML = `<div class="col-span-full py-20 border-2 border-dashed border-gray-800 rounded-2xl text-center text-gray-500 uppercase font-bold tracking-widest">No vehicles matching your search.</div>`;
+                grid.innerHTML = `<div class="col-span-full py-20 border-2 border-dashed border-gray-800 rounded-2xl text-center text-gray-500 uppercase font-bold tracking-widest">No vehicles found.</div>`;
                 return;
             }
 
             grid.innerHTML = keys.map(id => {
                 const v = vehicles[id];
                 const img = v.imageUrl || 'https://via.placeholder.com/400x200?text=AutoMind+AI';
+                const plateDisp = v.plate || v.licensePlate || 'NO PLATE';
+                const odoDisp = parseInt(v.odometer || v.currentOdometer || 0);
+
                 return `
                 <div class="glass-card overflow-hidden flex flex-col">
                     <div class="h-40 bg-gray-800 relative overflow-hidden">
                         <img src="${img}" class="w-full h-full object-cover">
                         <div class="absolute top-3 left-3">
-                            <span class="bg-blue-600 text-[10px] font-black uppercase px-2 py-1 rounded text-white shadow-lg">${v.fuel}</span>
+                            <span class="bg-blue-600 text-[10px] font-black uppercase px-2 py-1 rounded text-white shadow-lg">${v.fuel || 'Petrol'}</span>
+                        </div>
+                        <div class="card-actions absolute top-3 right-3 flex gap-2">
+                            <button onclick="editVehicle('${id}')" class="bg-black/50 hover:bg-blue-600 backdrop-blur-md text-white p-1.5 rounded-lg transition border border-white/20">
+                                <span class="material-symbols-outlined text-sm">edit</span>
+                            </button>
+                            <button onclick="deleteVehicle('${id}')" class="bg-black/50 hover:bg-red-600 backdrop-blur-md text-white p-1.5 rounded-lg transition border border-white/20">
+                                <span class="material-symbols-outlined text-sm">delete</span>
+                            </button>
                         </div>
                     </div>
+
                     <div class="p-5 flex-1">
                         <div class="flex justify-between items-start mb-2">
                             <h3 class="text-lg font-bold text-white italic uppercase">${v.nickname}</h3>
-                            <span class="text-blue-400 font-bold text-xs">${v.plate || 'NO PLATE'}</span>
+                            <span class="text-blue-400 font-bold text-xs">${plateDisp}</span>
                         </div>
                         <p class="text-gray-500 text-xs mb-4 uppercase font-bold">${v.year} ${v.make} ${v.model}</p>
                         
                         <div class="flex items-center gap-2 mb-6 bg-gray-900/50 p-2 rounded-lg border border-gray-800">
                             <span class="material-symbols-outlined text-blue-500 text-sm">speed</span>
-                            <span class="text-white font-bold">${parseInt(v.odometer).toLocaleString()}</span>
+                            <span class="text-white font-bold">${odoDisp.toLocaleString()}</span>
                             <span class="text-[10px] text-gray-500 font-bold">KM</span>
                         </div>
 
@@ -199,57 +211,90 @@ $displayName = $_SESSION['displayName'] ?? 'User';
             }).join('');
         }
 
-        // Real-time Nickname Validation
-        nickInput.addEventListener('input', function() {
-            const val = this.value.trim().toLowerCase();
-            let exists = false;
-
-            Object.values(allVehicles).forEach(v => {
-                if(v.nickname && v.nickname.toLowerCase() === val) exists = true;
-            });
-
-            if (exists && val !== "") {
-                nickError.classList.remove('hidden');
-                nickInput.classList.add('error-border');
-                saveBtn.disabled = true;
-                saveBtn.classList.add('opacity-50', 'cursor-not-allowed');
-            } else {
-                nickError.classList.add('hidden');
-                nickInput.classList.remove('error-border');
-                saveBtn.disabled = false;
-                saveBtn.classList.remove('opacity-50', 'cursor-not-allowed');
-            }
-        });
-
-        // Search logic
+        // --- FIXED SEARCH LOGIC ---
         searchInput.oninput = (e) => {
-            const term = e.target.value.toLowerCase();
+            const term = e.target.value.toLowerCase().trim();
             const filtered = {};
+
             Object.keys(allVehicles).forEach(id => {
                 const v = allVehicles[id];
-                if (v.nickname.toLowerCase().includes(term) || 
-                    v.make.toLowerCase().includes(term) || 
-                    v.model.toLowerCase().includes(term) ||
-                    (v.plate && v.plate.toLowerCase().includes(term))) {
+                // Safety: Fallback to empty strings to prevent .toLowerCase() errors
+                const nick = (v.nickname || "").toLowerCase();
+                const make = (v.make || "").toLowerCase();
+                const model = (v.model || "").toLowerCase();
+                const plate = (v.plate || v.licensePlate || "").toLowerCase();
+
+                if (nick.includes(term) || make.includes(term) || model.includes(term) || plate.includes(term)) {
                     filtered[id] = v;
                 }
             });
             renderVehicles(filtered);
         };
 
-        // Form Submission
-        document.getElementById('add-vehicle-form').onsubmit = async (e) => {
+        // Edit Functionality
+        function editVehicle(id) {
+            isEditMode = true;
+            const v = allVehicles[id];
+            document.getElementById('modal-title').innerText = "Edit Vehicle";
+            document.getElementById('edit_vehicle_id').value = id;
+            document.getElementById('nickInput').value = v.nickname;
+            document.getElementById('makeInput').value = v.make;
+            document.getElementById('modelInput').value = v.model;
+            document.getElementById('yearInput').value = v.year;
+            document.getElementById('plateInput').value = v.plate || v.licensePlate || '';
+            document.getElementById('odoInput').value = v.odometer || v.currentOdometer || 0;
+            document.getElementById('fuelInput').value = v.fuel || 'Petrol';
+            
+            modal.classList.replace('hidden', 'flex');
+        }
+
+        // Delete Functionality
+        async function deleteVehicle(id) {
+            if(!confirm("Are you sure you want to remove this vehicle?")) return;
+            try {
+                const res = await fetch(`manage_vehicle.php?id=${id}`, { method: 'DELETE' });
+                const result = await res.json();
+                if(result.success) refreshGarage();
+                else alert(result.message);
+            } catch(e) { alert("Error deleting vehicle."); }
+        }
+
+        // Nickname duplicate check
+        nickInput.addEventListener('input', function() {
+            const val = this.value.trim().toLowerCase();
+            let exists = false;
+            const currentId = document.getElementById('edit_vehicle_id').value;
+
+            Object.keys(allVehicles).forEach(id => {
+                if (id !== currentId && allVehicles[id].nickname.toLowerCase() === val) exists = true;
+            });
+
+            if (exists && val !== "") {
+                nickError.classList.remove('hidden');
+                nickInput.classList.add('error-border');
+                saveBtn.disabled = true;
+            } else {
+                nickError.classList.add('hidden');
+                nickInput.classList.remove('error-border');
+                saveBtn.disabled = false;
+            }
+        });
+
+        // Form Handling (Supports Add and Edit)
+        document.getElementById('vehicle-form').onsubmit = async (e) => {
             e.preventDefault();
             saveBtn.disabled = true;
-            saveBtn.innerText = "Registering...";
+            saveBtn.innerText = "Processing...";
             
             const formData = new FormData(e.target);
+            const targetFile = isEditMode ? 'manage_vehicle.php' : 'add_vehicle.php';
+
             try {
-                const res = await fetch('add_vehicle.php', { method: 'POST', body: formData });
+                const res = await fetch(targetFile, { method: 'POST', body: formData });
                 const result = await res.json();
                 if (result.success) {
                     closeModal();
-                    refreshGarage(); // Use refresh to clear search after adding
+                    refreshGarage();
                 } else {
                     alert(result.message);
                 }
@@ -268,10 +313,11 @@ $displayName = $_SESSION['displayName'] ?? 'User';
         }
 
         function openModal() { 
-            document.getElementById('add-vehicle-form').reset();
+            isEditMode = false;
+            document.getElementById('modal-title').innerText = "New Vehicle";
+            document.getElementById('vehicle-form').reset();
+            document.getElementById('edit_vehicle_id').value = '';
             document.getElementById('file-label').innerText = "Click to upload image";
-            nickError.classList.add('hidden');
-            nickInput.classList.remove('error-border');
             modal.classList.replace('hidden', 'flex'); 
         }
 
