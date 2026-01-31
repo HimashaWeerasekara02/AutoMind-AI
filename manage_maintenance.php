@@ -1,8 +1,21 @@
 <?php
 header('Content-Type: application/json');
 require_once 'db.php';
+session_start();
 
-// GET parameters from the URL
+/**
+ * AUTO-MIND AI: Maintenance Manager
+ * Handles targeted DELETE and PATCH operations for individual logs.
+ */
+
+// Authentication Check
+if (!isset($_SESSION['user_id'])) {
+    http_response_code(401);
+    echo json_encode(['success' => false, 'message' => 'Unauthorized']);
+    exit;
+}
+
+// Get the record ID from the URL query string
 $record_id = $_GET['id'] ?? null;
 
 if (!$record_id) {
@@ -13,43 +26,53 @@ if (!$record_id) {
 $method = $_SERVER['REQUEST_METHOD'];
 
 try {
-    // Path: service_logs/{record_id}
+    // Firebase Path: service_logs/{record_id}
     $path = "service_logs/$record_id";
 
     if ($method === 'DELETE') {
         /**
-         * DELETE RECORD
+         * DELETE OPERATION
+         * Triggered when clicking "Delete" in the Maintenance History table.
          */
         db('DELETE', $path);
-        echo json_encode(['success' => true, 'message' => 'Maintenance record deleted successfully']);
+        echo json_encode(['success' => true, 'message' => 'Maintenance record purged successfully']);
         
     } elseif ($method === 'PATCH') {
         /**
-         * UPDATE RECORD
+         * QUICK UPDATE OPERATION
+         * Used for updating text or status fields without re-uploading files.
          */
         $input = json_decode(file_get_contents('php://input'), true);
-        if (!$input) throw new Exception("No data provided for update");
+        if (!$input) throw new Exception("No data payload received");
 
-        // Aligning with ServiceLogs schema
+        // Prepare sanitized update array
         $update_data = [];
-        if (isset($input['date']))            $update_data['date'] = $input['date'];
-        if (isset($input['type']))            $update_data['type'] = htmlspecialchars($input['type']);
-        if (isset($input['description']))     $update_data['description'] = htmlspecialchars($input['description']);
-        if (isset($input['odometer']))        $update_data['odometer'] = (int)$input['odometer'];
-        if (isset($input['totalCost']))       $update_data['totalCost'] = (float)$input['totalCost'];
-        if (isset($input['serviceProvider'])) $update_data['serviceProvider'] = htmlspecialchars($input['serviceProvider']);
+        $fields = ['date', 'type', 'description', 'totalCost', 'serviceProvider'];
         
-        // Always update the modified timestamp
+        foreach ($fields as $field) {
+            if (isset($input[$field])) {
+                // Sanitize strings, cast numbers
+                if ($field === 'totalCost') {
+                    $update_data[$field] = (float)$input[$field];
+                } else {
+                    $update_data[$field] = htmlspecialchars($input[$field]);
+                }
+            }
+        }
+        
+        // Audit timestamp
         $update_data['updatedAt'] = date('c');
 
+        // Execute PATCH to Firebase
         db('PATCH', $path, $update_data);
-        echo json_encode(['success' => true, 'message' => 'Record updated successfully']);
+        echo json_encode(['success' => true, 'message' => 'Record synchronized successfully']);
         
     } else {
+        // Handle unsupported methods (like GET or PUT here)
         http_response_code(405);
-        echo json_encode(['success' => false, 'message' => 'Method not allowed']);
+        echo json_encode(['success' => false, 'message' => 'Method ' . $method . ' not supported by this endpoint']);
     }
 
 } catch (Exception $e) {
-    echo json_encode(['success' => false, 'message' => 'Error: ' . $e->getMessage()]);
+    echo json_encode(['success' => false, 'message' => 'Management Error: ' . $e->getMessage()]);
 }

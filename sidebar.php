@@ -1,5 +1,33 @@
+<?php
+// sidebar.php
+$isAdmin = isset($_SESSION['is_admin']) && $_SESSION['is_admin'] === true;
+$current_page = basename($_SERVER['PHP_SELF']); 
+
+/**
+ * Define Navigation based on Role
+ * We use your exact structure but separate the arrays.
+ */
+if ($isAdmin) {
+    $nav_items = [
+        ['file' => 'admin_support.php', 'label' => 'User Management', 'icon' => 'icon-support'],
+        ['file' => 'system_reports.php', 'label' => 'Global Analytics', 'icon' => 'icon-dashboard'],
+        ['file' => 'settings.php', 'label' => 'System Config', 'icon' => 'icon-settings'],
+    ];
+} else {
+    $nav_items = [
+        ['file' => 'dashboard.php', 'label' => 'Dashboard', 'icon' => 'icon-dashboard'],
+        ['file' => 'MyGarage.php', 'label' => 'My Garage', 'icon' => 'icon-garage'],
+        ['file' => 'maintenance.php', 'label' => 'Maintenance', 'icon' => 'icon-history'],
+        ['file' => 'diagnostics.php', 'label' => 'Diagnostics', 'icon' => 'icon-diagnostics'],
+        ['file' => 'fuellog.php', 'label' => 'Fuel Log', 'icon' => 'icon-fuel'],
+        ['file' => 'settings.php', 'label' => 'Settings', 'icon' => 'icon-settings'],
+        ['file' => 'support.php', 'label' => 'Support', 'icon' => 'icon-support']
+    ];
+}
+?>
+
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
-    <symbol id="icon-dashboard" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></symbol>
+    <symbol id="icon-dashboard" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></symbol>
     <symbol id="icon-garage" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></symbol>
     <symbol id="icon-history" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></symbol>
     <symbol id="icon-diagnostics" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></symbol>
@@ -10,71 +38,85 @@
     <symbol id="icon-logout" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></symbol>
 </svg>
 
-<aside class="w-64 bg-gray-800 flex flex-col fixed inset-y-0 shadow-2xl border-r border-gray-700">
-    <div class="flex items-center px-6 h-20 border-b border-gray-700">
-        <img src="http://localhost/AutoMind-AI/Images/logo.png" alt="AutoMind AI Logo" class="w-10 h-10 object-contain">
-        <span class="text-xl font-bold text-white ml-3">AutoMind AI</span>
+<div class="lg:hidden bg-gray-900 border-b border-gray-800 p-4 flex justify-between items-center sticky top-0 z-[50]">
+    <div class="flex items-center">
+        <img src="Images/logo.png" alt="Logo" class="w-8 h-8 mr-2">
+        <span class="text-white font-bold italic uppercase tracking-tighter">AutoMind <span class="text-blue-500">AI</span></span>
+    </div>
+    <button id="mobile-toggle" class="text-gray-400 p-3 hover:bg-gray-800 rounded-lg focus:outline-none">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+        </svg>
+    </button>
+</div>
+
+<div id="sidebar-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[80] hidden lg:hidden transition-opacity"></div>
+
+<aside id="sidebar-menu" class="fixed inset-y-0 left-0 w-75 bg-gray-900 flex flex-col shadow-2xl border-r border-gray-800 z-[90] transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out overflow-hidden">
+    
+    <div class="flex items-center px-6 h-24 border-b border-gray-800 shrink-0">
+        <div class="bg-blue-600 p-2 rounded-xl shadow-lg shadow-blue-900/20">
+            <img src="Images/logo.png" alt="Logo" class="w-8 h-8 object-contain">
+        </div>
+        <span class="text-xl font-black text-white ml-3 tracking-tighter italic uppercase">AutoMind <span class="text-blue-500">AI</span></span>
     </div>
 
-    <nav class="flex-1 p-4 space-y-2 overflow-y-auto">
-        <?php $current_page = basename($_SERVER['PHP_SELF']); ?>
-        
-        <a href="http://localhost/AutoMind-AI/dashboard.php" class="flex items-center space-x-3 px-4 py-3 rounded-lg transition duration-200 <?php echo ($current_page == 'dashboard.php') ? 'bg-gray-900 text-white' : 'text-gray-400 hover:bg-gray-700 hover:text-white'; ?>">
-            <svg class="w-6 h-6"><use href="#icon-dashboard"></use></svg>
-            <span class="font-medium">Dashboard</span>
-        </a>
-
-        <a href="http://localhost/AutoMind-AI/MyGarage.php" class="flex items-center space-x-3 px-4 py-3 rounded-lg transition duration-200 <?php echo ($current_page == 'MyGarage.php') ? 'bg-gray-900 text-white' : 'text-gray-400 hover:bg-gray-700 hover:text-white'; ?>">
-            <svg class="w-6 h-6"><use href="#icon-garage"></use></svg>
-            <span class="font-medium">My Garage</span>
-        </a>
-
-        <a href="http://localhost/AutoMind-AI/maintenance.php" class="flex items-center space-x-3 px-4 py-3 rounded-lg transition duration-200 <?php echo ($current_page == 'maintenance.php') ? 'bg-gray-900 text-white' : 'text-gray-400 hover:bg-gray-700 hover:text-white'; ?>">
-            <svg class="w-6 h-6"><use href="#icon-history"></use></svg>
-            <span class="font-medium">Maintenance History</span>
-        </a>
-
-        <a href="http://localhost/AutoMind-AI/diagnostics.php" class="flex items-center space-x-3 px-4 py-3 rounded-lg transition duration-200 <?php echo ($current_page == 'diagnostics.php') ? 'bg-gray-900 text-white' : 'text-gray-400 hover:bg-gray-700 hover:text-white'; ?>">
-            <svg class="w-6 h-6"><use href="#icon-diagnostics"></use></svg>
-            <span class="font-medium">Diagnostics</span>
-        </a>
-
-        <a href="http://localhost/AutoMind-AI/fuellog.php" class="flex items-center space-x-3 px-4 py-3 rounded-lg transition duration-200 <?php echo ($current_page == 'fuellog.php') ? 'bg-gray-900 text-white' : 'text-gray-400 hover:bg-gray-700 hover:text-white'; ?>">
-            <svg class="w-6 h-6"><use href="#icon-fuel"></use></svg>
-            <span class="font-medium">Fuel Log</span>
-        </a>
-
-        <a href="http://localhost/AutoMind-AI/notes.php" class="flex items-center space-x-3 px-4 py-3 rounded-lg transition duration-200 <?php echo ($current_page == 'notes.php') ? 'bg-gray-900 text-white' : 'text-gray-400 hover:bg-gray-700 hover:text-white'; ?>">
-            <svg class="w-6 h-6"><use href="#icon-notes"></use></svg>
-            <span class="font-medium">Notes</span>
-        </a>
-
-        <a href="http://localhost/AutoMind-AI/settings.php" class="flex items-center space-x-3 px-4 py-3 rounded-lg transition duration-200 <?php echo ($current_page == 'settings.php') ? 'bg-gray-900 text-white' : 'text-gray-400 hover:bg-gray-700 hover:text-white'; ?>">
-            <svg class="w-6 h-6"><use href="#icon-settings"></use></svg>
-            <span class="font-medium">Settings</span>
-        </a>
-
-        <a href="http://localhost/AutoMind-AI/support.php" class="flex items-center space-x-3 px-4 py-3 rounded-lg transition duration-200 <?php echo ($current_page == 'support.php') ? 'bg-gray-900 text-white' : 'text-gray-400 hover:bg-gray-700 hover:text-white'; ?>">
-            <svg class="w-6 h-6"><use href="#icon-support"></use></svg>
-            <span class="font-medium">Support</span>
-        </a>
+    <nav class="flex-1 p-4 space-y-2 overflow-y-auto mt-4 relative">
+        <?php 
+            foreach ($nav_items as $item):
+                $is_active = ($current_page == $item['file']);
+        ?>
+            <a href="<?php echo $item['file']; ?>" 
+               class="relative z-[100] flex items-center space-x-3 px-4 py-4 rounded-xl transition-all duration-200 <?php echo $is_active ? 'bg-blue-600 text-white shadow-lg' : 'text-gray-500 hover:bg-gray-800 hover:text-gray-200'; ?>">
+                <svg class="w-5 h-5 flex-shrink-0">
+                    <use href="#<?php echo $item['icon']; ?>"></use>
+                </svg>
+                <span class="font-bold text-sm tracking-wide"><?php echo $item['label']; ?></span>
+            </a>
+        <?php endforeach; ?>
     </nav>
 
-    <div class="p-4 border-t border-gray-700">
-        <a href="http://localhost/AutoMind-AI/logout.php" id="logout-button" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-400 hover:bg-red-600 hover:text-white transition duration-200">
-            <svg class="w-6 h-6"><use href="#icon-logout"></use></svg>
-            <span class="font-medium">Log Out</span>
+    <div class="p-4 border-t border-gray-800 shrink-0">
+        <a href="logout.php" 
+           id="logout-button"
+           onclick="return confirm('Log out of Command Center?');"
+           class="flex items-center space-x-3 px-4 py-4 rounded-xl text-gray-500 hover:bg-red-500/10 hover:text-red-500 transition-all duration-200 group">
+            <svg class="w-5 h-5 text-gray-500 group-hover:text-red-500 transition-colors">
+                <use href="#icon-logout"></use>
+            </svg>
+            <span class="font-bold text-sm tracking-wide">Log Out</span>
         </a>
     </div>
 </aside>
 
 <script>
-    const logoutBtn = document.getElementById('logout-button');
-    if (logoutBtn) {
-        logoutBtn.onclick = (e) => {
-            if(!confirm("Are you sure you want to log out?")) {
-                e.preventDefault();
-            }
-        };
-    }
+    const sidebar = document.getElementById('sidebar-menu');
+    const overlay = document.getElementById('sidebar-overlay');
+    const toggle = document.getElementById('mobile-toggle');
+
+    const toggleSidebar = (e) => {
+        if(e) e.stopPropagation();
+        const isOpen = !sidebar.classList.contains('-translate-x-full');
+        
+        if (isOpen) {
+            sidebar.classList.add('-translate-x-full');
+            overlay.classList.add('hidden');
+            document.body.style.overflow = ''; 
+        } else {
+            sidebar.classList.remove('-translate-x-full');
+            overlay.classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; 
+        }
+    };
+
+    if (toggle) toggle.addEventListener('click', toggleSidebar);
+    if (overlay) overlay.addEventListener('click', toggleSidebar);
+
+    sidebar.addEventListener('click', (e) => {
+        if (e.target.tagName === 'A' || e.target.closest('a')) {
+            // Keep link default behavior
+        } else {
+            e.stopPropagation();
+        }
+    });
 </script>

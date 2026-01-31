@@ -2,8 +2,8 @@
 header('Content-Type: application/json');
 require_once 'db.php';
 
-// The frontend sends vehicleId as a GET parameter
-if (!isset($_GET['vehicleId'])) {
+// Check if vehicleId is provided
+if (!isset($_GET['vehicleId']) || empty($_GET['vehicleId'])) {
     echo json_encode(['success' => false, 'message' => 'Vehicle ID is required']);
     exit;
 }
@@ -11,9 +11,7 @@ if (!isset($_GET['vehicleId'])) {
 $vehicle_id = $_GET['vehicleId'];
 
 try {
-    // 1. Fetch maintenance records from Firebase for this specific vehicle
-    // Note: If using Firebase Realtime DB, you may need to filter by vehicleId via query params
-    // or structure your data as service_logs/vehicle_id/log_id
+    // 1. Fetch maintenance records from the service_logs node
     $records = db('GET', "service_logs");
 
     $total_spent = 0;
@@ -24,19 +22,27 @@ try {
         foreach ($records as $id => $data) {
             // Only include records matching the selected vehicleId
             if (isset($data['vehicleId']) && $data['vehicleId'] === $vehicle_id) {
+                
                 $cost = isset($data['totalCost']) ? (float)$data['totalCost'] : 0;
                 $total_spent += $cost;
                 $service_count++;
 
-                // Map Firebase ID and ensure field consistency
-                $data['id'] = $id;
-                $formatted_records[] = $data;
+                $formatted_records[] = [
+                    'id'              => $id,
+                    'date'            => $data['date'] ?? '',
+                    'type'            => $data['type'] ?? 'General',
+                    'serviceProvider' => $data['serviceProvider'] ?? 'Unknown',
+                    'description'     => $data['description'] ?? '',
+                    'totalCost'       => $cost,
+                    'billUrl'         => $data['billUrl'] ?? null,
+                    'createdAt'       => $data['createdAt'] ?? null
+                ];
             }
         }
 
         // Sort by date descending (Newest first)
         usort($formatted_records, function($a, $b) {
-            return strcmp($b['date'] ?? '', $a['date'] ?? '');
+            return strcmp($b['date'], $a['date']);
         });
     }
 
@@ -50,8 +56,5 @@ try {
     ]);
 
 } catch (Exception $e) {
-    echo json_encode([
-        'success' => false, 
-        'message' => 'Database error: ' . $e->getMessage()
-    ]);
+    echo json_encode(['success' => false, 'message' => $e->getMessage()]);
 }
