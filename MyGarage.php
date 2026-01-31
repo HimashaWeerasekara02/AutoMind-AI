@@ -27,9 +27,8 @@ $displayName = $_SESSION['displayName'] ?? 'User';
         input:focus, select:focus { border-color: #3b82f6 !important; outline: none; }
         .error-border { border-color: #ef4444 !important; }
         
-        /* Floating Action Buttons for the Card */
-        .card-actions { opacity: 0; transition: opacity 0.2s ease; }
-        .glass-card:hover .card-actions { opacity: 1; }
+        /* Fixed: Buttons are now always visible */
+        .card-actions { opacity: 1; transition: all 0.2s ease; }
     </style>
 </head>
 <body class="antialiased">
@@ -174,6 +173,10 @@ $displayName = $_SESSION['displayName'] ?? 'User';
             grid.innerHTML = keys.map(id => {
                 const v = vehicles[id];
                 const img = v.imageUrl || 'https://via.placeholder.com/400x200?text=AutoMind+AI';
+                
+                // Fix for NaN: ensure odometer is a valid number before parsing
+                const odometerVal = parseInt(v.odometer) || 0;
+
                 return `
                 <div class="glass-card overflow-hidden flex flex-col">
                     <div class="h-40 bg-gray-800 relative overflow-hidden">
@@ -183,10 +186,10 @@ $displayName = $_SESSION['displayName'] ?? 'User';
                         </div>
                         
                         <div class="card-actions absolute top-3 right-3 flex gap-2">
-                            <button onclick="editVehicle('${id}')" class="bg-white/10 hover:bg-blue-600 backdrop-blur-md text-white p-1.5 rounded-lg transition">
+                            <button onclick="editVehicle('${id}')" class="bg-black/50 hover:bg-blue-600 backdrop-blur-md text-white p-1.5 rounded-lg transition border border-white/20">
                                 <span class="material-symbols-outlined text-sm">edit</span>
                             </button>
-                            <button onclick="deleteVehicle('${id}')" class="bg-white/10 hover:bg-red-600 backdrop-blur-md text-white p-1.5 rounded-lg transition">
+                            <button onclick="deleteVehicle('${id}')" class="bg-black/50 hover:bg-red-600 backdrop-blur-md text-white p-1.5 rounded-lg transition border border-white/20">
                                 <span class="material-symbols-outlined text-sm">delete</span>
                             </button>
                         </div>
@@ -201,7 +204,7 @@ $displayName = $_SESSION['displayName'] ?? 'User';
                         
                         <div class="flex items-center gap-2 mb-6 bg-gray-900/50 p-2 rounded-lg border border-gray-800">
                             <span class="material-symbols-outlined text-blue-500 text-sm">speed</span>
-                            <span class="text-white font-bold">${parseInt(v.odometer).toLocaleString()}</span>
+                            <span class="text-white font-bold">${odometerVal.toLocaleString()}</span>
                             <span class="text-[10px] text-gray-500 font-bold">KM</span>
                         </div>
 
@@ -213,8 +216,6 @@ $displayName = $_SESSION['displayName'] ?? 'User';
                 </div>`;
             }).join('');
         }
-
-        // --- Logic Functions ---
 
         function openModal() {
             isEditMode = false;
@@ -231,7 +232,6 @@ $displayName = $_SESSION['displayName'] ?? 'User';
             modalTitle.innerText = "Edit Vehicle";
             vehicleIdInput.value = id;
 
-            // Pre-fill form
             document.getElementById('nickInput').value = v.nickname;
             document.getElementById('makeInput').value = v.make;
             document.getElementById('modelInput').value = v.model;
@@ -254,14 +254,12 @@ $displayName = $_SESSION['displayName'] ?? 'User';
             } catch (e) { alert("Error deleting vehicle."); }
         }
 
-        // Form Submission
         document.getElementById('vehicle-form').onsubmit = async (e) => {
             e.preventDefault();
             const formData = new FormData(e.target);
             const id = vehicleIdInput.value;
 
             if (isEditMode) {
-                // PATCH request (JSON)
                 const data = Object.fromEntries(formData.entries());
                 try {
                     const res = await fetch(`manage_vehicle.php?id=${id}`, {
@@ -274,7 +272,6 @@ $displayName = $_SESSION['displayName'] ?? 'User';
                     else alert(result.error);
                 } catch (e) { alert("Update failed."); }
             } else {
-                // POST request (Original add logic)
                 try {
                     const res = await fetch('add_vehicle.php', { method: 'POST', body: formData });
                     const result = await res.json();
@@ -292,7 +289,6 @@ $displayName = $_SESSION['displayName'] ?? 'User';
             }
         }
 
-        // Initial Load
         loadGarage();
     </script>
 </body>
