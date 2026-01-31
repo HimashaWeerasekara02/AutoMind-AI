@@ -1,11 +1,22 @@
 <?php
-
 header('Content-Type: application/json');
 
+// Enable error reporting for debugging, but keep JSON output clean
 ini_set('display_errors', 0);
 error_reporting(E_ALL);
 
 require_once 'db.php';
+session_start();
+
+// 0. Authentication Check
+// We need the logged-in user's ID to own this document
+if (!isset($_SESSION['user_id'])) {
+    http_response_code(401);
+    echo json_encode(['success' => false, 'error' => 'Unauthorized. Please log in.']);
+    exit;
+}
+
+$userId = $_SESSION['user_id'];
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
@@ -14,16 +25,16 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 // 1. Validate Required File
-if (!isset($_FILES['document'])) {
+if (!isset($_FILES['document']) || $_FILES['document']['error'] !== UPLOAD_ERR_OK) {
     http_response_code(400);
-    echo json_encode(['success' => false, 'error' => 'No file uploaded']);
+    echo json_encode(['success' => false, 'error' => 'No file uploaded or upload error.']);
     exit;
 }
 
-// 2. Mapping variables to Database Schema
-$vehicleId  = $_POST['vehicleId'] ?? null; // Matching DB vehicleId
-$title      = $_POST['title'] ?? basename($_FILES['document']['name']); // Display name
-$expiryDate = $_POST['expiryDate'] ?? null; // Matching DB expiryDate
+// 2. Mapping variables from POST
+$vehicleId  = $_POST['vehicleId'] ?? null;
+$title       = $_POST['title'] ?? basename($_FILES['document']['name']);
+$expiryDate = $_POST['expiryDate'] ?? null; // Important for Cron Job
 
 if (!$vehicleId) {
     http_response_code(400);
@@ -48,25 +59,26 @@ if (!in_array($fileExtension, $allowedExtensions)) {
     exit;
 }
 
-// 5. Create a unique file path
+// 5. Create a unique file path to prevent overwriting
 $safeFileName = time() . '_' . bin2hex(random_bytes(4)) . '.' . $fileExtension;
 $targetPath = $uploadDir . $safeFileName;
 
 // 6. Move File and Save to Database
 if (move_uploaded_file($_FILES['document']['tmp_name'], $targetPath)) {
     
-    // Aligned with the "Documents" Entity in your ER Diagram
+    // NEW: Including 'userId' so the Automatic Reminder script knows who to message
     $documentData = [
-        'vehicleId'   => $vehicleId,      // Foreign Key
-        'title'       => $title,          // Friendly Display Name
-        'fileUrl'     => $targetPath,     // Path to file
-        'expiryDate'  => $expiryDate,     // Critical for reminders
-        'uploadDate'  => date("Y-m-d"),   // Created date
-        'type'        => $_FILES['document']['type']
+        'userId'      => $userId,         // OWNER of the document
+        'vehicleId'   => $vehicleId,      // Vehicle linked to
+        'title'       => trim($title),    // e.g., "Revenue License"
+        'fileUrl'     => $targetPath,     // Path for the 'VIEW' button
+        'expiryDate'  => $expiryDate,     // THE CRITICAL FIELD FOR CRON JOB
+        'uploadDate'  => date("Y-m-d"),   // Log keeping
+        'fileType'    => $_FILES['document']['type']
     ];
 
     try {
-        // Saves to the "documents" node
+        // Saves to the "documents" node in Firebase
         $firebaseResult = db("POST", "documents", $documentData);
 
         echo json_encode([
@@ -76,7 +88,7 @@ if (move_uploaded_file($_FILES['document']['tmp_name'], $targetPath)) {
             'documentId' => $firebaseResult['name'] ?? null
         ]);
     } catch (Exception $e) {
-        // Rollback: delete file if database entry fails
+        // Rollback: delete physical file if database entry fails
         if (file_exists($targetPath)) unlink($targetPath);
         
         http_response_code(500);
@@ -87,5 +99,5 @@ if (move_uploaded_file($_FILES['document']['tmp_name'], $targetPath)) {
     }
 } else {
     http_response_code(500);
-    echo json_encode(['success' => false, 'error' => 'Failed to move file to server storage']);
+    echo json_encode(['success' => false, 'error' => 'Failed to move file to server storage. Check folder permissions.']);
 }

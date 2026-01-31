@@ -1,27 +1,47 @@
 <?php
 header('Content-Type: application/json');
 require_once 'db.php'; 
+session_start();
 
+// Security Check: Ensure user is logged in
+if (!isset($_SESSION['user_id'])) {
+    echo json_encode(['success' => false, 'message' => 'Unauthorized access.']);
+    exit;
+}
+
+$userId = $_SESSION['user_id'];
+
+/**
+ * Replace this with your actual environment variable or secure key storage
+ * Note: For production, do not hardcode keys.
+ */
 define('GEMINI_API_KEY', 'AIzaSyBUgfpLxbJuYbn5Bo63wrnzmrSw1HLOEnk');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['bill'])) {
     try {
+        // 1. File Validation & Preparation
         if (!isset($_FILES['bill']['tmp_name']) || empty($_FILES['bill']['tmp_name'])) {
             throw new Exception("No file uploaded.");
         }
 
-        $imageData = base64_encode(file_get_contents($_FILES['bill']['tmp_name']));
-        $mimeType = $_FILES['bill']['type'];
+        $fileTmpPath = $_FILES['bill']['tmp_name'];
+        $imageData = base64_encode(file_get_contents($fileTmpPath));
+        
+        // Determine Mime Type (Important for Gemini)
+        $finfo = new finfo(FILEINFO_MIME_TYPE);
+        $mimeType = $finfo->file($fileTmpPath);
 
-        $prompt = "Analyze this mechanic bill image. Return ONLY a raw JSON object: 
+        // 2. AI Prompt Engineering
+        // We instruct the AI to return strictly valid JSON for easy parsing.
+        $prompt = "You are an expert automotive auditor. Analyze this mechanic bill. 
+                   Extract the merchant name, total cost, vehicle details, and individual line items. 
+                   Return ONLY a JSON object with this structure: 
                    {
-                     'merchantName': 'string',
-                     'extractedTotal': float,
-                     'vehicleInfo': 'string',
-                     'description': 'short summary',
-                     'lineItems': [
-                        {'itemName': 'string', 'quantity': 1, 'unitPrice': 0.00, 'totalPrice': 0.00}
-                     ]
+                     \"merchantName\": \"string\", 
+                     \"extractedTotal\": number, 
+                     \"vehicleInfo\": \"string\", 
+                     \"description\": \"Brief summary of work done\", 
+                     \"lineItems\": [{\"itemName\": \"string\", \"quantity\": number, \"unitPrice\": number, \"totalPrice\": number}]
                    }";
 
         $payload = [
@@ -30,11 +50,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['bill'])) {
                     ["text" => $prompt],
                     ["inline_data" => ["mime_type" => $mimeType, "data" => $imageData]]
                 ]
-            ]]
+            ]],
+            "generationConfig" => [
+                "response_mime_type" => "application/json",
+                "temperature" => 0.2 // Lower temperature for more accurate data extraction
+            ]
         ];
 
-        // UPDATED: Using the current 2026 stable model and endpoint
-        $api_url = "https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=" . GEMINI_API_KEY;
+        // 3. Send Request to Gemini 2.0 Flash
+        $api_url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" . GEMINI_API_KEY;
         
         $ch = curl_init($api_url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -48,68 +72,82 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['bill'])) {
 
         if ($httpCode !== 200) {
             $errorDetail = json_decode($response, true);
-            $msg = $errorDetail['error']['message'] ?? "Unknown Error";
-            throw new Exception("Gemini API Error (HTTP $httpCode): $msg");
+            $msg = $errorDetail['error']['message'] ?? "Unknown API Error";
+            throw new Exception("AI Analysis Failed: $msg");
         }
 
+        // 4. Parse & Clean AI Response
         $result = json_decode($response, true);
-        $rawText = $result['candidates'][0]['content']['parts'][0]['text'] ?? '';
+        $rawJson = $result['candidates'][0]['content']['parts'][0]['text'] ?? '';
+        $aiData = json_decode(trim($rawJson), true);
 
-        // Clean JSON from Markdown wrappers
-        $cleanJson = $rawText;
-        if (preg_match('/```(?:json)?\s*(\{.*?\})\s*```/s', $rawText, $matches)) {
-            $cleanJson = $matches[1];
+        if (!$aiData) {
+            throw new Exception("AI failed to interpret the document structure.");
         }
 
-        $aiData = json_decode(trim($cleanJson), true);
-        if (!$aiData) throw new Exception("AI parsing failed. Response was not valid JSON.");
-
-        // --- Database Logic ---
+        // 5. Database Logic: Save Main Scan Header
         $scanRecord = [
-            "merchantName" => $aiData['merchantName'] ?? 'Unknown Shop',
-            "extractedTotal" => $aiData['extractedTotal'] ?? 0,
-            "status" => "Processed",
-            "vehicleInfo" => $aiData['vehicleInfo'] ?? 'N/A',
-            "description" => $aiData['description'] ?? '',
+            "userId" => $userId,
+            "title" => $aiData['merchantName'] ?? 'Unnamed Merchant',
+            "status" => "Analyzed",
+            "extractedTotal" => (float)($aiData['extractedTotal'] ?? 0),
+            "vehicleInfo" => $aiData['vehicleInfo'] ?? 'Unknown Vehicle',
+            "description" => $aiData['description'] ?? 'No summary available.',
+            "insights" => "Audit completed via AutoMind AI.",
             "createdAt" => date('c')
         ];
         
-        $scanResponse = db('POST', 'BillScans', $scanRecord);
+        // Using your db() helper function
+        $scanResponse = db('POST', 'diagnostics_history', $scanRecord);
         $scanId = $scanResponse['name'] ?? null;
 
-        if ($scanId && isset($aiData['lineItems'])) {
-            $marketPrices = db('GET', 'MarketPrices'); 
+        // 6. Database Logic: Price Auditing Line Items
+        if ($scanId && isset($aiData['lineItems']) && is_array($aiData['lineItems'])) {
+            // Fetch benchmark prices for comparison
+            $marketPrices = db('GET', 'market_benchmark_prices'); 
 
             foreach ($aiData['lineItems'] as $item) {
-                $assessment = "No Market Data";
-                $searchKey = strtolower($item['itemName']);
+                $assessment = "No Benchmark";
+                $itemName = strtolower($item['itemName'] ?? '');
 
-                if ($marketPrices) {
+                if ($marketPrices && is_array($marketPrices)) {
                     foreach ($marketPrices as $m) {
-                        if (isset($m['searchKey']) && strpos($searchKey, strtolower($m['searchKey'])) !== false) {
-                            $price = (float)$item['unitPrice'];
-                            if ($price > (float)$m['oemPriceMax']) $assessment = "Overcharged";
-                            else if ($price < (float)$m['oemPriceMin']) $assessment = "Good Deal";
-                            else $assessment = "Fair Price";
+                        if (isset($m['keyword']) && str_contains($itemName, strtolower($m['keyword']))) {
+                            $price = (float)($item['unitPrice'] ?? 0);
+                            if ($price > (float)$m['maxPrice']) $assessment = "High Price";
+                            else if ($price < (float)$m['minPrice']) $assessment = "Competitive";
+                            else $assessment = "Fair Market Value";
                             break;
                         }
                     }
                 }
 
-                db('POST', 'BillLineItems', [
+                // Save detailed item breakdown
+                db('POST', 'diagnostic_items', [
                     "scanId" => $scanId,
-                    "itemName" => $item['itemName'],
-                    "quantity" => $item['quantity'],
-                    "unitPrice" => $item['unitPrice'],
-                    "totalPrice" => $item['totalPrice'],
-                    "priceAssessment" => $assessment
+                    "itemName" => $item['itemName'] ?? 'Labor/Unknown',
+                    "quantity" => $item['quantity'] ?? 1,
+                    "unitPrice" => $item['unitPrice'] ?? 0,
+                    "totalPrice" => $item['totalPrice'] ?? 0,
+                    "auditResult" => $assessment
                 ]);
             }
         }
 
-        echo json_encode(['success' => true, 'data' => $aiData]);
+        // 7. Final Output to Frontend
+        echo json_encode([
+            'success' => true, 
+            'data' => [
+                'title' => $scanRecord['title'],
+                'status' => $scanRecord['status'],
+                'createdAt' => $scanRecord['createdAt'],
+                'description' => $scanRecord['description'],
+                'insights' => $scanRecord['insights']
+            ]
+        ]);
 
     } catch (Exception $e) {
+        http_response_code(500);
         echo json_encode(['success' => false, 'message' => $e->getMessage()]);
     }
 }

@@ -1,3 +1,12 @@
+<?php 
+require_once 'db.php'; 
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit();
+}
+$userId = $_SESSION['user_id'];
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,297 +15,330 @@
     <title>Maintenance History - AutoMind AI</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #0f172a; color: #d1d5db; }
-        .table-container { background: #1e293b; border-radius: 0.75rem; overflow: hidden; border: 1px solid #334155; }
+        .table-container { background: #1e293b; border-radius: 0.75rem; border: 1px solid #334155; }
         @keyframes modalIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
         .modal-animate { animation: modalIn 0.2s ease-out; }
+        input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(1); }
         
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #0f172a; }
-        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: #475569; }
+        /* Mobile vs Desktop Display Logic */
+        @media (max-width: 767px) {
+            .desktop-only { display: none; }
+            .mobile-only { display: block; }
+        }
+        @media (min-width: 768px) {
+            .desktop-only { display: block; }
+            .mobile-only { display: none; }
+        }
     </style>
 </head>
 <body class="antialiased">
 
     <?php include 'sidebar.php'; ?>
 
-    <main class="ml-64 p-8 min-h-screen">
+    <main class="lg:ml-64 p-4 md:p-8 min-h-screen transition-all duration-300">
         <div class="max-w-7xl mx-auto">
-            <div class="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
                 <div>
-                    <h1 class="text-3xl font-bold text-white tracking-tight">Maintenance History</h1>
-                    <p class="text-gray-400 mt-1">Manage service logs and repair records for your vehicles.</p>
+                    <h1 class="text-2xl md:text-3xl font-bold text-white tracking-tight italic uppercase">Maintenance History</h1>
+                    <p class="text-gray-400 mt-1 text-sm md:text-base">Manage service logs and repair records for your fleet.</p>
                 </div>
-                <button id="add-record-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-6 rounded-lg transition shadow-lg shadow-blue-900/20">
+                <button onclick="openAddModal()" class="w-full md:w-auto bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-6 rounded-lg transition shadow-lg">
                     + Add New Record
                 </button>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-5 gap-4 mb-6">
-                <select id="vehicle-select" class="bg-[#1e293b] border border-gray-700 text-white rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-blue-500 transition">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3 mb-6">
+                <select id="vehicle-select" class="w-full bg-[#1e293b] border border-gray-700 text-white rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-blue-500">
                     <option value="" disabled selected>Loading Vehicles...</option>
                 </select>
                 
-                <div class="relative md:col-span-2">
-                    <input type="text" id="search-records" placeholder="Search by description or provider..." class="w-full bg-[#1e293b] border border-gray-700 text-white rounded-lg pl-10 pr-4 py-2 outline-none focus:border-blue-500">
-                    <svg class="w-5 h-5 absolute left-3 top-2.5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-                    </svg>
-                </div>
+                <input type="date" id="filter-date-start" class="w-full bg-[#1e293b] border border-gray-700 text-white rounded-lg px-4 py-2 outline-none" title="Start Date">
+                <input type="date" id="filter-date-end" class="w-full bg-[#1e293b] border border-gray-700 text-white rounded-lg px-4 py-2 outline-none" title="End Date">
 
-                <select id="filter-type" class="bg-[#1e293b] border border-gray-700 text-white rounded-lg px-4 py-2 outline-none">
+                <select id="filter-type" class="w-full bg-[#1e293b] border border-gray-700 text-white rounded-lg px-4 py-2 outline-none">
                     <option value="">All Types</option>
                     <option value="Maintenance">Maintenance</option>
                     <option value="Repair">Repair</option>
+                    <option value="Upgrade">Upgrade</option>
                 </select>
 
-                <button id="reset-filters" class="bg-gray-800 hover:bg-gray-700 text-gray-400 font-semibold py-2 px-4 rounded-lg border border-gray-700 transition">Reset</button>
+                <div class="relative w-full">
+                    <input type="text" id="search-records" placeholder="Search..." class="w-full bg-[#1e293b] border border-gray-700 text-white rounded-lg pl-10 pr-4 py-2 outline-none">
+                    <span class="material-symbols-outlined absolute left-3 top-2.5 text-gray-500">search</span>
+                </div>
+
+                <button id="reset-filters" onclick="resetFilters()" class="w-full bg-gray-800 hover:bg-gray-700 text-gray-400 font-semibold py-2 px-4 rounded-lg border border-gray-700 transition">Reset</button>
             </div>
 
-            <div class="table-container shadow-2xl">
-                <table class="w-full text-left border-collapse">
-                    <thead>
-                        <tr class="text-gray-500 text-xs font-bold uppercase tracking-wider border-b border-gray-700 bg-gray-800/50">
-                            <th class="px-6 py-4">Date</th>
-                            <th class="px-6 py-4">Type</th>
-                            <th class="px-6 py-4">Description</th>
-                            <th class="px-6 py-4">Odometer</th>
-                            <th class="px-6 py-4">Cost</th>
-                            <th class="px-6 py-4 text-center">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="history-tbody" class="divide-y divide-gray-700/50">
-                        <tr><td colspan="6" class="px-6 py-10 text-center text-gray-500">Select a vehicle to view logs.</td></tr>
-                    </tbody>
-                </table>
+            <div class="table-container shadow-2xl overflow-hidden">
+                <div class="overflow-x-auto desktop-only">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="text-gray-500 text-xs font-bold uppercase tracking-wider border-b border-gray-700 bg-gray-800/50">
+                                <th class="px-6 py-4">Date</th>
+                                <th class="px-6 py-4">Type</th>
+                                <th class="px-6 py-4">Service Provider</th>
+                                <th class="px-6 py-4">Description</th>
+                                <th class="px-6 py-4">Cost</th>
+                                <th class="px-6 py-4 text-center">Bill</th>
+                                <th class="px-6 py-4 text-center">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="history-tbody" class="divide-y divide-gray-700/50">
+                            <tr><td colspan="7" class="px-6 py-10 text-center text-gray-500">Please select a vehicle to view logs.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="mobile-history-list" class="mobile-only divide-y divide-gray-700/50">
+                    <div class="px-6 py-10 text-center text-gray-500">Please select a vehicle to view logs.</div>
+                </div>
             </div>
         </div>
     </main>
 
-    <div id="record-modal" class="fixed inset-0 bg-black/80 hidden items-center justify-center z-50 backdrop-blur-sm p-4">
-        <div class="bg-[#1e293b] p-8 rounded-2xl w-full max-w-lg shadow-2xl border border-gray-700 modal-animate">
-            <h2 id="modal-title" class="text-2xl text-white font-bold mb-6">Record Details</h2>
-            <form id="record-form" class="space-y-5">
-                <input type="hidden" id="form-id">
+    <div id="record-modal" class="fixed inset-0 bg-black/80 hidden items-center justify-center z-[100] backdrop-blur-sm p-4 overflow-y-auto">
+        <div class="bg-[#1e293b] p-6 md:p-8 rounded-2xl w-full max-w-lg shadow-2xl border border-gray-700 modal-animate my-auto">
+            <h2 id="modal-title" class="text-xl md:text-2xl text-white font-bold mb-6 italic uppercase">Record Service</h2>
+            <form id="record-form" class="space-y-4">
+                <input type="hidden" id="form-editing-id">
+                <input type="hidden" id="form-existing-bill">
                 
-                <div class="grid grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-xs font-semibold text-gray-500 uppercase mb-1">Service Date</label>
-                        <input type="date" id="form-date" required class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2.5 text-white outline-none focus:border-blue-500">
+                        <label class="block text-xs font-semibold text-gray-500 mb-1">Date</label>
+                        <input type="date" id="form-date" required class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 text-white">
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold text-gray-500 uppercase mb-1">Type</label>
-                        <select id="form-type" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2.5 text-white outline-none focus:border-blue-500">
+                        <label class="block text-xs font-semibold text-gray-500 mb-1">Type</label>
+                        <select id="form-type" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 text-white">
                             <option value="Maintenance">Maintenance</option>
                             <option value="Repair">Repair</option>
+                            <option value="Upgrade">Upgrade</option>
                         </select>
                     </div>
                 </div>
 
                 <div>
-                    <label class="block text-xs font-semibold text-gray-500 uppercase mb-1">Description</label>
-                    <input type="text" id="form-desc" placeholder="e.g., Synthetic Oil Change" required class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2.5 text-white outline-none focus:border-blue-500">
-                </div>
-
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-xs font-semibold text-gray-500 uppercase mb-1">Odometer (km)</label>
-                        <input type="number" id="form-odometer" required class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2.5 text-white outline-none focus:border-blue-500">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold text-gray-500 uppercase mb-1">Total Cost ($)</label>
-                        <input type="number" step="0.01" id="form-cost" required class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2.5 text-white outline-none focus:border-blue-500">
-                    </div>
+                    <label class="block text-xs font-semibold text-gray-500 mb-1">Service Provider</label>
+                    <input type="text" id="form-provider" placeholder="e.g. Toyota Service Center" required class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 text-white">
                 </div>
 
                 <div>
-                    <label class="block text-xs font-semibold text-gray-500 uppercase mb-1">Service Provider</label>
-                    <input type="text" id="form-provider" placeholder="e.g., City Garage" required class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2.5 text-white outline-none focus:border-blue-500">
+                    <label class="block text-xs font-semibold text-gray-500 mb-1">Work Description</label>
+                    <input type="text" id="form-desc" placeholder="e.g. Oil filter change" required class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 text-white">
                 </div>
 
-                <div class="flex justify-end gap-4 pt-4">
-                    <button type="button" onclick="closeModal()" class="px-6 py-2.5 text-gray-400 hover:text-white transition">Cancel</button>
-                    <button type="submit" id="submit-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-8 py-2.5 rounded-lg transition">Save Record</button>
+                <div>
+                    <label class="block text-xs font-semibold text-gray-500 mb-1">Total Cost (LKR)</label>
+                    <input type="number" step="0.01" id="form-cost" placeholder="0.00" required class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 text-white">
+                </div>
+                
+                <div>
+                    <label class="block text-xs font-semibold text-gray-500 mb-1">Maintenance Bill (Optional)</label>
+                    <label class="flex items-center justify-center w-full h-12 border-2 border-dashed border-gray-700 rounded-lg cursor-pointer hover:bg-gray-800 transition-colors">
+                        <span id="file-name" class="text-sm text-gray-500 truncate px-4">Click to upload bill</span>
+                        <input type="file" id="form-bill" class="hidden" accept="image/*,application/pdf" onchange="document.getElementById('file-name').innerText = this.files[0].name">
+                    </label>
+                </div>
+
+                <div class="flex flex-col-reverse sm:flex-row justify-end gap-3 pt-4">
+                    <button type="button" onclick="closeModal()" class="text-gray-400 hover:text-white py-2">Cancel</button>
+                    <button type="submit" id="submit-btn" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-2 rounded-lg font-bold transition">Save Log</button>
                 </div>
             </form>
         </div>
     </div>
 
     <script>
-        let allRecords = [];
         const vehicleSelect = document.getElementById('vehicle-select');
         const tbody = document.getElementById('history-tbody');
+        const mobileList = document.getElementById('mobile-history-list');
         const recordModal = document.getElementById('record-modal');
+        let allRecords = [];
 
-        // 1. Load Vehicles (Handling raw Firebase object)
         async function init() {
             try {
                 const res = await fetch('get_vehicles.php'); 
                 const data = await res.json();
-                
-                // Since get_vehicles.php returns a raw object { "id1":{...}, "id2":{...} }
-                if(data && Object.keys(data).length > 0) {
-                    vehicleSelect.innerHTML = '<option value="" disabled selected>Select Vehicle</option>';
-                    
-                    // Loop through object keys
-                    for (const id in data) {
-                        const v = data[id];
-                        const option = document.createElement('option');
-                        option.value = id;
-                        option.textContent = `${v.year} ${v.make} ${v.model} ${v.nickname ? `(${v.nickname})` : ''}`;
-                        vehicleSelect.appendChild(option);
-                    }
-                } else {
-                    vehicleSelect.innerHTML = '<option value="">No vehicles found</option>';
-                }
-            } catch (e) { 
-                console.error("Vehicle load error", e);
-                vehicleSelect.innerHTML = '<option value="">Error loading vehicles</option>';
-            }
+                vehicleSelect.innerHTML = '<option value="" disabled selected>Select Vehicle</option>';
+                Object.keys(data).forEach(id => {
+                    const v = data[id];
+                    const option = document.createElement('option');
+                    option.value = id;
+                    option.textContent = `${v.nickname} (${v.make} ${v.model})`;
+                    vehicleSelect.appendChild(option);
+                });
+            } catch (e) { console.error("Load error", e); }
         }
 
-        // 2. Fetch Records using the correct endpoint
         async function fetchRecords() {
             const vId = vehicleSelect.value;
             if(!vId) return;
-            
-            tbody.innerHTML = `<tr><td colspan="6" class="px-6 py-10 text-center text-gray-500">Loading service logs...</td></tr>`;
+            const loader = '<tr><td colspan="7" class="px-6 py-10 text-center text-gray-500 animate-pulse">Loading...</td></tr>';
+            const mLoader = '<div class="px-6 py-10 text-center text-gray-500 animate-pulse">Loading...</div>';
+            tbody.innerHTML = loader;
+            mobileList.innerHTML = mLoader;
             
             try {
-                // Changed from get_records.php to get_maintenance.php
                 const res = await fetch(`get_maintenance.php?vehicleId=${vId}`);
                 const data = await res.json();
-                if(data.success) {
-                    allRecords = data.records;
-                    applyFilters(); 
-                }
+                allRecords = data.success ? data.records : [];
+                applyFilters(); 
             } catch (e) { 
-                console.error("Fetch error", e); 
-                tbody.innerHTML = `<tr><td colspan="6" class="px-6 py-10 text-center text-red-500">Failed to load records.</td></tr>`;
+                tbody.innerHTML = '<tr><td colspan="7" class="px-6 py-10 text-center text-red-400">Error loading data.</td></tr>';
+                mobileList.innerHTML = '<div class="px-6 py-10 text-center text-red-400">Error loading data.</div>';
             }
         }
 
         function applyFilters() {
-            const searchQuery = document.getElementById('search-records').value.toLowerCase();
-            const typeFilter = document.getElementById('filter-type').value;
+            const startDate = document.getElementById('filter-date-start').value;
+            const endDate = document.getElementById('filter-date-end').value;
+            const type = document.getElementById('filter-type').value;
+            const search = document.getElementById('search-records').value.toLowerCase();
 
-            const filtered = allRecords.filter(r => {
-                const matchesSearch = (r.description || "").toLowerCase().includes(searchQuery) || 
-                                     (r.serviceProvider || "").toLowerCase().includes(searchQuery);
-                const matchesType = typeFilter === "" || r.type === typeFilter;
-                return matchesSearch && matchesType;
+            let filtered = allRecords.filter(r => {
+                const matchType = !type || r.type === type;
+                const matchSearch = !search || r.description.toLowerCase().includes(search) || r.serviceProvider.toLowerCase().includes(search);
+                const matchDate = (!startDate || r.date >= startDate) && (!endDate || r.date <= endDate);
+                return matchType && matchSearch && matchDate;
             });
 
-            renderTable(filtered);
+            renderData(filtered);
         }
 
-        function renderTable(data) {
+        function renderData(data) {
             if(data.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="6" class="px-6 py-10 text-center text-gray-500">No matching records found.</td></tr>`;
+                const noData = "No matching records found.";
+                tbody.innerHTML = `<tr><td colspan="7" class="px-6 py-10 text-center text-gray-500">${noData}</td></tr>`;
+                mobileList.innerHTML = `<div class="px-6 py-10 text-center text-gray-500">${noData}</div>`;
                 return;
             }
+
+            // Desktop Render
             tbody.innerHTML = data.map(r => `
-                <tr class="hover:bg-gray-800/40 transition group">
-                    <td class="px-6 py-4 text-white font-medium">${r.date}</td>
-                    <td class="px-6 py-4">
-                        <span class="px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-tight ${r.type === 'Repair' ? 'bg-red-900/30 text-red-400' : 'bg-blue-900/30 text-blue-400'}">
-                            ${r.type || 'Service'}
-                        </span>
+                <tr class="hover:bg-gray-800/40 border-b border-gray-700/30 transition">
+                    <td class="px-6 py-4 text-white whitespace-nowrap">${r.date}</td>
+                    <td class="px-6 py-4"><span class="px-2 py-1 rounded text-[10px] font-bold uppercase bg-blue-900/30 text-blue-400">${r.type}</span></td>
+                    <td class="px-6 py-4 text-gray-300 font-medium">${r.serviceProvider}</td>
+                    <td class="px-6 py-4 text-gray-400 text-sm">${r.description}</td>
+                    <td class="px-6 py-4 text-green-400 font-bold">LKR ${parseFloat(r.totalCost).toLocaleString()}</td>
+                    <td class="px-6 py-4 text-center">
+                        ${r.billUrl ? `<a href="${r.billUrl}" target="_blank" class="text-blue-400 hover:text-blue-300 transition inline-flex items-center gap-1"><span class="material-symbols-outlined text-base">visibility</span></a>` : '<span class="text-gray-600">-</span>'}
                     </td>
-                    <td class="px-6 py-4 text-gray-300">
-                        <div class="font-semibold text-white">${r.description}</div>
-                        <div class="text-xs text-gray-500">${r.serviceProvider}</div>
-                    </td>
-                    <td class="px-6 py-4 text-gray-400 font-mono">${parseInt(r.odometer || 0).toLocaleString()} km</td>
-                    <td class="px-6 py-4 text-green-400 font-bold">$${parseFloat(r.totalCost || 0).toFixed(2)}</td>
                     <td class="px-6 py-4 text-center">
                         <div class="flex justify-center gap-3">
-                            <button onclick="editRecord('${r.id}')" class="text-blue-400 hover:text-blue-200 transition">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
-                            </button>
-                            <button onclick="deleteRecord('${r.id}')" class="text-red-400 hover:text-red-200 transition">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
-                            </button>
+                            <button onclick="editRecord('${r.id}')" class="text-blue-400 hover:text-blue-300 font-bold text-sm">Edit</button>
+                            <button onclick="deleteRecord('${r.id}')" class="text-red-500 hover:text-red-400 font-bold text-sm">Delete</button>
                         </div>
                     </td>
                 </tr>
             `).join('');
+
+            // Mobile Render
+            mobileList.innerHTML = data.map(r => `
+                <div class="p-4 flex flex-col gap-3">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="text-xs text-gray-500">${r.date}</p>
+                            <p class="text-white font-bold">${r.serviceProvider}</p>
+                        </div>
+                        <span class="px-2 py-1 rounded text-[10px] font-bold uppercase bg-blue-900/30 text-blue-400">${r.type}</span>
+                    </div>
+                    <p class="text-sm text-gray-400">${r.description}</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-green-400 font-bold">LKR ${parseFloat(r.totalCost).toLocaleString()}</span>
+                        <div class="flex gap-4">
+                            ${r.billUrl ? `<a href="${r.billUrl}" target="_blank" class="text-blue-400"><span class="material-symbols-outlined">description</span></a>` : ''}
+                            <button onclick="editRecord('${r.id}')" class="text-blue-400 font-bold text-sm">Edit</button>
+                            <button onclick="deleteRecord('${r.id}')" class="text-red-500 font-bold text-sm">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
         }
 
-        window.closeModal = () => {
-            recordModal.classList.add('hidden');
-            recordModal.classList.remove('flex');
-        };
-        
-        document.getElementById('add-record-btn').onclick = () => {
-            if(!vehicleSelect.value) return alert("Please select a vehicle from the list first.");
+        function openAddModal() {
+            if(!vehicleSelect.value) return alert("Please select a vehicle first.");
             document.getElementById('record-form').reset();
-            document.getElementById('form-id').value = "";
-            document.getElementById('modal-title').innerText = "Add Maintenance Log";
-            recordModal.classList.remove('hidden');
-            recordModal.classList.add('flex');
-        };
+            document.getElementById('form-editing-id').value = '';
+            document.getElementById('modal-title').innerText = "Record Service";
+            document.getElementById('file-name').innerText = "Click to upload bill";
+            recordModal.classList.replace('hidden', 'flex');
+        }
 
-        window.editRecord = (id) => {
+        function editRecord(id) {
             const r = allRecords.find(rec => rec.id === id);
             if(!r) return;
-            document.getElementById('form-id').value = r.id;
+            document.getElementById('form-editing-id').value = id;
             document.getElementById('form-date').value = r.date;
-            document.getElementById('form-type').value = r.type || 'Maintenance';
-            document.getElementById('form-desc').value = r.description;
-            document.getElementById('form-odometer').value = r.odometer;
-            document.getElementById('form-cost').value = r.totalCost;
+            document.getElementById('form-type').value = r.type;
             document.getElementById('form-provider').value = r.serviceProvider;
-            document.getElementById('modal-title').innerText = "Update Record";
-            recordModal.classList.remove('hidden');
-            recordModal.classList.add('flex');
-        };
+            document.getElementById('form-desc').value = r.description;
+            document.getElementById('form-cost').value = r.totalCost;
+            document.getElementById('form-existing-bill').value = r.billUrl || '';
+            document.getElementById('modal-title').innerText = "Edit Service Record";
+            recordModal.classList.replace('hidden', 'flex');
+        }
 
         document.getElementById('record-form').onsubmit = async (e) => {
             e.preventDefault();
-            const id = document.getElementById('form-id').value;
-            const payload = {
-                userId: "user_jane_01", // Placeholder, match your login system
-                vehicleId: vehicleSelect.value,
-                date: document.getElementById('form-date').value,
-                type: document.getElementById('form-type').value,
-                description: document.getElementById('form-desc').value,
-                odometer: document.getElementById('form-odometer').value,
-                totalCost: document.getElementById('form-cost').value,
-                serviceProvider: document.getElementById('form-provider').value
-            };
-            
-            // Map to add_maintenance.php or manage_maintenance.php accordingly
-            const url = id ? `manage_maintenance.php?id=${id}` : 'add_maintenance.php';
-            const method = id ? 'PATCH' : 'POST';
-
+            const btn = document.getElementById('submit-btn');
+            btn.disabled = true;
+            btn.innerText = "Saving...";
+            const formData = new FormData();
+            formData.append('editingId', document.getElementById('form-editing-id').value);
+            formData.append('vehicleId', vehicleSelect.value);
+            formData.append('date', document.getElementById('form-date').value);
+            formData.append('type', document.getElementById('form-type').value);
+            formData.append('serviceProvider', document.getElementById('form-provider').value);
+            formData.append('description', document.getElementById('form-desc').value);
+            formData.append('totalCost', document.getElementById('form-cost').value);
+            formData.append('existingBillUrl', document.getElementById('form-existing-bill').value);
+            const fileInput = document.getElementById('form-bill');
+            if(fileInput.files[0]) formData.append('bill_doc', fileInput.files[0]);
             try {
-                const res = await fetch(url, {
-                    method: method,
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
+                const res = await fetch('add_maintenance.php', { method: 'POST', body: formData });
                 const result = await res.json();
                 if(result.success) {
                     closeModal();
                     fetchRecords();
-                } else {
-                    alert("Error: " + result.message);
-                }
-            } catch (e) { console.error("Save error", e); }
+                } else { alert(result.message); }
+            } catch (err) { alert("Error saving record."); }
+            finally { btn.disabled = false; btn.innerText = "Save Log"; }
         };
 
-        document.getElementById('search-records').oninput = applyFilters;
-        document.getElementById('filter-type').onchange = applyFilters;
-        document.getElementById('reset-filters').onclick = () => {
-            document.getElementById('search-records').value = "";
-            document.getElementById('filter-type').value = "";
+        window.deleteRecord = async (recordId) => {
+            if(!confirm("Are you sure?")) return;
+            try {
+                const res = await fetch('delete_maintenance.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ id: recordId, vehicleId: vehicleSelect.value })
+                });
+                const data = await res.json();
+                if(data.success) fetchRecords();
+            } catch(e) { alert("Error deleting."); }
+        }
+
+        function resetFilters() {
+            document.getElementById('filter-date-start').value = '';
+            document.getElementById('filter-date-end').value = '';
+            document.getElementById('filter-type').value = '';
+            document.getElementById('search-records').value = '';
             applyFilters();
-        };
-        vehicleSelect.onchange = fetchRecords;
+        }
 
+        function closeModal() { recordModal.classList.replace('flex', 'hidden'); }
+        
+        document.getElementById('filter-date-start').onchange = applyFilters;
+        document.getElementById('filter-date-end').onchange = applyFilters;
+        document.getElementById('filter-type').onchange = applyFilters;
+        document.getElementById('search-records').oninput = applyFilters;
+        vehicleSelect.onchange = fetchRecords;
         init();
     </script>
 </body>

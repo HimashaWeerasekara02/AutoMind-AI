@@ -1,72 +1,82 @@
 <?php
+/**
+ * AutoMind AI - Firebase Realtime Database Configuration
+ */
 
-define(
-    'FIREBASE_DB_URL',
-    'https://automind-ai-52b33-default-rtdb.asia-southeast1.firebasedatabase.app'
-);
-
-
+// 1. Database Credentials
+define('FIREBASE_DB_URL', 'https://automind-ai-52b33-default-rtdb.asia-southeast1.firebasedatabase.app');
 define('FIREBASE_AUTH', 'K2Np7mgZnDOQJCVjZLcyftVMapBOxZNzyHhJQ87T'); 
 
 /**
  * Firebase Realtime Database REST API Helper
- *
- * @param string      $method  GET | POST | PUT | PATCH | DELETE
- * @param string      $path    Firebase node path (e.g. vehicles, vehicles/id)
- * @param array|null  $data    Data payload
- *
- * @return array|null
- * @throws Exception
+ * * @param string $method HTTP Method (GET, POST, PUT, PATCH, DELETE)
+ * @param string $path   The database path (e.g., 'users/123')
+ * @param array  $data   Data to be sent (for POST, PUT, PATCH)
+ * @return mixed         Decoded JSON response, null, or error array
  */
-function db(string $method, string $path = '', array $data = null): ?array
+function db(string $method, string $path = '', array $data = null)
 {
-    $url = rtrim(FIREBASE_DB_URL, '/') . '/' . ltrim($path, '/') . '.json';
+    // Sanitize path and append .json (Required by Firebase REST API)
+    $cleanPath = ltrim($path, '/');
+    $url = rtrim(FIREBASE_DB_URL, '/') . '/' . $cleanPath . '.json';
 
+    // Attach Auth Token
     if (trim(FIREBASE_AUTH) !== '') {
-        $separator = (strpos($url, '?') === false) ? '?' : '&';
-        $url .= $separator . 'auth=' . FIREBASE_AUTH;
+        $url .= '?auth=' . FIREBASE_AUTH;
     }
 
     $ch = curl_init($url);
 
+    // Configure cURL Options
     $options = [
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_CUSTOMREQUEST  => strtoupper($method),
         CURLOPT_HTTPHEADER     => [
-            'Content-Type: application/json'
+            'Content-Type: application/json',
+            'Accept: application/json'
         ],
         CURLOPT_CONNECTTIMEOUT => 10,
         CURLOPT_TIMEOUT        => 20,
         CURLOPT_SSL_VERIFYPEER => true 
     ];
 
-    if ($data !== null && $method !== 'GET') {
-        $options[CURLOPT_POSTFIELDS] = json_encode(
-            $data,
-            JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR
-        );
+    // Attach Payload for write operations
+    if ($data !== null && in_array(strtoupper($method), ['POST', 'PUT', 'PATCH'])) {
+        $options[CURLOPT_POSTFIELDS] = json_encode($data);
     }
 
     curl_setopt_array($ch, $options);
 
     $response = curl_exec($ch);
-
-    if ($response === false) {
+    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    
+    if (curl_errno($ch)) {
         $error = curl_error($ch);
         curl_close($ch);
-        throw new Exception("cURL Connection Error: $error");
+        return ["success" => false, "error" => "CURL_ERROR", "message" => $error];
     }
 
-    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
     curl_close($ch);
+    $decoded = json_decode($response, true);
 
+    // Handle Firebase-side Errors
     if ($httpCode >= 400) {
-        throw new Exception("Firebase API Error (HTTP $httpCode): $response");
+        return [
+            "success" => false, 
+            "status"  => $httpCode, 
+            "message" => $decoded['error'] ?? "Firebase API Error"
+        ];
     }
 
-    if ($response === 'null' || $response === '' || $response === null) {
-        return null;
-    }
-
-    return json_decode($response, true);
+    return $decoded;
 }
+
+/**
+ * Helper to check if a user is an admin based on RTDB record
+ * usage: isAdmin($userId)
+ */
+function isAdmin($userId) {
+    $userData = db('GET', "users/$userId");
+    return (isset($userData['role']) && $userData['role'] === 'admin');
+}
+?>
