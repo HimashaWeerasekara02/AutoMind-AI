@@ -27,7 +27,6 @@ $displayName = $_SESSION['displayName'] ?? 'User';
         .modal-animate { animation: modalIn 0.2s ease-out; }
         input, select { background-color: #0f172a !important; border: 1px solid #334155 !important; color: white !important; }
         input:focus, select:focus { border-color: #3b82f6 !important; outline: none; }
-        #bill-preview { max-height: 120px; display: none; border-radius: 8px; margin-top: 10px; border: 1px solid #334155; }
     </style>
 </head>
 <body class="antialiased">
@@ -77,12 +76,11 @@ $displayName = $_SESSION['displayName'] ?? 'User';
                                 <th class="px-6 py-4">Odometer</th>
                                 <th class="px-6 py-4">Fuel</th>
                                 <th class="px-6 py-4">Cost</th>
-                                <th class="px-6 py-4 text-center">Receipt</th>
                                 <th class="px-6 py-4 text-right">Actions</th>
                             </tr>
                         </thead>
                         <tbody id="fuel-tbody" class="divide-y divide-gray-700">
-                            <tr><td colspan="6" class="px-6 py-12 text-center text-gray-500 italic uppercase font-bold text-xs tracking-widest">Select a vehicle to sync logs</td></tr>
+                            <tr><td colspan="5" class="px-6 py-12 text-center text-gray-500 italic uppercase font-bold text-xs tracking-widest">Select a vehicle to sync logs</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -92,7 +90,10 @@ $displayName = $_SESSION['displayName'] ?? 'User';
 
     <div id="fuel-modal" class="fixed inset-0 bg-black/80 hidden items-center justify-center z-[100] backdrop-blur-sm p-4 overflow-y-auto">
         <div class="bg-[#1e293b] p-6 md:p-8 rounded-2xl w-full max-w-md shadow-2xl border border-gray-700 modal-animate my-auto">
-            <h2 id="modal-title" class="text-xl md:text-2xl text-white font-bold mb-6 italic uppercase">Refuel Entry</h2>
+            <div class="flex justify-between items-center mb-6">
+                <h2 id="modal-title" class="text-xl md:text-2xl text-white font-bold italic uppercase">Refuel Entry</h2>
+                <button onclick="closeModal()" class="text-gray-500 hover:text-white">&times;</button>
+            </div>
             <form id="fuel-form" class="space-y-4">
                 <input type="hidden" id="form-id">
                 
@@ -117,18 +118,6 @@ $displayName = $_SESSION['displayName'] ?? 'User';
                     </div>
                 </div>
 
-                <div>
-                    <label class="block text-xs font-semibold text-gray-500 mb-1">Receipt Attachment</label>
-                    <label class="flex items-center justify-center w-full h-24 border-2 border-dashed border-gray-700 rounded-lg cursor-pointer hover:bg-gray-800 transition-colors">
-                        <div class="text-center">
-                            <span id="file-label" class="text-sm text-gray-500">Click to upload receipt</span>
-                        </div>
-                        <input type="file" id="form-bill" accept="image/*,application/pdf" class="hidden">
-                    </label>
-                    <img id="bill-preview" src="#" alt="Preview" class="mx-auto">
-                    <div id="pdf-preview-icon" class="hidden text-red-500 font-bold text-[10px] text-center mt-2 uppercase">PDF Attached</div>
-                </div>
-
                 <div class="flex flex-col-reverse sm:flex-row justify-end gap-3 pt-4">
                     <button type="button" onclick="closeModal()" class="text-gray-400 hover:text-white py-2">Cancel</button>
                     <button type="submit" id="save-btn" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-2 rounded-lg font-bold transition uppercase text-xs">Save Entry</button>
@@ -137,19 +126,11 @@ $displayName = $_SESSION['displayName'] ?? 'User';
         </div>
     </div>
 
-    <div id="view-modal" class="fixed inset-0 bg-black/95 hidden items-center justify-center z-[200] p-4">
-        <button onclick="document.getElementById('view-modal').classList.replace('flex', 'hidden')" class="absolute top-6 right-6 text-white text-3xl font-light hover:text-blue-500 transition">&times;</button>
-        <div id="view-container" class="w-full max-w-4xl h-[80vh] flex items-center justify-center"></div>
-    </div>
-
 <script>
     const DB_URL = "https://automind-ai-52b33-default-rtdb.asia-southeast1.firebasedatabase.app";
     const AUTH = "K2Np7mgZnDOQJCVjZLcyftVMapBOxZNzyHhJQ87T";
     const vehicleSelect = document.getElementById('vehicle-select');
     const fuelTbody = document.getElementById('fuel-tbody');
-    const billInput = document.getElementById('form-bill');
-    const billPreview = document.getElementById('bill-preview');
-    const pdfIcon = document.getElementById('pdf-preview-icon');
     let currentLogs = {};
 
     async function init() {
@@ -170,7 +151,7 @@ $displayName = $_SESSION['displayName'] ?? 'User';
         const vId = vehicleSelect.value;
         if (!vId) return;
         
-        fuelTbody.innerHTML = '<tr><td colspan="6" class="px-6 py-12 text-center text-blue-500 animate-pulse font-bold uppercase text-xs tracking-widest">Syncing Database...</td></tr>';
+        fuelTbody.innerHTML = '<tr><td colspan="5" class="px-6 py-12 text-center text-blue-500 animate-pulse font-bold uppercase text-xs tracking-widest">Syncing Database...</td></tr>';
         
         try {
             const res = await fetch(`${DB_URL}/fuel_logs/${vId}.json?auth=${AUTH}`);
@@ -179,7 +160,7 @@ $displayName = $_SESSION['displayName'] ?? 'User';
             fuelTbody.innerHTML = ''; 
             
             if (!data || Object.keys(data).length === 0) {
-                fuelTbody.innerHTML = '<tr><td colspan="6" class="px-6 py-12 text-center text-gray-600 uppercase font-bold text-xs tracking-widest">No logs for this vehicle</td></tr>';
+                fuelTbody.innerHTML = '<tr><td colspan="5" class="px-6 py-12 text-center text-gray-600 uppercase font-bold text-xs tracking-widest">No logs found</td></tr>';
                 resetStatsDisplay();
                 return;
             }
@@ -187,17 +168,12 @@ $displayName = $_SESSION['displayName'] ?? 'User';
             const sortedEntries = Object.entries(data).sort((a, b) => new Date(b[1].date) - new Date(a[1].date));
             
             sortedEntries.forEach(([id, log]) => {
-                const billBtn = log.billBase64 
-                    ? `<button onclick="viewFile('${id}')" class="bg-blue-600/10 text-blue-400 px-3 py-1 rounded-md text-[10px] font-bold uppercase border border-blue-600/20">View</button>`
-                    : `<span class="text-gray-700 text-[10px] uppercase font-bold">N/A</span>`;
-
                 fuelTbody.innerHTML += `
                     <tr class="hover:bg-gray-800/30 transition border-b border-gray-800">
                         <td class="px-6 py-4 text-white font-bold text-sm">${log.date}</td>
                         <td class="px-6 py-4 text-gray-400 text-sm">${parseInt(log.odometer).toLocaleString()} KM</td>
                         <td class="px-6 py-4 text-gray-400 text-sm">${log.quantity} L</td>
                         <td class="px-6 py-4 text-green-400 font-bold">LKR ${parseFloat(log.cost).toLocaleString()}</td>
-                        <td class="px-6 py-4 text-center">${billBtn}</td>
                         <td class="px-6 py-4 text-right">
                             <div class="flex justify-end gap-3">
                                 <button onclick="editEntry('${id}')" class="text-gray-500 hover:text-blue-400 transition text-xs font-bold uppercase">Edit</button>
@@ -242,8 +218,6 @@ $displayName = $_SESSION['displayName'] ?? 'User';
         document.getElementById('form-qty').value = log.quantity;
         document.getElementById('form-cost').value = log.cost;
         document.getElementById('modal-title').innerText = "Edit Fuel Log";
-        billPreview.style.display = 'none';
-        pdfIcon.classList.add('hidden');
         document.getElementById('fuel-modal').classList.replace('hidden', 'flex');
     };
 
@@ -259,25 +233,18 @@ $displayName = $_SESSION['displayName'] ?? 'User';
         const btn = document.getElementById('save-btn');
         btn.disabled = true; btn.innerText = "Syncing...";
 
-        let base64 = id ? currentLogs[id].billBase64 : null;
-        if (billInput.files[0]) {
-            base64 = await new Promise(r => {
-                const rd = new FileReader();
-                rd.onload = () => r(rd.result);
-                rd.readAsDataURL(billInput.files[0]);
-            });
-        }
-
         const payload = {
             date: document.getElementById('form-date').value,
             odometer: parseInt(document.getElementById('form-odo').value),
             quantity: parseFloat(document.getElementById('form-qty').value),
             cost: parseFloat(document.getElementById('form-cost').value),
-            billBase64: base64,
             timestamp: Date.now()
         };
 
-        const url = id ? `${DB_URL}/fuel_logs/${vehicleSelect.value}/${id}.json?auth=${AUTH}` : `${DB_URL}/fuel_logs/${vehicleSelect.value}.json?auth=${AUTH}`;
+        const url = id 
+            ? `${DB_URL}/fuel_logs/${vehicleSelect.value}/${id}.json?auth=${AUTH}` 
+            : `${DB_URL}/fuel_logs/${vehicleSelect.value}.json?auth=${AUTH}`;
+        
         const method = id ? 'PATCH' : 'POST';
 
         const res = await fetch(url, { method, body: JSON.stringify(payload) });
@@ -288,41 +255,11 @@ $displayName = $_SESSION['displayName'] ?? 'User';
         btn.disabled = false; btn.innerText = "Save Entry";
     };
 
-    window.viewFile = (id) => {
-        const data = currentLogs[id].billBase64;
-        const container = document.getElementById('view-container');
-        container.innerHTML = data.includes('pdf') 
-            ? `<iframe src="${data}" class="w-full h-full rounded-xl"></iframe>` 
-            : `<img src="${data}" class="max-w-full max-h-full rounded-xl shadow-2xl">`;
-        document.getElementById('view-modal').classList.replace('hidden', 'flex');
-    };
-
-    billInput.onchange = function() {
-        const file = this.files[0];
-        if (!file) return;
-        document.getElementById('file-label').innerText = file.name;
-        if (file.type === "application/pdf") {
-            billPreview.style.display = 'none';
-            pdfIcon.classList.remove('hidden');
-        } else {
-            const reader = new FileReader();
-            reader.onload = e => {
-                billPreview.src = e.target.result;
-                billPreview.style.display = 'block';
-                pdfIcon.classList.add('hidden');
-            };
-            reader.readAsDataURL(file);
-        }
-    };
-
     document.getElementById('add-entry-btn').onclick = () => {
         if(!vehicleSelect.value) return alert("Select a vehicle first.");
         document.getElementById('fuel-form').reset();
         document.getElementById('form-id').value = "";
         document.getElementById('modal-title').innerText = "Refuel Entry";
-        document.getElementById('file-label').innerText = "Click to upload receipt";
-        billPreview.style.display = 'none';
-        pdfIcon.classList.add('hidden');
         document.getElementById('form-date').valueAsDate = new Date();
         document.getElementById('fuel-modal').classList.replace('hidden', 'flex');
     };

@@ -11,29 +11,22 @@ if (!isset($_SESSION['user_id'])) {
 $currentUserId = $_SESSION['user_id'];
 
 try {
+    // This calls your helper in db.php
     $allVehicles = db('GET', 'vehicles');
     $userVehicles = [];
 
+    // Check if $allVehicles is an array (not null or error)
     if ($allVehicles && is_array($allVehicles) && !isset($allVehicles['error'])) {
         foreach ($allVehicles as $vehicleId => $data) {
+            // Check if vehicle belongs to current logged in user
             if (isset($data['userId']) && $data['userId'] === $currentUserId) {
-                // NORMALIZE DATA: Map database keys to frontend keys
-                $userVehicles[$vehicleId] = [
-                    'nickname' => $data['nickname'] ?? 'Unnamed',
-                    'make'     => $data['make'] ?? '',
-                    'model'    => $data['model'] ?? '',
-                    'year'     => $data['year'] ?? '',
-                    // Map licensePlate to plate
-                    'plate'    => $data['licensePlate'] ?? $data['plate'] ?? 'NO PLATE',
-                    // Map currentOdometer to odometer
-                    'odometer' => $data['currentOdometer'] ?? $data['odometer'] ?? 0,
-                    'fuel'     => $data['fuelType'] ?? $data['fuel'] ?? 'Petrol',
-                    'imageUrl' => $data['imageUrl'] ?? null
-                ];
+                $userVehicles[$vehicleId] = $data;
             }
         }
     }
 
+    // Force return as JSON Object {} instead of Array [] if empty
+    // This is critical for Object.keys() in your dashboard JS
     echo json_encode((object)$userVehicles);
 
 } catch (Exception $e) {
