@@ -217,4 +217,8 @@ $userEmail = $_SESSION['email'] ?? '';
         }
     </script>
 </body>
+<<<<<<< HEAD
 </html>
+=======
+</html>
+>>>>>>> main

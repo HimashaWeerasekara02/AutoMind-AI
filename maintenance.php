@@ -23,7 +23,10 @@ $userId = $_SESSION['user_id'];
         .modal-animate { animation: modalIn 0.2s ease-out; }
         input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(1); }
         
+<<<<<<< HEAD
+=======
         /* Mobile vs Desktop Display Logic */
+>>>>>>> main
         @media (max-width: 767px) {
             .desktop-only { display: none; }
             .mobile-only { display: block; }
@@ -83,12 +86,19 @@ $userId = $_SESSION['user_id'];
                                 <th class="px-6 py-4">Service Provider</th>
                                 <th class="px-6 py-4">Description</th>
                                 <th class="px-6 py-4">Cost</th>
+<<<<<<< HEAD
+=======
                                 <th class="px-6 py-4 text-center">Bill</th>
+>>>>>>> main
                                 <th class="px-6 py-4 text-center">Actions</th>
                             </tr>
                         </thead>
                         <tbody id="history-tbody" class="divide-y divide-gray-700/50">
+<<<<<<< HEAD
+                            <tr><td colspan="6" class="px-6 py-10 text-center text-gray-500">Please select a vehicle to view logs.</td></tr>
+=======
                             <tr><td colspan="7" class="px-6 py-10 text-center text-gray-500">Please select a vehicle to view logs.</td></tr>
+>>>>>>> main
                         </tbody>
                     </table>
                 </div>
@@ -105,7 +115,10 @@ $userId = $_SESSION['user_id'];
             <h2 id="modal-title" class="text-xl md:text-2xl text-white font-bold mb-6 italic uppercase">Record Service</h2>
             <form id="record-form" class="space-y-4">
                 <input type="hidden" id="form-editing-id">
+<<<<<<< HEAD
+=======
                 <input type="hidden" id="form-existing-bill">
+>>>>>>> main
                 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
@@ -136,6 +149,8 @@ $userId = $_SESSION['user_id'];
                     <label class="block text-xs font-semibold text-gray-500 mb-1">Total Cost (LKR)</label>
                     <input type="number" step="0.01" id="form-cost" placeholder="0.00" required class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 text-white">
                 </div>
+<<<<<<< HEAD
+=======
                 
                 <div>
                     <label class="block text-xs font-semibold text-gray-500 mb-1">Maintenance Bill (Optional)</label>
@@ -144,6 +159,7 @@ $userId = $_SESSION['user_id'];
                         <input type="file" id="form-bill" class="hidden" accept="image/*,application/pdf" onchange="document.getElementById('file-name').innerText = this.files[0].name">
                     </label>
                 </div>
+>>>>>>> main
 
                 <div class="flex flex-col-reverse sm:flex-row justify-end gap-3 pt-4">
                     <button type="button" onclick="closeModal()" class="text-gray-400 hover:text-white py-2">Cancel</button>
@@ -178,10 +194,15 @@ $userId = $_SESSION['user_id'];
         async function fetchRecords() {
             const vId = vehicleSelect.value;
             if(!vId) return;
+<<<<<<< HEAD
+            tbody.innerHTML = '<tr><td colspan="6" class="px-6 py-10 text-center text-gray-500 animate-pulse">Loading...</td></tr>';
+            mobileList.innerHTML = '<div class="px-6 py-10 text-center text-gray-500 animate-pulse">Loading...</div>';
+=======
             const loader = '<tr><td colspan="7" class="px-6 py-10 text-center text-gray-500 animate-pulse">Loading...</td></tr>';
             const mLoader = '<div class="px-6 py-10 text-center text-gray-500 animate-pulse">Loading...</div>';
             tbody.innerHTML = loader;
             mobileList.innerHTML = mLoader;
+>>>>>>> main
             
             try {
                 const res = await fetch(`get_maintenance.php?vehicleId=${vId}`);
@@ -189,7 +210,11 @@ $userId = $_SESSION['user_id'];
                 allRecords = data.success ? data.records : [];
                 applyFilters(); 
             } catch (e) { 
+<<<<<<< HEAD
+                tbody.innerHTML = '<tr><td colspan="6" class="px-6 py-10 text-center text-red-400">Error loading data.</td></tr>';
+=======
                 tbody.innerHTML = '<tr><td colspan="7" class="px-6 py-10 text-center text-red-400">Error loading data.</td></tr>';
+>>>>>>> main
                 mobileList.innerHTML = '<div class="px-6 py-10 text-center text-red-400">Error loading data.</div>';
             }
         }
@@ -206,19 +231,29 @@ $userId = $_SESSION['user_id'];
                 const matchDate = (!startDate || r.date >= startDate) && (!endDate || r.date <= endDate);
                 return matchType && matchSearch && matchDate;
             });
+<<<<<<< HEAD
+=======
 
+>>>>>>> main
             renderData(filtered);
         }
 
         function renderData(data) {
             if(data.length === 0) {
                 const noData = "No matching records found.";
+<<<<<<< HEAD
+                tbody.innerHTML = `<tr><td colspan="6" class="px-6 py-10 text-center text-gray-500">${noData}</td></tr>`;
+=======
                 tbody.innerHTML = `<tr><td colspan="7" class="px-6 py-10 text-center text-gray-500">${noData}</td></tr>`;
+>>>>>>> main
                 mobileList.innerHTML = `<div class="px-6 py-10 text-center text-gray-500">${noData}</div>`;
                 return;
             }
 
+<<<<<<< HEAD
+=======
             // Desktop Render
+>>>>>>> main
             tbody.innerHTML = data.map(r => `
                 <tr class="hover:bg-gray-800/40 border-b border-gray-700/30 transition">
                     <td class="px-6 py-4 text-white whitespace-nowrap">${r.date}</td>
@@ -226,9 +261,12 @@ $userId = $_SESSION['user_id'];
                     <td class="px-6 py-4 text-gray-300 font-medium">${r.serviceProvider}</td>
                     <td class="px-6 py-4 text-gray-400 text-sm">${r.description}</td>
                     <td class="px-6 py-4 text-green-400 font-bold">LKR ${parseFloat(r.totalCost).toLocaleString()}</td>
+<<<<<<< HEAD
+=======
                     <td class="px-6 py-4 text-center">
                         ${r.billUrl ? `<a href="${r.billUrl}" target="_blank" class="text-blue-400 hover:text-blue-300 transition inline-flex items-center gap-1"><span class="material-symbols-outlined text-base">visibility</span></a>` : '<span class="text-gray-600">-</span>'}
                     </td>
+>>>>>>> main
                     <td class="px-6 py-4 text-center">
                         <div class="flex justify-center gap-3">
                             <button onclick="editRecord('${r.id}')" class="text-blue-400 hover:text-blue-300 font-bold text-sm">Edit</button>
@@ -238,7 +276,10 @@ $userId = $_SESSION['user_id'];
                 </tr>
             `).join('');
 
+<<<<<<< HEAD
+=======
             // Mobile Render
+>>>>>>> main
             mobileList.innerHTML = data.map(r => `
                 <div class="p-4 flex flex-col gap-3">
                     <div class="flex justify-between items-start">
@@ -252,7 +293,10 @@ $userId = $_SESSION['user_id'];
                     <div class="flex justify-between items-center">
                         <span class="text-green-400 font-bold">LKR ${parseFloat(r.totalCost).toLocaleString()}</span>
                         <div class="flex gap-4">
+<<<<<<< HEAD
+=======
                             ${r.billUrl ? `<a href="${r.billUrl}" target="_blank" class="text-blue-400"><span class="material-symbols-outlined">description</span></a>` : ''}
+>>>>>>> main
                             <button onclick="editRecord('${r.id}')" class="text-blue-400 font-bold text-sm">Edit</button>
                             <button onclick="deleteRecord('${r.id}')" class="text-red-500 font-bold text-sm">Delete</button>
                         </div>
@@ -266,7 +310,10 @@ $userId = $_SESSION['user_id'];
             document.getElementById('record-form').reset();
             document.getElementById('form-editing-id').value = '';
             document.getElementById('modal-title').innerText = "Record Service";
+<<<<<<< HEAD
+=======
             document.getElementById('file-name').innerText = "Click to upload bill";
+>>>>>>> main
             recordModal.classList.replace('hidden', 'flex');
         }
 
@@ -279,7 +326,10 @@ $userId = $_SESSION['user_id'];
             document.getElementById('form-provider').value = r.serviceProvider;
             document.getElementById('form-desc').value = r.description;
             document.getElementById('form-cost').value = r.totalCost;
+<<<<<<< HEAD
+=======
             document.getElementById('form-existing-bill').value = r.billUrl || '';
+>>>>>>> main
             document.getElementById('modal-title').innerText = "Edit Service Record";
             recordModal.classList.replace('hidden', 'flex');
         }
@@ -289,6 +339,10 @@ $userId = $_SESSION['user_id'];
             const btn = document.getElementById('submit-btn');
             btn.disabled = true;
             btn.innerText = "Saving...";
+<<<<<<< HEAD
+            
+=======
+>>>>>>> main
             const formData = new FormData();
             formData.append('editingId', document.getElementById('form-editing-id').value);
             formData.append('vehicleId', vehicleSelect.value);
@@ -297,9 +351,13 @@ $userId = $_SESSION['user_id'];
             formData.append('serviceProvider', document.getElementById('form-provider').value);
             formData.append('description', document.getElementById('form-desc').value);
             formData.append('totalCost', document.getElementById('form-cost').value);
+<<<<<<< HEAD
+
+=======
             formData.append('existingBillUrl', document.getElementById('form-existing-bill').value);
             const fileInput = document.getElementById('form-bill');
             if(fileInput.files[0]) formData.append('bill_doc', fileInput.files[0]);
+>>>>>>> main
             try {
                 const res = await fetch('add_maintenance.php', { method: 'POST', body: formData });
                 const result = await res.json();
