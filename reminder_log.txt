@@ -1,0 +1,2554 @@
+[Wed 02/04/2026  3:58:20.82] Running AutoMind AI License Check... 
+--- AutoMind AI SMS Reminder Engine ---
+Start Time: 2026-02-03 23:28:22
+Check Finished. Total Notifications Sent: 0
+[Wed 02/04/2026  3:58:22.96] Check complete. 
+[Wed 02/04/2026  3:58:40.78] Running AutoMind AI License Check... 
+--- AutoMind AI SMS Reminder Engine ---
+Start Time: 2026-02-03 23:28:42
+Check Finished. Total Notifications Sent: 0
+[Wed 02/04/2026  3:58:42.04] Check complete. 
+[Wed 02/04/2026  4:05:31.79] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine ---
+Current System Date: 2026-02-03
+Target Expiry Date (in 7 days): 2026-02-10
+Total Documents Found in DB: 1
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: 3
+
+Check Finished. Total Reminders Sent: 0
+[Wed 02/04/2026  4:05:33.20] Check complete. 
+[Wed 02/04/2026  4:09:13.66] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine ---
+Current System Date: 2026-02-03
+Target Expiry Date (in 7 days): 2026-02-10
+Total Documents Found in DB: 1
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: 7
+ -> MATCH FOUND! Attempting to send SMS to +94704328168...
+ -> Twilio API Result: Success (SID: SM1f7cd6d31327557ca89126efedf2e589)
+
+Check Finished. Total Reminders Sent: 1
+[Wed 02/04/2026  4:09:16.18] Check complete. 
+[Wed 02/04/2026  4:12:16.03] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-02-03
+Total Documents Found in DB: 1
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: 3
+ -> MATCH FOUND! (Condition: 3 <= 7). Attempting SMS to +94704328168...
+ -> Twilio API Result: Success (SID: SM86ac98ae946ebea9c200ac9129d594ea)
+
+Check Finished. Total Reminders Sent: 1
+[Wed 02/04/2026  4:12:18.18] Check complete. 
+[Wed 02/04/2026  4:13:11.20] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-02-03
+Total Documents Found in DB: 1
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: 3
+ -> MATCH FOUND! (Condition: 3 <= 7). Attempting SMS to +94704328168...
+ -> Twilio API Result: Success (SID: SM1ae3a4597831a6dd3150ac11816837ea)
+
+Check Finished. Total Reminders Sent: 1
+[Wed 02/04/2026  4:13:14.12] Check complete. 
+[Wed 02/04/2026  4:21:05.40] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-02-03
+Total Documents Found in DB: 1
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: 3
+ -> MATCH FOUND! (Condition: 3 <= 7). Attempting SMS to +94704328168...
+ -> Twilio API Result: Success (SID: SM28af006236464d3d3c0dc69bf4a88d50)
+
+Check Finished. Total Reminders Sent: 1
+[Wed 02/04/2026  4:21:07.72] Check complete. 
+[Wed 02/04/2026  9:00:00.15] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-02-04
+Total Documents Found in DB: 2
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: 2
+ -> MATCH FOUND! (Condition: 2 <= 7). Attempting SMS to +94704328168...
+ -> Twilio API Result: Success (SID: SMcfc4966966e8c3b26448cc3a492f0ec3)
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 685
+ -> Skipped: Not within the 0-7 day window.
+
+Check Finished. Total Reminders Sent: 1
+[Wed 02/04/2026  9:00:03.36] Check complete. 
+[Thu 02/05/2026  9:00:01.38] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-02-05
+Total Documents Found in DB: 2
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: 1
+ -> MATCH FOUND! (Condition: 1 <= 7). Attempting SMS to +94704328168...
+ -> Twilio API Result: Success (SID: SMaff142b37e3b7fdb38a4643b3e5691ff)
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 684
+ -> Skipped: Not within the 0-7 day window.
+
+Check Finished. Total Reminders Sent: 1
+[Thu 02/05/2026  9:00:04.77] Check complete. 
+[Fri 02/06/2026  9:00:01.82] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-02-06
+Total Documents Found in DB: 3
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: 0
+ -> MATCH FOUND! (Condition: 0 <= 7). Attempting SMS to +94704328168...
+ -> Twilio API Result: Success (SID: SM91fa8280ae3412019a0a6c5bc23c4fac)
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 683
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 1
+[Fri 02/06/2026  9:00:04.94] Check complete. 
+[Mon 02/09/2026  9:00:01.67] Running AutoMind AI License Check... 
+^C[Tue 02/10/2026  9:00:01.84] Running AutoMind AI License Check... 
+^C[Wed 02/11/2026  9:00:02.08] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-02-11
+Total Documents Found in DB: 3
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -4
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 678
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Wed 02/11/2026  9:00:04.06] Check complete. 
+[Thu 02/12/2026  9:00:02.52] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-02-12
+Total Documents Found in DB: 3
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -5
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 677
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Thu 02/12/2026  9:00:04.54] Check complete. 
+[Fri 02/13/2026  9:00:02.19] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-02-13
+Total Documents Found in DB: 3
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -6
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 676
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Fri 02/13/2026  9:00:04.36] Check complete. 
+[Mon 02/16/2026  9:00:01.78] Running AutoMind AI License Check... 
+^C[Tue 02/17/2026  9:00:01.57] Running AutoMind AI License Check... 
+[Wed 02/18/2026  9:00:01.69] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-02-18
+Total Documents Found in DB: 3
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -11
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 671
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Wed 02/18/2026  9:00:04.03] Check complete. 
+[Thu 02/19/2026  9:00:01.70] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-02-19
+Total Documents Found in DB: 3
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -12
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 670
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Thu 02/19/2026  9:00:05.09] Check complete. 
+[Fri 02/20/2026  9:00:02.03] Running AutoMind AI License Check... 
+[Mon 02/23/2026  9:00:01.21] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-02-23
+Total Documents Found in DB: 8
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -16
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 666
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -1
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: 4
+ -> MATCH FOUND! (Condition: 4 <= 7). Attempting SMS to +9888888888...
+[Tue 02/24/2026  9:00:01.24] Running AutoMind AI License Check... 
+[Wed 02/25/2026  9:00:01.48] Running AutoMind AI License Check... 
+^C[Thu 02/26/2026  9:00:01.61] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-02-26
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -19
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 663
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -4
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: 1
+ -> MATCH FOUND! (Condition: 1 <= 7). Attempting SMS to +9888888888...
+ -> Twilio API Result: Error: Invalid 'To' Phone Number: +988888XXXX
+Checking Doc ID: -OmABhJjU5mYJtaFMgcb | Title: License
+ -> Days Remaining: 2
+ -> MATCH FOUND! (Condition: 2 <= 7). Attempting SMS to +9888888888...
+ -> Twilio API Result: Error: Invalid 'To' Phone Number: +988888XXXX
+Checking Doc ID: -OmAC4EoU6mqjQ7Y3TK5 | Title: VHICLE REGISTRATION
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 2
+[Thu 02/26/2026  9:00:05.51] Check complete. 
+[Fri 02/27/2026  9:00:01.65] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-02-27
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -20
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 662
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -5
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: 0
+ -> MATCH FOUND! (Condition: 0 <= 7). Attempting SMS to +9888888888...
+^C[Tue 03/03/2026  9:00:01.22] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-03-03
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -24
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 658
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -9
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: -3
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmABhJjU5mYJtaFMgcb | Title: License
+ -> Days Remaining: -2
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmAC4EoU6mqjQ7Y3TK5 | Title: VHICLE REGISTRATION
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Tue 03/03/2026  9:00:03.89] Check complete. 
+[Wed 03/04/2026  9:00:01.31] Running AutoMind AI License Check... 
+[Thu 03/05/2026  9:00:02.15] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-03-05
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -26
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 656
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -11
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: -5
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmABhJjU5mYJtaFMgcb | Title: License
+ -> Days Remaining: -4
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmAC4EoU6mqjQ7Y3TK5 | Title: VHICLE REGISTRATION
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Thu 03/05/2026  9:00:05.27] Check complete. 
+[Fri 03/06/2026  9:00:02.10] Running AutoMind AI License Check... 
+^C[Sun 03/08/2026  9:00:01.88] Running AutoMind AI License Check... 
+^C[Mon 03/09/2026  9:00:01.50] Running AutoMind AI License Check... 
+^C[Tue 03/10/2026  9:00:01.98] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-03-10
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -31
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 651
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -16
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: -10
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmABhJjU5mYJtaFMgcb | Title: License
+ -> Days Remaining: -9
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmAC4EoU6mqjQ7Y3TK5 | Title: VHICLE REGISTRATION
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Tue 03/10/2026  9:00:04.84] Check complete. 
+[Wed 03/11/2026  9:00:01.59] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-03-11
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -32
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 650
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -17
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: -11
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmABhJjU5mYJtaFMgcb | Title: License
+ -> Days Remaining: -10
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmAC4EoU6mqjQ7Y3TK5 | Title: VHICLE REGISTRATION
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Wed 03/11/2026  9:00:05.32] Check complete. 
+[Thu 03/12/2026  9:00:01.86] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-03-12
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -33
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 649
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -18
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: -12
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmABhJjU5mYJtaFMgcb | Title: License
+ -> Days Remaining: -11
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmAC4EoU6mqjQ7Y3TK5 | Title: VHICLE REGISTRATION
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Thu 03/12/2026  9:00:03.62] Check complete. 
+[Fri 03/13/2026  9:00:01.84] Running AutoMind AI License Check... 
+^C[Tue 03/17/2026  9:00:01.84] Running AutoMind AI License Check... 
+^C[Wed 03/18/2026  9:00:01.56] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-03-18
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -39
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 643
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -24
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: -18
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmABhJjU5mYJtaFMgcb | Title: License
+ -> Days Remaining: -17
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmAC4EoU6mqjQ7Y3TK5 | Title: VHICLE REGISTRATION
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Wed 03/18/2026  9:00:03.04] Check complete. 
+[Thu 03/19/2026  9:00:01.71] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-03-19
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -40
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 642
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -25
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: -19
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmABhJjU5mYJtaFMgcb | Title: License
+ -> Days Remaining: -18
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmAC4EoU6mqjQ7Y3TK5 | Title: VHICLE REGISTRATION
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Thu 03/19/2026  9:00:04.29] Check complete. 
+[Fri 03/20/2026  9:00:01.65] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-03-20
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -41
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 641
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -26
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: -20
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmABhJjU5mYJtaFMgcb | Title: License
+ -> Days Remaining: -19
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmAC4EoU6mqjQ7Y3TK5 | Title: VHICLE REGISTRATION
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Fri 03/20/2026  9:00:03.15] Check complete. 
+[Mon 03/23/2026  9:00:01.61] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-03-23
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -44
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 638
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -29
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: -23
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmABhJjU5mYJtaFMgcb | Title: License
+ -> Days Remaining: -22
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmAC4EoU6mqjQ7Y3TK5 | Title: VHICLE REGISTRATION
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Mon 03/23/2026  9:00:03.06] Check complete. 
+[Tue 03/24/2026  9:00:02.07] Running AutoMind AI License Check... 
+^C[Wed 03/25/2026  9:00:01.77] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-03-25
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -46
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 636
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -31
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: -25
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmABhJjU5mYJtaFMgcb | Title: License
+ -> Days Remaining: -24
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmAC4EoU6mqjQ7Y3TK5 | Title: VHICLE REGISTRATION
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Wed 03/25/2026  9:00:04.41] Check complete. 
+[Thu 03/26/2026  9:00:02.14] Running AutoMind AI License Check... 
+^C[Mon 03/30/2026  9:00:01.85] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-03-30
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -51
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 631
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -36
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: -30
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmABhJjU5mYJtaFMgcb | Title: License
+ -> Days Remaining: -29
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmAC4EoU6mqjQ7Y3TK5 | Title: VHICLE REGISTRATION
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Mon 03/30/2026  9:00:03.31] Check complete. 
+[Tue 03/31/2026  9:00:02.05] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-03-31
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -52
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 630
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -37
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: -31
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmABhJjU5mYJtaFMgcb | Title: License
+ -> Days Remaining: -30
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmAC4EoU6mqjQ7Y3TK5 | Title: VHICLE REGISTRATION
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Tue 03/31/2026  9:00:04.04] Check complete. 
+[Thu 04/02/2026  9:00:01.33] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-04-02
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -54
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 628
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -39
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: -33
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmABhJjU5mYJtaFMgcb | Title: License
+ -> Days Remaining: -32
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmAC4EoU6mqjQ7Y3TK5 | Title: VHICLE REGISTRATION
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Thu 04/02/2026  9:00:02.77] Check complete. 
+[Fri 04/03/2026  9:00:01.83] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-04-03
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -55
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 627
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -40
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: -34
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmABhJjU5mYJtaFMgcb | Title: License
+ -> Days Remaining: -33
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmAC4EoU6mqjQ7Y3TK5 | Title: VHICLE REGISTRATION
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Fri 04/03/2026  9:00:03.47] Check complete. 
+[Mon 04/06/2026  9:00:01.61] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-04-06
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -58
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 624
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -43
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: -37
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmABhJjU5mYJtaFMgcb | Title: License
+ -> Days Remaining: -36
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmAC4EoU6mqjQ7Y3TK5 | Title: VHICLE REGISTRATION
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Mon 04/06/2026  9:00:03.11] Check complete. 
+[Tue 04/07/2026  9:00:01.91] Running AutoMind AI License Check... 
+^C[Wed 04/08/2026  9:00:01.39] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-04-08
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -60
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 622
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -45
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: -39
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmABhJjU5mYJtaFMgcb | Title: License
+ -> Days Remaining: -38
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmAC4EoU6mqjQ7Y3TK5 | Title: VHICLE REGISTRATION
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Wed 04/08/2026  9:00:02.88] Check complete. 
+[Thu 04/09/2026  9:00:01.57] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-04-09
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -61
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 621
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -46
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: -40
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmABhJjU5mYJtaFMgcb | Title: License
+ -> Days Remaining: -39
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmAC4EoU6mqjQ7Y3TK5 | Title: VHICLE REGISTRATION
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Thu 04/09/2026  9:00:03.20] Check complete. 
+[Fri 04/10/2026  9:00:01.58] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-04-10
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -62
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 620
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -47
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: -41
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmABhJjU5mYJtaFMgcb | Title: License
+ -> Days Remaining: -40
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmAC4EoU6mqjQ7Y3TK5 | Title: VHICLE REGISTRATION
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Fri 04/10/2026  9:00:03.21] Check complete. 
+[Mon 04/20/2026  9:00:01.63] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-04-20
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -72
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 610
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -57
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: -51
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmABhJjU5mYJtaFMgcb | Title: License
+ -> Days Remaining: -50
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmAC4EoU6mqjQ7Y3TK5 | Title: VHICLE REGISTRATION
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Mon 04/20/2026  9:00:03.06] Check complete. 
+[Tue 04/21/2026  9:00:02.08] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-04-21
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -73
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 609
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -58
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: -52
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmABhJjU5mYJtaFMgcb | Title: License
+ -> Days Remaining: -51
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmAC4EoU6mqjQ7Y3TK5 | Title: VHICLE REGISTRATION
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Tue 04/21/2026  9:00:03.54] Check complete. 
+[Wed 04/22/2026  9:00:01.30] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-04-22
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -74
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 608
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -59
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: -53
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmABhJjU5mYJtaFMgcb | Title: License
+ -> Days Remaining: -52
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmAC4EoU6mqjQ7Y3TK5 | Title: VHICLE REGISTRATION
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Wed 04/22/2026  9:00:02.87] Check complete. 
+[Thu 04/23/2026  9:00:01.62] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-04-23
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -75
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 607
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -60
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: -54
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmABhJjU5mYJtaFMgcb | Title: License
+ -> Days Remaining: -53
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmAC4EoU6mqjQ7Y3TK5 | Title: VHICLE REGISTRATION
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Thu 04/23/2026  9:00:03.19] Check complete. 
+[Fri 04/24/2026  9:00:02.14] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-04-24
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -76
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 606
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -61
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: -55
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmABhJjU5mYJtaFMgcb | Title: License
+ -> Days Remaining: -54
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmAC4EoU6mqjQ7Y3TK5 | Title: VHICLE REGISTRATION
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Fri 04/24/2026  9:00:03.62] Check complete. 
+[Mon 04/27/2026  9:00:01.66] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-04-27
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -79
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 603
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -64
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: -58
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmABhJjU5mYJtaFMgcb | Title: License
+ -> Days Remaining: -57
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmAC4EoU6mqjQ7Y3TK5 | Title: VHICLE REGISTRATION
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Mon 04/27/2026  9:00:04.22] Check complete. 
+[Tue 04/28/2026  9:00:01.23] Running AutoMind AI License Check... 
+^C[Wed 04/29/2026  9:00:01.69] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-04-29
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -81
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 601
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -66
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: -60
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmABhJjU5mYJtaFMgcb | Title: License
+ -> Days Remaining: -59
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmAC4EoU6mqjQ7Y3TK5 | Title: VHICLE REGISTRATION
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Wed 04/29/2026  9:00:03.26] Check complete. 
+[Thu 04/30/2026  9:00:01.51] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-04-30
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -82
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 600
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -67
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: -61
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmABhJjU5mYJtaFMgcb | Title: License
+ -> Days Remaining: -60
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmAC4EoU6mqjQ7Y3TK5 | Title: VHICLE REGISTRATION
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Thu 04/30/2026  9:00:03.02] Check complete. 
+[Wed 05/06/2026  9:00:01.82] Running AutoMind AI License Check... 
+^C[Thu 05/07/2026  9:00:01.54] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-05-07
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -89
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 593
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -74
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: -68
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmABhJjU5mYJtaFMgcb | Title: License
+ -> Days Remaining: -67
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmAC4EoU6mqjQ7Y3TK5 | Title: VHICLE REGISTRATION
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Thu 05/07/2026  9:00:03.11] Check complete. 
+[Fri 05/08/2026  9:00:01.73] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-05-08
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -90
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 592
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -75
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: -69
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmABhJjU5mYJtaFMgcb | Title: License
+ -> Days Remaining: -68
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmAC4EoU6mqjQ7Y3TK5 | Title: VHICLE REGISTRATION
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Fri 05/08/2026  9:00:03.27] Check complete. 
+[Sun 05/10/2026  9:00:01.69] Running AutoMind AI License Check... 
+^C[Mon 05/11/2026  9:00:01.79] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-05-11
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -93
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 589
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -78
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: -72
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmABhJjU5mYJtaFMgcb | Title: License
+ -> Days Remaining: -71
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmAC4EoU6mqjQ7Y3TK5 | Title: VHICLE REGISTRATION
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Mon 05/11/2026  9:00:03.20] Check complete. 
+[Tue 05/12/2026  9:00:01.69] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-05-12
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -94
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 588
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -79
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: -73
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmABhJjU5mYJtaFMgcb | Title: License
+ -> Days Remaining: -72
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmAC4EoU6mqjQ7Y3TK5 | Title: VHICLE REGISTRATION
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Tue 05/12/2026  9:00:03.30] Check complete. 
+[Wed 05/13/2026  9:00:01.49] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-05-13
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -95
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 587
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -80
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: -74
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmABhJjU5mYJtaFMgcb | Title: License
+ -> Days Remaining: -73
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmAC4EoU6mqjQ7Y3TK5 | Title: VHICLE REGISTRATION
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Wed 05/13/2026  9:00:03.94] Check complete. 
+[Thu 05/14/2026  9:00:01.55] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-05-14
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -96
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 586
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -81
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: -75
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmABhJjU5mYJtaFMgcb | Title: License
+ -> Days Remaining: -74
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmAC4EoU6mqjQ7Y3TK5 | Title: VHICLE REGISTRATION
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Thu 05/14/2026  9:00:03.03] Check complete. 
+[Fri 05/15/2026  9:00:01.63] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-05-15
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -97
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 585
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -82
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: -76
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmABhJjU5mYJtaFMgcb | Title: License
+ -> Days Remaining: -75
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmAC4EoU6mqjQ7Y3TK5 | Title: VHICLE REGISTRATION
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Fri 05/15/2026  9:00:03.09] Check complete. 
+[Tue 05/19/2026  9:00:01.76] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-05-19
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -101
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 581
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -86
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: -80
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmABhJjU5mYJtaFMgcb | Title: License
+ -> Days Remaining: -79
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmAC4EoU6mqjQ7Y3TK5 | Title: VHICLE REGISTRATION
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Tue 05/19/2026  9:00:04.51] Check complete. 
+[Wed 05/20/2026  9:00:01.79] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-05-20
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -102
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 580
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -87
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: -81
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmABhJjU5mYJtaFMgcb | Title: License
+ -> Days Remaining: -80
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmAC4EoU6mqjQ7Y3TK5 | Title: VHICLE REGISTRATION
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Wed 05/20/2026  9:00:03.31] Check complete. 
+[Thu 05/21/2026  9:00:02.04] Running AutoMind AI License Check... 
+^C[Fri 05/22/2026  9:00:01.23] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-05-22
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -104
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 578
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -89
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: -83
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmABhJjU5mYJtaFMgcb | Title: License
+ -> Days Remaining: -82
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmAC4EoU6mqjQ7Y3TK5 | Title: VHICLE REGISTRATION
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Fri 05/22/2026  9:00:04.57] Check complete. 
+[Mon 05/25/2026  9:00:02.12] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-05-25
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -107
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 575
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -92
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: -86
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmABhJjU5mYJtaFMgcb | Title: License
+ -> Days Remaining: -85
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmAC4EoU6mqjQ7Y3TK5 | Title: VHICLE REGISTRATION
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Mon 05/25/2026  9:00:04.04] Check complete. 
+[Tue 05/26/2026  9:00:01.68] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-05-26
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -108
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 574
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -93
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: -87
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmABhJjU5mYJtaFMgcb | Title: License
+ -> Days Remaining: -86
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmAC4EoU6mqjQ7Y3TK5 | Title: VHICLE REGISTRATION
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Tue 05/26/2026  9:00:03.19] Check complete. 
+[Wed 05/27/2026  9:00:01.16] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-05-27
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -109
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 573
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -94
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: -88
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmABhJjU5mYJtaFMgcb | Title: License
+ -> Days Remaining: -87
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmAC4EoU6mqjQ7Y3TK5 | Title: VHICLE REGISTRATION
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Wed 05/27/2026  9:00:02.59] Check complete. 
+[Thu 05/28/2026  9:00:01.81] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-05-28
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -110
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 572
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -95
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: -89
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmABhJjU5mYJtaFMgcb | Title: License
+ -> Days Remaining: -88
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmAC4EoU6mqjQ7Y3TK5 | Title: VHICLE REGISTRATION
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Thu 05/28/2026  9:00:03.20] Check complete. 
+[Fri 05/29/2026  9:00:01.44] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-05-29
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -111
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 571
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -96
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: -90
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmABhJjU5mYJtaFMgcb | Title: License
+ -> Days Remaining: -89
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmAC4EoU6mqjQ7Y3TK5 | Title: VHICLE REGISTRATION
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Fri 05/29/2026  9:00:03.73] Check complete. 
+[Mon 06/01/2026  9:00:01.41] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-06-01
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -114
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 568
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -99
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: -93
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmABhJjU5mYJtaFMgcb | Title: License
+ -> Days Remaining: -92
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmAC4EoU6mqjQ7Y3TK5 | Title: VHICLE REGISTRATION
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Mon 06/01/2026  9:00:02.93] Check complete. 
+[Tue 06/02/2026  9:00:01.63] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-06-02
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -115
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 567
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -100
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: -94
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmABhJjU5mYJtaFMgcb | Title: License
+ -> Days Remaining: -93
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmAC4EoU6mqjQ7Y3TK5 | Title: VHICLE REGISTRATION
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Tue 06/02/2026  9:00:03.14] Check complete. 
+[Wed 06/03/2026  9:00:01.43] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-06-03
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -116
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 566
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -101
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: -95
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmABhJjU5mYJtaFMgcb | Title: License
+ -> Days Remaining: -94
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmAC4EoU6mqjQ7Y3TK5 | Title: VHICLE REGISTRATION
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Wed 06/03/2026  9:00:02.98] Check complete. 
+[Thu 06/04/2026  9:00:01.97] Running AutoMind AI License Check... 
+^C[Fri 06/05/2026  9:00:01.79] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-06-05
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -118
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 564
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -103
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: -97
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmABhJjU5mYJtaFMgcb | Title: License
+ -> Days Remaining: -96
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmAC4EoU6mqjQ7Y3TK5 | Title: VHICLE REGISTRATION
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Fri 06/05/2026  9:00:03.39] Check complete. 
+[Mon 06/08/2026  9:00:01.52] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-06-08
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -121
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 561
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -106
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: -100
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmABhJjU5mYJtaFMgcb | Title: License
+ -> Days Remaining: -99
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmAC4EoU6mqjQ7Y3TK5 | Title: VHICLE REGISTRATION
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Mon 06/08/2026  9:00:03.19] Check complete. 
+[Tue 06/09/2026  9:00:01.14] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-06-09
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -122
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 560
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -107
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: -101
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmABhJjU5mYJtaFMgcb | Title: License
+ -> Days Remaining: -100
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmAC4EoU6mqjQ7Y3TK5 | Title: VHICLE REGISTRATION
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Tue 06/09/2026  9:00:02.64] Check complete. 
+[Wed 06/10/2026  9:00:01.95] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-06-10
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -123
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 559
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -108
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: -102
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmABhJjU5mYJtaFMgcb | Title: License
+ -> Days Remaining: -101
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmAC4EoU6mqjQ7Y3TK5 | Title: VHICLE REGISTRATION
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Wed 06/10/2026  9:00:03.54] Check complete. 
+[Thu 06/11/2026  9:00:01.86] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-06-11
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -124
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 558
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -109
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: -103
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmABhJjU5mYJtaFMgcb | Title: License
+ -> Days Remaining: -102
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmAC4EoU6mqjQ7Y3TK5 | Title: VHICLE REGISTRATION
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Thu 06/11/2026  9:00:04.77] Check complete. 
+[Fri 06/12/2026  9:00:02.08] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-06-12
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -125
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 557
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -110
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: -104
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmABhJjU5mYJtaFMgcb | Title: License
+ -> Days Remaining: -103
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmAC4EoU6mqjQ7Y3TK5 | Title: VHICLE REGISTRATION
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Fri 06/12/2026  9:00:03.64] Check complete. 
+[Mon 06/15/2026  9:00:01.67] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-06-15
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -128
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 554
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -113
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: -107
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmABhJjU5mYJtaFMgcb | Title: License
+ -> Days Remaining: -106
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmAC4EoU6mqjQ7Y3TK5 | Title: VHICLE REGISTRATION
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Mon 06/15/2026  9:00:03.22] Check complete. 
+[Tue 06/16/2026  9:00:02.42] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-06-16
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -129
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 553
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -114
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: -108
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmABhJjU5mYJtaFMgcb | Title: License
+ -> Days Remaining: -107
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmAC4EoU6mqjQ7Y3TK5 | Title: VHICLE REGISTRATION
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Tue 06/16/2026  9:00:04.00] Check complete. 
+[Wed 06/17/2026  9:00:01.17] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-06-17
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -130
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 552
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -115
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: -109
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmABhJjU5mYJtaFMgcb | Title: License
+ -> Days Remaining: -108
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmAC4EoU6mqjQ7Y3TK5 | Title: VHICLE REGISTRATION
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Wed 06/17/2026  9:00:02.67] Check complete. 
+[Thu 06/18/2026  9:00:01.68] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-06-18
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -131
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 551
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -116
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: -110
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmABhJjU5mYJtaFMgcb | Title: License
+ -> Days Remaining: -109
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmAC4EoU6mqjQ7Y3TK5 | Title: VHICLE REGISTRATION
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Thu 06/18/2026  9:00:03.38] Check complete. 
+[Fri 06/19/2026  9:00:01.62] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-06-19
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -132
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 550
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -117
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: -111
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmABhJjU5mYJtaFMgcb | Title: License
+ -> Days Remaining: -110
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmAC4EoU6mqjQ7Y3TK5 | Title: VHICLE REGISTRATION
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Fri 06/19/2026  9:00:03.30] Check complete. 
+[Mon 06/22/2026  9:00:01.96] Running AutoMind AI License Check... 
+[Tue 06/23/2026  9:00:01.37] Running AutoMind AI License Check... 
+^C[Wed 06/24/2026  9:00:01.27] Running AutoMind AI License Check... 
+[Thu 06/25/2026  9:00:02.02] Running AutoMind AI License Check... 
+^C[Fri 06/26/2026  9:00:01.57] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-06-26
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -139
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 543
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -124
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: -118
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmABhJjU5mYJtaFMgcb | Title: License
+ -> Days Remaining: -117
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmAC4EoU6mqjQ7Y3TK5 | Title: VHICLE REGISTRATION
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Fri 06/26/2026  9:00:03.12] Check complete. 
+[Thu 07/02/2026  9:00:01.30] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-07-02
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -145
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 537
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -130
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: -124
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmABhJjU5mYJtaFMgcb | Title: License
+ -> Days Remaining: -123
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmAC4EoU6mqjQ7Y3TK5 | Title: VHICLE REGISTRATION
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Thu 07/02/2026  9:00:02.76] Check complete. 
+[Fri 07/03/2026  9:00:01.24] Running AutoMind AI License Check... 
+^C[Sat 07/04/2026  9:00:01.58] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-07-04
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -147
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 535
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -132
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: -126
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmABhJjU5mYJtaFMgcb | Title: License
+ -> Days Remaining: -125
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmAC4EoU6mqjQ7Y3TK5 | Title: VHICLE REGISTRATION
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Sat 07/04/2026  9:00:06.28] Check complete. 
+[Tue 07/07/2026  9:00:02.82] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-07-07
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -150
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 532
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -135
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: -129
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmABhJjU5mYJtaFMgcb | Title: License
+ -> Days Remaining: -128
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmAC4EoU6mqjQ7Y3TK5 | Title: VHICLE REGISTRATION
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Tue 07/07/2026  9:00:04.99] Check complete. 
+[Wed 07/08/2026  9:00:02.06] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-07-08
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -151
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 531
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -136
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: -130
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmABhJjU5mYJtaFMgcb | Title: License
+ -> Days Remaining: -129
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmAC4EoU6mqjQ7Y3TK5 | Title: VHICLE REGISTRATION
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Wed 07/08/2026  9:00:03.65] Check complete. 
+[Thu 07/09/2026  9:00:03.06] Running AutoMind AI License Check... 
+^C[Fri 07/10/2026  9:00:01.83] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-07-10
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -153
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 529
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -138
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: -132
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmABhJjU5mYJtaFMgcb | Title: License
+ -> Days Remaining: -131
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmAC4EoU6mqjQ7Y3TK5 | Title: VHICLE REGISTRATION
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Fri 07/10/2026  9:00:06.19] Check complete. 
+[Mon 07/13/2026  9:00:02.65] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-07-13
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -156
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 526
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -141
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: -135
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmABhJjU5mYJtaFMgcb | Title: License
+ -> Days Remaining: -134
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmAC4EoU6mqjQ7Y3TK5 | Title: VHICLE REGISTRATION
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Mon 07/13/2026  9:00:04.20] Check complete. 
+[Tue 07/14/2026  9:00:02.14] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-07-14
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -157
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 525
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -142
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: -136
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmABhJjU5mYJtaFMgcb | Title: License
+ -> Days Remaining: -135
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmAC4EoU6mqjQ7Y3TK5 | Title: VHICLE REGISTRATION
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Tue 07/14/2026  9:00:03.70] Check complete. 
+[Wed 07/15/2026  9:00:02.71] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-07-15
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -158
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 524
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -143
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: -137
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmABhJjU5mYJtaFMgcb | Title: License
+ -> Days Remaining: -136
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmAC4EoU6mqjQ7Y3TK5 | Title: VHICLE REGISTRATION
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Wed 07/15/2026  9:00:04.45] Check complete. 
+[Thu 07/16/2026  9:00:02.73] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-07-16
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -159
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 523
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -144
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: -138
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmABhJjU5mYJtaFMgcb | Title: License
+ -> Days Remaining: -137
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmAC4EoU6mqjQ7Y3TK5 | Title: VHICLE REGISTRATION
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Thu 07/16/2026  9:00:04.32] Check complete. 
+[Fri 07/17/2026  9:00:02.55] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-07-17
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -160
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 522
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -145
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: -139
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmABhJjU5mYJtaFMgcb | Title: License
+ -> Days Remaining: -138
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmAC4EoU6mqjQ7Y3TK5 | Title: VHICLE REGISTRATION
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Fri 07/17/2026  9:00:04.14] Check complete. 
+[Mon 07/20/2026  9:00:02.83] Running AutoMind AI License Check... 
+[Tue 07/21/2026  9:00:02.34] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-07-21
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -164
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 518
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -149
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: -143
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmABhJjU5mYJtaFMgcb | Title: License
+ -> Days Remaining: -142
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmAC4EoU6mqjQ7Y3TK5 | Title: VHICLE REGISTRATION
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Tue 07/21/2026  9:00:03.93] Check complete. 
+[Wed 07/22/2026  9:00:01.92] Running AutoMind AI License Check... 
+--- AutoMind AI Debug Engine (7-Day Window Mode) ---
+Current System Date: 2026-07-22
+Total Documents Found in DB: 10
+
+Checking Doc ID: -Ok_b-KTK1glso4P8-OI | Title: Insurance
+ -> Days Remaining: -165
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkaUuWB4EeRUOwkFIrz | Title: Insurance
+ -> Days Remaining: 517
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OkipJr-9tVZYVrQV_R2 | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -OlvOoF0kvAYDNkYm70J | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om-OKNMiu5RhC4MOJKp | Title: insurance
+ -> Days Remaining: -150
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -Om04005DUm-sTY6OSzO | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om4-f50EYu5-08r1wWf | Title: Insuarance
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+Checking Doc ID: -Om417KAZY1P217SRkob | Title: insurance
+ -> Days Remaining: -144
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmABhJjU5mYJtaFMgcb | Title: License
+ -> Days Remaining: -143
+ -> Skipped: Not within the 0-7 day window.
+Checking Doc ID: -OmAC4EoU6mqjQ7Y3TK5 | Title: VHICLE REGISTRATION
+ -> Skipped: Title does not contain 'License' or 'Insurance'
+
+Check Finished. Total Reminders Sent: 0
+[Wed 07/22/2026  9:00:03.61] Check complete. 
