@@ -185,15 +185,33 @@ if (!isset($_SESSION['user_id'])) { header("Location: login.php"); exit(); }
                     <div class="text-blue-500 font-bold uppercase italic text-xs tracking-widest">AI Audit in Progress...</div>
                 </div>`;
 
-            // Simulation of AI Processing
-            setTimeout(() => {
+            try {
+                const formData = new FormData();
+                formData.append('bill', file);
+
+                const res = await fetch('process_analysis.php', { method: 'POST', body: formData });
+                const result = await res.json();
+
+                if (result.success && result.data) {
+                    renderResult(result.data);
+                } else {
+                    renderResult({
+                        title: "Analysis Failed",
+                        description: result.message || "The AI could not process this document. Please try a clearer image.",
+                        insights: "Tip: Ensure the bill is well-lit and text is clearly visible."
+                    });
+                }
+            } catch (err) {
                 renderResult({
-                    title: "Brake System Maintenance",
-                    description: "Detected Brake Pad replacement and rotor resurfacing. Parts cost is consistent with market average for Japanese vehicles.",
-                    insights: "The labor cost is 15% lower than authorized dealer rates. High value service."
+                    title: "Connection Error",
+                    description: "Could not reach the AI analysis server. Please check your internet connection.",
+                    insights: "Error: " + err.message
                 });
-                dropArea.innerHTML = originalContent;
-            }, 2000);
+            }
+
+            dropArea.innerHTML = originalContent;
+            // Re-bind click after restoring content
+            document.getElementById('drop-area').onclick = () => document.getElementById('file-input').click();
         };
 
         function renderResult(data) {
@@ -219,6 +237,48 @@ if (!isset($_SESSION['user_id'])) { header("Location: login.php"); exit(); }
             `;
             container.scrollIntoView({ behavior: 'smooth' });
         }
+
+        // Known Issues Lookup via Gemini AI
+        document.getElementById('search-btn').addEventListener('click', async () => {
+            const query = document.getElementById('issue-search').value.trim();
+            const resultsDiv = document.getElementById('search-results');
+            if (!query) {
+                resultsDiv.innerHTML = '<p class="text-amber-400 text-xs col-span-2 text-center uppercase tracking-widest font-bold">Please enter a keyword to search.</p>';
+                return;
+            }
+
+            resultsDiv.innerHTML = `
+                <div class="col-span-2 flex justify-center py-8">
+                    <div class="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-500"></div>
+                </div>`;
+
+            try {
+                const res = await fetch('search_known_issues.php?q=' + encodeURIComponent(query));
+                const data = await res.json();
+
+                if (data.success && data.issues && data.issues.length > 0) {
+                    resultsDiv.innerHTML = data.issues.map(issue => `
+                        <div class="glass-card p-5 border-l-4 ${issue.severity === 'High' ? 'border-red-500' : issue.severity === 'Medium' ? 'border-amber-500' : 'border-green-500'}">
+                            <div class="flex justify-between items-start mb-2">
+                                <h4 class="text-white text-sm font-bold uppercase">${issue.title}</h4>
+                                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${issue.severity === 'High' ? 'bg-red-500/20 text-red-400' : issue.severity === 'Medium' ? 'bg-amber-500/20 text-amber-400' : 'bg-green-500/20 text-green-400'}">${issue.severity}</span>
+                            </div>
+                            <p class="text-slate-400 text-xs leading-relaxed">${issue.description}</p>
+                            <p class="text-blue-400 text-[10px] mt-3 font-bold uppercase tracking-widest">Est. Cost: ${issue.estimatedCost}</p>
+                        </div>
+                    `).join('');
+                } else {
+                    resultsDiv.innerHTML = '<p class="text-slate-500 text-xs col-span-2 text-center uppercase tracking-widest">No known issues found for "' + query + '".</p>';
+                }
+            } catch (err) {
+                resultsDiv.innerHTML = '<p class="text-red-400 text-xs col-span-2 text-center">AI Lookup Error: ' + err.message + '</p>';
+            }
+        });
+
+        // Allow Enter key to trigger search
+        document.getElementById('issue-search').addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') document.getElementById('search-btn').click();
+        });
     </script>
 </body>
 </html>
