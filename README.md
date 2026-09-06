@@ -40,3 +40,6 @@ An intelligent, AI-powered vehicle management platform that helps users organize
    ```
    http://localhost/AutoMind-AI/
    ```
+
+## 🔮 Future Implementations (Ongoing)
+* **Custom Machine Learning Model:** Currently developing a custom PyTorch/TensorFlow ML model trained on Kaggle automotive datasets. This will replace the basic diagnostic heuristics with a true neural-network-driven price prediction engine for automotive parts and labor.
